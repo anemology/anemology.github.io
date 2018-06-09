@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="hexo,next," />
+  <meta name="keywords" content="sql-server," />
 
 
 
@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&q">
-<meta name="keywords" content="hexo,next">
+<meta name="description" content="版本: Microsoft SQL Server 2012 R2 1433 port開始功能表 → Microsoft SQL Server 2012 R2 → 組態工具 → SQL Server 組態管理員 → SQL Server 網路組態 → MSSQLSERVER的通訊協定 → TCP/IP → 已啟用 → 是">
+<meta name="keywords" content="sql-server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Next主題修改更新時間的顯示規則">
-<meta property="og:url" content="https://anemology.github.io/post/next-edit-time/index.html">
+<meta property="og:title" content="MS SQL Server啟用sa帳戶與1433連接埠">
+<meta property="og:url" content="https://anemology.github.io/post/sql-server-enabled-sa-account-and-1433-port/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
+<meta property="og:description" content="版本: Microsoft SQL Server 2012 R2 1433 port開始功能表 → Microsoft SQL Server 2012 R2 → 組態工具 → SQL Server 組態管理員 → SQL Server 網路組態 → MSSQLSERVER的通訊協定 → TCP/IP → 已啟用 → 是 → IP位置 → IPALL → TCP通訊埠 → 1433 混合驗證模式伺服">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="1989-12-31T16:00:00.000Z">
+<meta property="og:updated_time" content="1990-01-01T00:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Next主題修改更新時間的顯示規則">
-<meta name="twitter:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
+<meta name="twitter:title" content="MS SQL Server啟用sa帳戶與1433連接埠">
+<meta name="twitter:description" content="版本: Microsoft SQL Server 2012 R2 1433 port開始功能表 → Microsoft SQL Server 2012 R2 → 組態工具 → SQL Server 組態管理員 → SQL Server 網路組態 → MSSQLSERVER的通訊協定 → TCP/IP → 已啟用 → 是 → IP位置 → IPALL → TCP通訊埠 → 1433 混合驗證模式伺服">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://anemology.github.io/post/next-edit-time/"/>
+  <link rel="canonical" href="https://anemology.github.io/post/sql-server-enabled-sa-account-and-1433-port/"/>
 
 
 
 
 
-  <title>Next主題修改更新時間的顯示規則 | 翱翔在空中</title>
+  <title>MS SQL Server啟用sa帳戶與1433連接埠 | 翱翔在空中</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://anemology.github.io/post/next-edit-time/">
+    <link itemprop="mainEntityOfPage" href="https://anemology.github.io/post/sql-server-enabled-sa-account-and-1433-port/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="anemology">
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Next主題修改更新時間的顯示規則</h1>
+          <h1 class="post-title" itemprop="name headline">MS SQL Server啟用sa帳戶與1433連接埠</h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">發表於</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-11-25T18:19:01+08:00">
-                2017-11-25
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2018-06-09T17:36:29+08:00">
+                2018-06-09
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
+                  <a href="/categories/SQL-Server/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL Server</span>
                   </a>
                 </span>
 
@@ -350,9 +350,11 @@
       
 
       
-        <p>只有在更新時間 &gt; 發表時間的時候才顯示</p>
-<p>修改 themes\next\layout_macro\<span style="color:red">post.swig</span><br>兩個if判斷子句中加入 <code>and post.updated &gt; post.date</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post-meta"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-time"</span>&gt;</span></span><br><span class="line">	&#123;% if theme.post_meta.created_at and theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-divider"</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">	&#123;% if theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-icon"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-calendar-check-o"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% if theme.post_meta.item_text %&#125;</span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-text"</span>&gt;</span>&#123;&#123; __('post.modified') &#125;&#125;&amp;#58;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% endif %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">time</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; __('post.modified') &#125;&#125;"</span> <span class="attr">itemprop</span>=<span class="string">"dateModified"</span> <span class="attr">datetime</span>=<span class="string">"&#123;&#123; moment(post.updated).format() &#125;&#125;"</span>&gt;</span></span><br><span class="line">		&#123;&#123; date(post.updated, config.date_format) &#125;&#125;</span><br><span class="line">	  <span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <p>版本: <strong><em>Microsoft SQL Server 2012 R2</em></strong></p>
+<h5 id="1433-port"><a href="#1433-port" class="headerlink" title="1433 port"></a>1433 port</h5><p>開始功能表 → Microsoft SQL Server 2012 R2 → 組態工具 → SQL Server 組態管理員 → SQL Server 網路組態 → MSSQLSERVER的通訊協定 → TCP/IP → 已啟用 → 是 → IP位置 → IPALL → TCP通訊埠 → 1433</p>
+<h5 id="混合驗證模式"><a href="#混合驗證模式" class="headerlink" title="混合驗證模式"></a>混合驗證模式</h5><p>伺服器右鍵 → 屬性 → 安全性 → 伺服器驗證 → SQL Server及Windows驗證模式</p>
+<h5 id="sa帳戶"><a href="#sa帳戶" class="headerlink" title="sa帳戶"></a>sa帳戶</h5><p>伺服器 → 安全性 → 登入 → sa → 右鍵內容 → 設定密碼 → 狀態 → 設定 → 登入 → 已啟用</p>
+<p>所有設定完成之後，記得重啟SQL Server服務</p>
 
       
     </div>
@@ -370,9 +372,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
-          
-            <a href="/tags/next/" rel="tag"># next</a>
+            <a href="/tags/sql-server/" rel="tag"># sql-server</a>
           
         </div>
       
@@ -385,8 +385,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/ssh-key-login-linux/" rel="next" title="使用SSH Key登入Linux Server">
-                <i class="fa fa-chevron-left"></i> 使用SSH Key登入Linux Server
+              <a href="/post/how-does-bitcoin-work/" rel="next" title="虛擬貨幣(Bitcoin)運作原理">
+                <i class="fa fa-chevron-left"></i> 虛擬貨幣(Bitcoin)運作原理
               </a>
             
           </div>
@@ -394,10 +394,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/hexo-introduction-and-commands/" rel="prev" title="Hexo介紹和常用指令">
-                Hexo介紹和常用指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -447,8 +443,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -518,6 +523,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1433-port"><span class="nav-number">1.</span> <span class="nav-text">1433 port</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#混合驗證模式"><span class="nav-number">2.</span> <span class="nav-text">混合驗證模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sa帳戶"><span class="nav-number">3.</span> <span class="nav-text">sa帳戶</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
