@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux,SSH," />
 
 
 
@@ -77,17 +77,22 @@
 
 
 
-<meta name="description" content="New Article">
+<meta name="description" content="最近因為在玩P2P的東西，所以需要一台24/7的電腦來跑。 剛好GitHub Education之前有送DigitalOcean $50，就先拿來用了。">
+<meta name="keywords" content="Linux,SSH">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World!">
-<meta property="og:url" content="https://anemology.cc/hello-world/index.html">
+<meta property="og:title" content="使用SSH Key登入Linux Server">
+<meta property="og:url" content="https://anemology.cc/post/ssh-key-login-linux/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="New Article">
+<meta property="og:description" content="最近因為在玩P2P的東西，所以需要一台24/7的電腦來跑。 剛好GitHub Education之前有送DigitalOcean $50，就先拿來用了。">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://anemology.cc/images/ssh-key-login-linux-1.png">
+<meta property="og:image" content="https://anemology.cc/images/ssh-key-login-linux-2.png">
+<meta property="og:image" content="https://anemology.cc/images/ssh-key-login-linux-3.png">
 <meta property="og:updated_time" content="1989-12-31T16:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World!">
-<meta name="twitter:description" content="New Article">
+<meta name="twitter:title" content="使用SSH Key登入Linux Server">
+<meta name="twitter:description" content="最近因為在玩P2P的東西，所以需要一台24/7的電腦來跑。 剛好GitHub Education之前有送DigitalOcean $50，就先拿來用了。">
+<meta name="twitter:image" content="https://anemology.cc/images/ssh-key-login-linux-1.png">
 
 
 
@@ -117,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://anemology.cc/hello-world/"/>
+  <link rel="canonical" href="https://anemology.cc/post/ssh-key-login-linux/"/>
 
 
 
 
 
-  <title>Hello World! | 翱翔在空中</title>
+  <title>使用SSH Key登入Linux Server | 翱翔在空中</title>
   
 
 
@@ -260,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://anemology.cc/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/ssh-key-login-linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="anemology">
@@ -277,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World!</h1>
+          <h1 class="post-title" itemprop="name headline">使用SSH Key登入Linux Server</h1>
         
 
         <div class="post-meta">
@@ -289,8 +294,8 @@
               
                 <span class="post-meta-item-text">發表於</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2016-06-19T15:15:37+08:00">
-                2016-06-19
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-01-07T03:41:45+08:00">
+                2017-01-07
               </time>
             
 
@@ -349,7 +354,46 @@
       
 
       
-        <p>New Article</p>
+        <p>最近因為在玩P2P的東西，所以需要一台24/7的電腦來跑。</p>
+<p>剛好GitHub Education之前有送DigitalOcean $50，就先拿來用了。</p>
+<a id="more"></a>
+<p>怎麼在DigitalOcean建立Droplet就不說了，新建立好像可以直接匯入SSH Key，就不用手動加SSH Key。</p>
+<p>OS: Ubuntu 16.04.1 x64</p>
+<p>1. root連到Linux Server，建立一個新的使用者。</p>
+<p><code># add user whatever</code></p>
+<p>2. 將使用者加入sudo群組。</p>
+<p><code># gpasswd -a whatever sudo</code></p>
+<p>3. 使用 <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="noopener">PuTTYgen</a> 建立公私鑰，也可以在Linux上用<code>ssh-keygen</code>指令建立。</p>
+<p><img src="/images/ssh-key-login-linux-1.png" alt=""></p>
+<p>4. 登入剛剛建立的新使用者，在家目錄建立<code>.ssh</code>目錄。</p>
+<p><code>$ su - whatever</code></p>
+<p><code>$ mkdir .ssh</code></p>
+<p><code>$ chmod 700 .ssh</code></p>
+<p>5. 新增<code>authorized_keys</code>檔案，並將公鑰內容貼進去，<code>Ctrl+X</code>存檔。</p>
+<p><code>$ nano .ssh/authorized_keys</code></p>
+<p><code>$ chmod 600 .ssh/authorized_keys</code></p>
+<p>6. 輸入<code>exit</code>切換回<code>root</code>，修改這個檔案。</p>
+<p><code># nano /etc/ssh/sshd_config</code></p>
+<p>7. 拿掉這幾行前面的註解<code>#</code>。</p>
+<p><code>RSAAuthentication yes</code><br><code>PubkeyAuthentication yes</code><br><code>AuthorizedKeysFile %h/.ssh/authorized_keys</code></p>
+<p>8. 將<code>PasswordAuthentication</code>設置為<code>no</code>，就不能用密碼登入嚕。</p>
+<p><code>PasswordAuthentication no</code></p>
+<p>9. <code>Ctrl+X</code>存檔後，重啟服務。</p>
+<p><code># service ssh restart</code></p>
+<p>10. 接著就可以在PuTTY，用剛剛存下來的私鑰做驗證登入了(不用密碼)。</p>
+<p><img src="/images/ssh-key-login-linux-2.png" alt=""></p>
+<p><img src="/images/ssh-key-login-linux-3.png" alt=""></p>
+<p>&nbsp;</p>
+<p>因為公鑰是存放在whatever的家目錄，所以只能用whatever登入。</p>
+<p>要用root登入的話就要在/root做同樣的事情，或是調整<code>sshd_config</code>的設定，不建議啦。</p>
+<hr>
+<p>偷貼個推廣連結，不喜歡就不要點吧～</p>
+<p>使用此連結註冊DigitalOcean的話可以得到10USD的額度，不過GitHub Education的promo code不知道還能不能用就是了，我沒試過。</p>
+<p>Everyone you refer gets $10 in credit. Once they’ve spent $25 with us, you’ll get $25.</p>
+<p><a href="https://www.digitalocean.com/?refcode=fe1c690430d5" target="_blank" rel="noopener">DigitalOcean: Cloud computing designed for developers</a></p>
+<hr>
+<p>參考資料：</p>
+<p><a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04" target="_blank" rel="noopener">Initial Server Setup with Ubuntu 14.04</a></p>
 
       
     </div>
@@ -365,6 +409,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/SSH/" rel="tag"># SSH</a>
+          
+        </div>
+      
 
       
       
@@ -374,14 +426,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/post/anagrams/" rel="next" title="Anagrams">
+                <i class="fa fa-chevron-left"></i> Anagrams
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/anagrams/" rel="prev" title="Anagrams">
-                Anagrams <i class="fa fa-chevron-right"></i>
+              <a href="/post/next-edit-time/" rel="prev" title="Next主題修改更新時間的顯示規則">
+                Next主題修改更新時間的顯示規則 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

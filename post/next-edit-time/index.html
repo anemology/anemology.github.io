@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="bitcoin,hash,SHA-256," />
+  <meta name="keywords" content="hexo,next," />
 
 
 
@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="看完這部影片，可以了解Bitcoin背後的原理，以及挖擴到底是在挖什麼?">
-<meta name="keywords" content="bitcoin,hash,SHA-256">
+<meta name="description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
+<meta name="keywords" content="hexo,next">
 <meta property="og:type" content="article">
-<meta property="og:title" content="虛擬貨幣(Bitcoin)運作原理">
-<meta property="og:url" content="https://anemology.cc/how-does-bitcoin-work/index.html">
+<meta property="og:title" content="Next主題修改更新時間的顯示規則">
+<meta property="og:url" content="https://anemology.cc/post/next-edit-time/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="看完這部影片，可以了解Bitcoin背後的原理，以及挖擴到底是在挖什麼?">
+<meta property="og:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="1990-01-01T00:00:00.000Z">
+<meta property="og:updated_time" content="1989-12-31T16:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="虛擬貨幣(Bitcoin)運作原理">
-<meta name="twitter:description" content="看完這部影片，可以了解Bitcoin背後的原理，以及挖擴到底是在挖什麼?">
+<meta name="twitter:title" content="Next主題修改更新時間的顯示規則">
+<meta name="twitter:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://anemology.cc/how-does-bitcoin-work/"/>
+  <link rel="canonical" href="https://anemology.cc/post/next-edit-time/"/>
 
 
 
 
 
-  <title>虛擬貨幣(Bitcoin)運作原理 | 翱翔在空中</title>
+  <title>Next主題修改更新時間的顯示規則 | 翱翔在空中</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://anemology.cc/how-does-bitcoin-work/">
+    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/next-edit-time/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="anemology">
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">虛擬貨幣(Bitcoin)運作原理</h1>
+          <h1 class="post-title" itemprop="name headline">Next主題修改更新時間的顯示規則</h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">發表於</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-12-03T15:02:09+08:00">
-                2017-12-03
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-11-25T18:19:01+08:00">
+                2017-11-25
               </time>
             
 
@@ -313,8 +313,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/未分類/" itemprop="url" rel="index">
-                    <span itemprop="name">未分類</span>
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
                   </a>
                 </span>
 
@@ -350,28 +350,9 @@
       
 
       
-        <div class="video-container"><iframe src="//www.youtube.com/embed/bBC-nXj3Ng4" frameborder="0" allowfullscreen></iframe></div>
-<p>看完這部影片，可以了解Bitcoin背後的原理，以及挖擴到底是在挖什麼?</p>
-<a id="more"></a>
-<h5 id="以下是個人簡單的筆記"><a href="#以下是個人簡單的筆記" class="headerlink" title="以下是個人簡單的筆記"></a>以下是個人簡單的筆記</h5><ol>
-<li><p>Bitcoin並沒有一個中心機構來記錄所有的交易行為，而是將所有交易都記錄在一本<strong>公開帳本</strong>中，而Bitcoin的本質就是這本帳本。</p>
-</li>
-<li><p>所有人都可以在這本帳本上做紀錄，但要如何確保紀錄不會被造假?<br>紀錄時會使用<strong>電子簽章</strong>來證明是該人所記錄，而每一筆紀錄都有唯一的序號，就算別人複製了同一筆交易紀錄，但序號不同，驗證的結果也不會通過。</p>
-</li>
-<li><p>那誰來維護這本帳本呢?<br>帳本會被切割成一個一個區塊，而每個區塊的開頭都會有前一個區塊的hash值，以此就可以判斷每個區塊正確的順序，而這也稱為區塊鏈。</p>
-</li>
-<li><p>每個區塊除了帳本上記錄的交易行為，還有一個最重要的東西，就是<strong>proof of work</strong>，就像每筆紀錄需要電子簽章，每個區塊都需要proof of work才能證明它是有效的。</p>
-</li>
-<li><p>proof of work是一個特別的數字，該區塊加上proof of work算出來的hash值能讓hash值前面n位數為0，就代表這個數字就是這個區塊的proof of work。</p>
-</li>
-<li><p>而挖礦就是在計算proof of work數字，第一個算出這個數字的人，就可以得到建立這個區塊的獎勵。</p>
-</li>
-<li><p>第5點講到的n是不固定的，Bitcoin會隨時改變n，以確保每10分鐘都可以有一個區塊產生。</p>
-</li>
-</ol>
-<hr>
-<h5 id="SHA-256破解"><a href="#SHA-256破解" class="headerlink" title="SHA-256破解"></a>SHA-256破解</h5><p>Bitcoin的hash值是用SHA-256雜湊演算法來運算，而SHA-256有多難破解，可以看看以下這個影片</p>
-<p><a href="https://www.youtube.com/watch?v=S9JGmA5_unY" target="_blank" rel="noopener">How secure is 256 bit security?</a></p>
+        <p>只有在更新時間 &gt; 發表時間的時候才顯示</p>
+<p>修改 themes\next\layout_macro\<span style="color:red">post.swig</span><br>兩個if判斷子句中加入 <code>and post.updated &gt; post.date</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post-meta"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-time"</span>&gt;</span></span><br><span class="line">	&#123;% if theme.post_meta.created_at and theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-divider"</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">	&#123;% if theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-icon"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-calendar-check-o"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% if theme.post_meta.item_text %&#125;</span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-text"</span>&gt;</span>&#123;&#123; __('post.modified') &#125;&#125;&amp;#58;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% endif %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">time</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; __('post.modified') &#125;&#125;"</span> <span class="attr">itemprop</span>=<span class="string">"dateModified"</span> <span class="attr">datetime</span>=<span class="string">"&#123;&#123; moment(post.updated).format() &#125;&#125;"</span>&gt;</span></span><br><span class="line">		&#123;&#123; date(post.updated, config.date_format) &#125;&#125;</span><br><span class="line">	  <span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -389,11 +370,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/bitcoin/" rel="tag"># bitcoin</a>
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
           
-            <a href="/tags/hash/" rel="tag"># hash</a>
-          
-            <a href="/tags/SHA-256/" rel="tag"># SHA-256</a>
+            <a href="/tags/next/" rel="tag"># next</a>
           
         </div>
       
@@ -406,8 +385,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo-introduction-and-commands/" rel="next" title="Hexo介紹和常用指令">
-                <i class="fa fa-chevron-left"></i> Hexo介紹和常用指令
+              <a href="/post/ssh-key-login-linux/" rel="next" title="使用SSH Key登入Linux Server">
+                <i class="fa fa-chevron-left"></i> 使用SSH Key登入Linux Server
               </a>
             
           </div>
@@ -416,8 +395,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/sql-server-enabled-sa-account-and-1433-port/" rel="prev" title="MS SQL Server啟用sa帳戶與1433連接埠">
-                MS SQL Server啟用sa帳戶與1433連接埠 <i class="fa fa-chevron-right"></i>
+              <a href="/post/hexo-introduction-and-commands/" rel="prev" title="Hexo介紹和常用指令">
+                Hexo介紹和常用指令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -468,17 +447,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目錄
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            本站概覽
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -548,22 +518,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#以下是個人簡單的筆記"><span class="nav-number">1.</span> <span class="nav-text">以下是個人簡單的筆記</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SHA-256破解"><span class="nav-number">2.</span> <span class="nav-text">SHA-256破解</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

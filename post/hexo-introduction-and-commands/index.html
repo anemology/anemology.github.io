@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="hexo,next," />
+  <meta name="keywords" content="hexo," />
 
 
 
@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
-<meta name="keywords" content="hexo,next">
+<meta name="description" content="Hexo是什麼?Hexo是一個基於Node.js所建立的網誌框架，你不需要懂Node.js，只要會下command就行了。使用Markdown來編寫文章，Hexo會將你寫的Markdown文章解析並產生靜態檔案，可以直接部署到GitHub上，完全不需要後端的支援。">
+<meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Next主題修改更新時間的顯示規則">
-<meta property="og:url" content="https://anemology.cc/next-edit-time/index.html">
+<meta property="og:title" content="Hexo介紹和常用指令">
+<meta property="og:url" content="https://anemology.cc/post/hexo-introduction-and-commands/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
+<meta property="og:description" content="Hexo是什麼?Hexo是一個基於Node.js所建立的網誌框架，你不需要懂Node.js，只要會下command就行了。使用Markdown來編寫文章，Hexo會將你寫的Markdown文章解析並產生靜態檔案，可以直接部署到GitHub上，完全不需要後端的支援。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="1989-12-31T16:00:00.000Z">
+<meta property="og:updated_time" content="1990-01-01T00:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Next主題修改更新時間的顯示規則">
-<meta name="twitter:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123;">
+<meta name="twitter:title" content="Hexo介紹和常用指令">
+<meta name="twitter:description" content="Hexo是什麼?Hexo是一個基於Node.js所建立的網誌框架，你不需要懂Node.js，只要會下command就行了。使用Markdown來編寫文章，Hexo會將你寫的Markdown文章解析並產生靜態檔案，可以直接部署到GitHub上，完全不需要後端的支援。">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://anemology.cc/next-edit-time/"/>
+  <link rel="canonical" href="https://anemology.cc/post/hexo-introduction-and-commands/"/>
 
 
 
 
 
-  <title>Next主題修改更新時間的顯示規則 | 翱翔在空中</title>
+  <title>Hexo介紹和常用指令 | 翱翔在空中</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://anemology.cc/next-edit-time/">
+    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/hexo-introduction-and-commands/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="anemology">
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Next主題修改更新時間的顯示規則</h1>
+          <h1 class="post-title" itemprop="name headline">Hexo介紹和常用指令</h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">發表於</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-11-25T18:19:01+08:00">
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-11-25T23:52:18+08:00">
                 2017-11-25
               </time>
             
@@ -350,9 +350,20 @@
       
 
       
-        <p>只有在更新時間 &gt; 發表時間的時候才顯示</p>
-<p>修改 themes\next\layout_macro\<span style="color:red">post.swig</span><br>兩個if判斷子句中加入 <code>and post.updated &gt; post.date</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post-meta"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-time"</span>&gt;</span></span><br><span class="line">	&#123;% if theme.post_meta.created_at and theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-divider"</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">	&#123;% if theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-icon"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-calendar-check-o"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% if theme.post_meta.item_text %&#125;</span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-text"</span>&gt;</span>&#123;&#123; __('post.modified') &#125;&#125;&amp;#58;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% endif %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">time</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; __('post.modified') &#125;&#125;"</span> <span class="attr">itemprop</span>=<span class="string">"dateModified"</span> <span class="attr">datetime</span>=<span class="string">"&#123;&#123; moment(post.updated).format() &#125;&#125;"</span>&gt;</span></span><br><span class="line">		&#123;&#123; date(post.updated, config.date_format) &#125;&#125;</span><br><span class="line">	  <span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h5 id="Hexo是什麼"><a href="#Hexo是什麼" class="headerlink" title="Hexo是什麼?"></a>Hexo是什麼?</h5><p><a href="https://hexo.io/zh-tw/" target="_blank" rel="noopener">Hexo</a>是一個基於Node.js所建立的網誌框架，你不需要懂Node.js，只要會下command就行了。<br>使用<code>Markdown</code>來編寫文章，<a href="https://hexo.io/zh-tw/" target="_blank" rel="noopener">Hexo</a>會將你寫的Markdown文章解析並產生靜態檔案，可以直接部署到GitHub上，完全不需要後端的支援。</p>
+<a id="more"></a>
+<p>大多數人部署到GitHub的原因是，它可以免費置放靜態檔案，缺點是必須公開所有的程式碼，<br>而<a href="https://hexo.io/zh-tw/" target="_blank" rel="noopener">Hexo</a>也有方便的指令可以將你的網誌部署到GitHub上。<br>當然其他網頁伺服器軟體也可以，但就要自行架設主機，建置環境。</p>
+<p>我選擇<a href="https://hexo.io/zh-tw/" target="_blank" rel="noopener">Hexo</a>的原因是…它有完整的繁體中文文件!<br>你也可以選擇很多人在用的<a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>、<a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></p>
+<h5 id="Hexo常用指令"><a href="#Hexo常用指令" class="headerlink" title="Hexo常用指令"></a>Hexo常用指令</h5><pre><code>hexo server
+</code></pre><p>啟動伺服器，瀏覽 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 就可以看到所產生好的網誌。</p>
+<pre><code>hexo new post HelloWorld
+</code></pre><p>建立一篇新的文章，在<code>source\_posts</code>底下會產生一個<code>HelloWorld.md</code>的檔案，編輯這個檔案來撰寫文章。</p>
+<pre><code>hexo clean
+</code></pre><p>刪除快取檔案<code>db.json</code>和放置靜態檔案的<code>public</code>資料夾。</p>
+<pre><code>hexo generate
+</code></pre><p>產生靜態檔案於<code>public</code>資料夾。</p>
+<pre><code>hexo deploy
+</code></pre><p>部屬網誌，需先於<code>_config.yml</code>中設定<code>deploy</code>相關參數。</p>
 
       
     </div>
@@ -372,8 +383,6 @@
           
             <a href="/tags/hexo/" rel="tag"># hexo</a>
           
-            <a href="/tags/next/" rel="tag"># next</a>
-          
         </div>
       
 
@@ -385,8 +394,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/ssh-key-login-linux/" rel="next" title="使用SSH Key登入Linux Server">
-                <i class="fa fa-chevron-left"></i> 使用SSH Key登入Linux Server
+              <a href="/post/next-edit-time/" rel="next" title="Next主題修改更新時間的顯示規則">
+                <i class="fa fa-chevron-left"></i> Next主題修改更新時間的顯示規則
               </a>
             
           </div>
@@ -395,8 +404,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/hexo-introduction-and-commands/" rel="prev" title="Hexo介紹和常用指令">
-                Hexo介紹和常用指令 <i class="fa fa-chevron-right"></i>
+              <a href="/post/how-does-bitcoin-work/" rel="prev" title="虛擬貨幣(Bitcoin)運作原理">
+                虛擬貨幣(Bitcoin)運作原理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -447,8 +456,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -518,6 +536,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hexo是什麼"><span class="nav-number">1.</span> <span class="nav-text">Hexo是什麼?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hexo常用指令"><span class="nav-number">2.</span> <span class="nav-text">Hexo常用指令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
