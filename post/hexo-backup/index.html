@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="hexo,next," />
+  <meta name="keywords" content="hexo," />
 
 
 
@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout\_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123">
-<meta name="keywords" content="hexo,next">
+<meta name="description" content="如果選擇GitHub Pages當部落格的host，Hexo雖然會將產生的靜態檔案deploy到GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是Hexo的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
+<meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Next主題修改更新時間的顯示規則">
-<meta property="og:url" content="https://anemology.cc/post/next-edit-time/index.html">
+<meta property="og:title" content="Hexo備份至GitHub">
+<meta property="og:url" content="https://anemology.cc/post/hexo-backup/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout\_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123">
+<meta property="og:description" content="如果選擇GitHub Pages當部落格的host，Hexo雖然會將產生的靜態檔案deploy到GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是Hexo的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="1989-12-31T16:00:00.000Z">
+<meta property="og:updated_time" content="1990-01-01T00:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Next主題修改更新時間的顯示規則">
-<meta name="twitter:description" content="只有在更新時間 &amp;gt; 發表時間的時候才顯示 修改 themes\next\layout\_macro\post.swig兩個if判斷子句中加入 and post.updated &amp;gt; post.date 123456789101112131415161718&amp;lt;div class=&quot;post-meta&quot;&amp;gt;  &amp;lt;span class=&quot;post-time&quot;&amp;gt;	&amp;#123">
+<meta name="twitter:title" content="Hexo備份至GitHub">
+<meta name="twitter:description" content="如果選擇GitHub Pages當部落格的host，Hexo雖然會將產生的靜態檔案deploy到GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是Hexo的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://anemology.cc/post/next-edit-time/"/>
+  <link rel="canonical" href="https://anemology.cc/post/hexo-backup/"/>
 
 
 
 
 
-  <title>Next主題修改更新時間的顯示規則 | 翱翔在空中</title>
+  <title>Hexo備份至GitHub | 翱翔在空中</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/next-edit-time/">
+    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/hexo-backup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="anemology">
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Next主題修改更新時間的顯示規則</h1>
+          <h1 class="post-title" itemprop="name headline">Hexo備份至GitHub</h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">發表於</span>
               
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-11-25T18:19:01+08:00">
-                2017-11-25
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2018-10-07T14:22:01+08:00">
+                2018-10-07
               </time>
             
 
@@ -350,9 +350,28 @@
       
 
       
-        <p>只有在更新時間 &gt; 發表時間的時候才顯示</p>
-<p>修改 themes\next\layout\_macro\<span style="color:red">post.swig</span><br>兩個if判斷子句中加入 <code>and post.updated &gt; post.date</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post-meta"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-time"</span>&gt;</span></span><br><span class="line">	&#123;% if theme.post_meta.created_at and theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-divider"</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">	&#123;% if theme.post_meta.updated_at and post.updated &gt; post.date %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-icon"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-calendar-check-o"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% if theme.post_meta.item_text %&#125;</span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-meta-item-text"</span>&gt;</span>&#123;&#123; __('post.modified') &#125;&#125;&amp;#58;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	  &#123;% endif %&#125;</span><br><span class="line">	  <span class="tag">&lt;<span class="name">time</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; __('post.modified') &#125;&#125;"</span> <span class="attr">itemprop</span>=<span class="string">"dateModified"</span> <span class="attr">datetime</span>=<span class="string">"&#123;&#123; moment(post.updated).format() &#125;&#125;"</span>&gt;</span></span><br><span class="line">		&#123;&#123; date(post.updated, config.date_format) &#125;&#125;</span><br><span class="line">	  <span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">	&#123;% endif %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <p>如果選擇GitHub Pages當部落格的host，Hexo雖然會將產生的靜態檔案deploy到GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是Hexo的設定檔。</p>
+<p>以下就來說說如何在已經建立 <code>username.github.io</code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。</p>
+<a id="more"></a>
+<p>當然也可以在GitHub上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。</p>
+<p>首先進入到我們blog的資料夾，應該會有以下檔案及資料夾：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">blog/</span><br><span class="line">    .deploy_git/       <span class="comment">--Hexo deploy to GitHub用</span></span><br><span class="line">    node_modules/      <span class="comment">--npm套件</span></span><br><span class="line">    public/            <span class="comment">--Hexo產生的靜態檔案</span></span><br><span class="line">    scaffolds/         <span class="comment">--Hexo樣板*</span></span><br><span class="line">    source/            <span class="comment">--原始文章的Markdown*</span></span><br><span class="line">    themes/            <span class="comment">--Hexo主題*</span></span><br><span class="line">    .gitignore         <span class="comment">--git排除檔案清單*</span></span><br><span class="line">    _config.yml        <span class="comment">--Hexo設定檔*</span></span><br><span class="line">    db.json            <span class="comment">--Hexo DB</span></span><br><span class="line">    package.json       <span class="comment">--npm套件資訊*</span></span><br><span class="line">    package-lock.json  <span class="comment">--npm套件資訊*</span></span><br></pre></td></tr></table></figure>
+<p>打星號的檔案要放到GitHub上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到git裡。</p>
+<p>其實Hexo已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到git裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br></pre></td></tr></table></figure>
+<h1 id="加入git"><a href="#加入git" class="headerlink" title="加入git"></a>加入git</h1><p>再來就可以執行git指令來將資料夾加入git：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化</span></span><br><span class="line">git init .</span><br><span class="line"><span class="comment">#建立新分支hexo</span></span><br><span class="line">git checkout -b hexo</span><br><span class="line"><span class="comment">#將檔案加入git</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'Initial commit'</span></span><br><span class="line"><span class="comment">#加入遠端儲存庫位址</span></span><br><span class="line">git remote add origin https://github.com/username/username.github.io.git</span><br><span class="line"><span class="comment">#將hexo分支推送至遠端儲存庫</span></span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin hexo</span><br></pre></td></tr></table></figure>
+<p>這樣就完成啦，GitHub的 <code>username.github.io</code> 儲存庫應該就會有兩個分支， <code>master</code> 儲存Hexo產生的靜態檔案， <code>hexo</code> 分支儲存我們blog的原始檔。</p>
+<p>以後寫完文章之後，就按照普通git流程，將檔案push至GitHub即可。</p>
+<h1 id="還原檔案"><a href="#還原檔案" class="headerlink" title="還原檔案"></a>還原檔案</h1><p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#將檔案clone回來</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/username/username.github.io.git</span><br><span class="line"><span class="built_in">cd</span> username.github.io/</span><br><span class="line"><span class="comment">#切換到hexo分支</span></span><br><span class="line">git checkout hexo</span><br><span class="line"><span class="comment">#依照package.json重新安裝hexo套件</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment">#最後啟動hexo server看是不是可以正常瀏覽</span></span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>以上。</p>
+<hr>
+<ul>
+<li><code>npm</code> version <code>6.4.1</code></li>
+<li><code>Hexo</code> version <code>3.7.1</code></li>
+<li><code>git</code> version <code>2.17.0.windows.1</code></li>
+</ul>
 
       
     </div>
@@ -372,8 +391,6 @@
           
             <a href="/tags/hexo/" rel="tag"># hexo</a>
           
-            <a href="/tags/next/" rel="tag"># next</a>
-          
         </div>
       
 
@@ -385,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/ssh-key-login-linux/" rel="next" title="使用SSH Key登入Linux Server">
-                <i class="fa fa-chevron-left"></i> 使用SSH Key登入Linux Server
+              <a href="/post/sql-server-enabled-sa-account-and-1433-port/" rel="next" title="MS SQL Server啟用sa帳戶與1433連接埠">
+                <i class="fa fa-chevron-left"></i> MS SQL Server啟用sa帳戶與1433連接埠
               </a>
             
           </div>
@@ -394,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/hexo-introduction-and-commands/" rel="prev" title="Hexo介紹和常用指令">
-                Hexo介紹和常用指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -447,8 +460,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -518,6 +540,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#加入git"><span class="nav-number">1.</span> <span class="nav-text">加入git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#還原檔案"><span class="nav-number">2.</span> <span class="nav-text">還原檔案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
