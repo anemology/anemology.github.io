@@ -1,7 +1,7 @@
 ---
 title: Hexo備份至GitHub
 categories:
-  - Hexo
+  - 部落格
 date: 2018-10-07 14:22:01
 updated: 1990-01-01 08:00:00
 tags:

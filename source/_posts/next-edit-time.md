@@ -2,7 +2,7 @@
 title: Next主題修改更新時間的顯示規則
 date: 2017-11-25 18:19:01
 categories:
-- Hexo
+- 部落格
 tags:
 - hexo
 - next

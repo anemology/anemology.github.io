@@ -2,7 +2,7 @@
 title: Anagrams
 id: 7
 categories:
-  - 未分類
+  - 演算法
 date: 2016-06-29 18:22:11
 tags:
 updated: 1990-01-01

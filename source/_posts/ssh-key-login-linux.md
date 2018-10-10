@@ -2,7 +2,7 @@
 title: 使用SSH Key登入Linux Server
 id: 31
 categories:
-  - 未分類
+  - Linux
 tags:
   - Linux
   - SSH

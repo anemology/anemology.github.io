@@ -3,7 +3,7 @@ title: Hexo介紹和常用指令
 date: 2017-11-25 23:52:18
 updated: 1990-01-01 08:00:00
 categories:
-- Hexo
+- 部落格
 tags:
 - hexo
 ---

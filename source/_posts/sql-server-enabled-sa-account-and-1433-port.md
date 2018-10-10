@@ -1,7 +1,7 @@
 ---
 title: MS SQL Server啟用sa帳戶與1433連接埠
 categories:
-  - SQL Server
+  - 資料庫
 date: 2018-06-09 17:36:29
 updated: 1990-01-01 08:00:00
 tags:
