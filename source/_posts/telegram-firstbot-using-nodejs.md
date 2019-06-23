@@ -16,7 +16,7 @@ tags:
 
 <!--more-->
 
-# 建立Bot
+## 建立Bot
 
 1. 於 Telegram 內，搜尋 [@botfather]，BotFather 是 Telegram 官方用來申請以及管理bot的機器人，要注意帳號要有藍色小勾勾。
 2. 輸入指令 `/newbot`。
@@ -36,7 +36,7 @@ Telegram Bot 有兩種接收更新的方法，
 
 選擇用 `setWebhook`，會比較即時。
 
-# 建立自簽憑證 (Self-Signed Certificate)
+## 建立自簽憑證 (Self-Signed Certificate)
 
 Telegram [要求]，使用 Webhook 的 bot 伺服器要有 SSL 憑證，並且可以接受自簽憑證 ( 但憑證的 Common Name 必須是主機的 IP )，所以我們先用自簽憑證。
 
@@ -46,7 +46,7 @@ p.s. 若是有自己的 Domain Name，可以使用 [Let's Encrypt] 產生正式�
 
 Common Name 必須填入主機的 IP，其餘全部直接按 `enter` 使用預設值即可。
 
-# 撰寫程式
+## 撰寫程式
 
 使用 [官網 Sample] 推薦，已經打包好的 [Node-Telegram-bot] API，這樣就不用自己去寫 Request 接官方 API。
 
@@ -70,7 +70,7 @@ npm install --save node-telegram-bot-api
 `index.js`內容如下，記得替換掉以下參數
 
 * @{YOUR_TOKEN} - [@botfather] 給你的 token
-* @{YOUR_URL_WITHPORT} - 你的 bot 網址，例如 https://1.2.3.4:8443
+* @{YOUR_URL_WITHPORT} - 你的 bot 網址，例如 `https://1.2.3.4:8443`
 * @{YOUR_PORT} - bot 使用的 port，Telegram 目前只接受 443, 80, 88, 8443
 * @{YOUR_PRIVATEKEY_PATH\key.pem} - 於上個步驟產生的 `key.pem` 檔案路徑
 * @{YOUR_CERTIFICATE_PATH\cert.pem} - 於上個步驟產生的 `cert.pem` 檔案路徑
@@ -125,7 +125,8 @@ bot.on('message', msg => {
     bot.sendMessage(msg.chat.id, 'You said: ' + msg.text);
 });
 ```
-# 測試
+
+## 測試
 
 1. 執行 `node index.js`
 2. 輸入網址，`https://1.2.3.4:8443` 看伺服器是否有回應 `listening @3@`。
@@ -171,7 +172,7 @@ bot.on('message', msg => {
 
 ***
 
-##### 參考網址:
+## 參考網址
 
 [Bots: An introduction for developers - Telegram](https://core.telegram.org/bots)
 
