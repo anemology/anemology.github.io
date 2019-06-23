@@ -80,4 +80,4 @@ deploy:
   type: git
   repo: https://github.com/anemology/anemology.github.io.git
   branch: master
-  message: new post - hexo push to github lost commit history
+  message: CommitMessageWillReplacedByTravisCI
