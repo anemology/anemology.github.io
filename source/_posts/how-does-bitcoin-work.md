@@ -10,7 +10,7 @@ tags:
   - SHA-256
 ---
 
-{% youtube bBC-nXj3Ng4 %}
+[Ever wonder how Bitcoin (and other cryptocurrencies) actually work?](https://www.youtube.com/watch?v=bBC-nXj3Ng4)
 
 看完這部影片，可以了解Bitcoin背後的原理，以及挖擴到底是在挖什麼?
 
