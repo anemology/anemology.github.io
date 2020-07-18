@@ -20,7 +20,7 @@ install:
 
 before_script:
   - sed -i'' "s~https://github.com/anemology/anemology.github.io.git~https://${GH_TOKEN}:x-oauth-basic@github.com/anemology/anemology.github.io.git~" _config.yml
-  - sed -i'' "s~CommitMessageWillReplacedByTravisCI~${TRAVIS_COMMIT_MESSAGE}~" _config.yml
+  - sed -i'' "s~CommitMessageWillReplacedByTravisCI~${TRAVIS_COMMIT_MESSAGE//$'\n'/' '}~" _config.yml
 
 script:
   - hexo clean
