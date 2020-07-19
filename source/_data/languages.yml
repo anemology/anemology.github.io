@@ -1,0 +1,5 @@
+# 複寫設定, 預設設定可看 'themes\hexo-theme-next\languages\zh-TW.yml'
+
+zh-TW: 
+  menu:
+    archives: 文章
