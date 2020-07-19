@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"anemology.cc","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="如果選擇GitHub Pages當部落格的host，Hexo雖然會將產生的靜態檔案deploy到GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是Hexo的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
+  <meta name="description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo備份至GitHub">
+<meta property="og:title" content="Hexo 備份至 GitHub">
 <meta property="og:url" content="https://anemology.cc/post/hexo-backup/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="如果選擇GitHub Pages當部落格的host，Hexo雖然會將產生的靜態檔案deploy到GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是Hexo的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
+<meta property="og:description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2018-10-07T06:22:01.000Z">
 <meta property="article:modified_time" content="2018-10-07T06:22:01.000Z">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Hexo備份至GitHub | 翱翔在空中</title>
+  <title>Hexo 備份至 GitHub | 翱翔在空中</title>
   
 
 
@@ -180,7 +180,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo備份至GitHub
+          Hexo 備份至 GitHub
         </h1>
 
         <div class="post-meta">
@@ -213,25 +213,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如果選擇GitHub Pages當部落格的host，Hexo雖然會將產生的靜態檔案deploy到GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是Hexo的設定檔。</p>
+        <p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。</p>
 <p>以下就來說說如何在已經建立 <code>username.github.io</code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。</p>
 <a id="more"></a>
 
-<p>當然也可以在GitHub上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。</p>
-<p>首先進入到我們blog的資料夾，應該會有以下檔案及資料夾：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">blog/</span><br><span class="line">    .deploy_git/       <span class="comment">--Hexo deploy to GitHub用</span></span><br><span class="line">    node_modules/      <span class="comment">--npm套件</span></span><br><span class="line">    public/            <span class="comment">--Hexo產生的靜態檔案</span></span><br><span class="line">    scaffolds/         <span class="comment">--Hexo樣板*</span></span><br><span class="line">    source/            <span class="comment">--原始文章的Markdown*</span></span><br><span class="line">    themes/            <span class="comment">--Hexo主題*</span></span><br><span class="line">    .gitignore         <span class="comment">--git排除檔案清單*</span></span><br><span class="line">    _config.yml        <span class="comment">--Hexo設定檔*</span></span><br><span class="line">    db.json            <span class="comment">--Hexo DB</span></span><br><span class="line">    package.json       <span class="comment">--npm套件資訊*</span></span><br><span class="line">    package-lock.json  <span class="comment">--npm套件資訊*</span></span><br></pre></td></tr></table></figure>
+<p>當然也可以在 GitHub 上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。</p>
+<p>首先進入到我們 blog 的資料夾，應該會有以下檔案及資料夾：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">blog/</span><br><span class="line">    .deploy_git/       <span class="comment">--Hexo deploy to GitHub用</span></span><br><span class="line">    node_modules/      <span class="comment">--npm 套件</span></span><br><span class="line">    public/            <span class="comment">--Hexo 產生的靜態檔案</span></span><br><span class="line">    scaffolds/         <span class="comment">--Hexo 樣板*</span></span><br><span class="line">    source/            <span class="comment">--原始文章的Markdown*</span></span><br><span class="line">    themes/            <span class="comment">--Hexo 主題*</span></span><br><span class="line">    .gitignore         <span class="comment">--git 排除檔案清單*</span></span><br><span class="line">    _config.yml        <span class="comment">--Hexo 設定檔*</span></span><br><span class="line">    db.json            <span class="comment">--Hexo DB</span></span><br><span class="line">    package.json       <span class="comment">--npm 套件資訊*</span></span><br><span class="line">    package-lock.json  <span class="comment">--npm 套件資訊*</span></span><br></pre></td></tr></table></figure>
 
 <p>打星號的檔案要放到GitHub上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到git裡。</p>
-<p>其實Hexo已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到git裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p>
+<p>其實 Hexo 已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到git裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules&#x2F;</span><br><span class="line">public&#x2F;</span><br><span class="line">.deploy*&#x2F;</span><br></pre></td></tr></table></figure>
 
-<h1 id="加入git"><a href="#加入git" class="headerlink" title="加入git"></a>加入git</h1><p>再來就可以執行git指令來將資料夾加入git：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化</span></span><br><span class="line">git init .</span><br><span class="line"><span class="comment">#建立新分支hexo</span></span><br><span class="line">git checkout -b hexo</span><br><span class="line"><span class="comment">#將檔案加入git</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'Initial commit'</span></span><br><span class="line"><span class="comment">#加入遠端儲存庫位址</span></span><br><span class="line">git remote add origin https://github.com/username/username.github.io.git</span><br><span class="line"><span class="comment">#將hexo分支推送至遠端儲存庫</span></span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin hexo</span><br></pre></td></tr></table></figure>
+<h2 id="加入-git"><a href="#加入-git" class="headerlink" title="加入 git"></a>加入 git</h2><p>再來就可以執行 git 指令來將資料夾加入 git：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化</span></span><br><span class="line">git init .</span><br><span class="line"><span class="comment">#建立新分支 hexo</span></span><br><span class="line">git checkout -b hexo</span><br><span class="line"><span class="comment">#將檔案加入 git</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'Initial commit'</span></span><br><span class="line"><span class="comment">#加入遠端儲存庫位址</span></span><br><span class="line">git remote add origin https://github.com/username/username.github.io.git</span><br><span class="line"><span class="comment">#將 hexo 分支推送至遠端儲存庫</span></span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin hexo</span><br></pre></td></tr></table></figure>
 
-<p>這樣就完成啦，GitHub的 <code>username.github.io</code> 儲存庫應該就會有兩個分支， <code>master</code> 儲存Hexo產生的靜態檔案， <code>hexo</code> 分支儲存我們blog的原始檔。</p>
-<p>以後寫完文章之後，就按照普通git流程，將檔案push至GitHub即可。</p>
-<h1 id="還原檔案"><a href="#還原檔案" class="headerlink" title="還原檔案"></a>還原檔案</h1><p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#將檔案clone回來</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/username/username.github.io.git</span><br><span class="line"><span class="built_in">cd</span> username.github.io/</span><br><span class="line"><span class="comment">#切換到hexo分支</span></span><br><span class="line">git checkout hexo</span><br><span class="line"><span class="comment">#依照package.json重新安裝hexo套件</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment">#最後啟動hexo server看是不是可以正常瀏覽</span></span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>這樣就完成啦，GitHub 的 <code>username.github.io</code> 儲存庫應該就會有兩個分支， <code>master</code> 儲存 Hexo 產生的靜態檔案， <code>hexo</code> 分支儲存我們 blog 的原始檔。</p>
+<p>以後寫完文章之後，就按照普通 git 流程，將檔案 push 至 GitHub 即可。</p>
+<h2 id="還原檔案"><a href="#還原檔案" class="headerlink" title="還原檔案"></a>還原檔案</h2><p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#將檔案 clone 回來</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/username/username.github.io.git</span><br><span class="line"><span class="built_in">cd</span> username.github.io/</span><br><span class="line"><span class="comment">#切換到 hexo 分支</span></span><br><span class="line">git checkout hexo</span><br><span class="line"><span class="comment">#依照 package.json 重新安裝 hexo 套件</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment">#最後啟動 hexo server 看是不是可以正常瀏覽</span></span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 
 <p>以上。</p>
 <hr>
@@ -258,8 +258,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/post/sql-server-enabled-sa-account-and-1433-port/" rel="prev" title="MS SQL Server啟用sa帳戶與1433連接埠">
-      <i class="fa fa-chevron-left"></i> MS SQL Server啟用sa帳戶與1433連接埠
+    <a href="/post/sql-server-enabled-sa-account-and-1433-port/" rel="prev" title="MS SQL Server 啟用 sa 帳戶與 1433 連接埠">
+      <i class="fa fa-chevron-left"></i> MS SQL Server 啟用 sa 帳戶與 1433 連接埠
     </a></div>
       <div class="post-nav-item">
     <a href="/post/hexo-push-to-github-lost-commit-history/" rel="next" title="Hexo 部署到 GitHub 之後失去 commit 紀錄">
@@ -323,7 +323,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#加入git"><span class="nav-number">1.</span> <span class="nav-text">加入git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#還原檔案"><span class="nav-number">2.</span> <span class="nav-text">還原檔案</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#加入-git"><span class="nav-number">1.</span> <span class="nav-text">加入 git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#還原檔案"><span class="nav-number">2.</span> <span class="nav-text">還原檔案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

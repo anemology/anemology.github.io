@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"anemology.cc","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="最近因為在玩P2P的東西，所以需要一台24&#x2F;7的電腦來跑。 剛好GitHub Education之前有送DigitalOcean $50，就先拿來用了。">
+  <meta name="description" content="最近因為在玩 P2P 的東西，所以需要一台 24&#x2F;7 的電腦來跑。 剛好 GitHub Education 之前有送 DigitalOcean $50，就先拿來用了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用SSH Key登入Linux Server">
+<meta property="og:title" content="使用 SSH Key 登入 Linux Server">
 <meta property="og:url" content="https://anemology.cc/post/ssh-key-login-linux/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="最近因為在玩P2P的東西，所以需要一台24&#x2F;7的電腦來跑。 剛好GitHub Education之前有送DigitalOcean $50，就先拿來用了。">
+<meta property="og:description" content="最近因為在玩 P2P 的東西，所以需要一台 24&#x2F;7 的電腦來跑。 剛好 GitHub Education 之前有送 DigitalOcean $50，就先拿來用了。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://anemology.cc/images/ssh-key-login-linux-1.png">
 <meta property="og:image" content="https://anemology.cc/images/ssh-key-login-linux-2.png">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>使用SSH Key登入Linux Server | 翱翔在空中</title>
+  <title>使用 SSH Key 登入 Linux Server | 翱翔在空中</title>
   
 
 
@@ -185,7 +185,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用SSH Key登入Linux Server
+          使用 SSH Key 登入 Linux Server
         </h1>
 
         <div class="post-meta">
@@ -218,42 +218,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近因為在玩P2P的東西，所以需要一台24/7的電腦來跑。</p>
-<p>剛好GitHub Education之前有送DigitalOcean $50，就先拿來用了。</p>
+        <p>最近因為在玩 P2P 的東西，所以需要一台 24/7 的電腦來跑。</p>
+<p>剛好 GitHub Education 之前有送 DigitalOcean $50，就先拿來用了。</p>
 <a id="more"></a>
 
-<p>怎麼在DigitalOcean建立Droplet就不說了，新建立好像可以直接匯入SSH Key，就不用手動加SSH Key。</p>
+<p>怎麼在 DigitalOcean 建立 Droplet 就不說了，新建立好像可以直接匯入 SSH Key，就不用手動加 SSH Key。</p>
 <p>OS: Ubuntu 16.04.1 x64</p>
-<p>1. root連到Linux Server，建立一個新的使用者。</p>
+<p>1. root 連到Linux Server，建立一個新的使用者。</p>
 <p><code># add user whatever</code></p>
 <p>2. 將使用者加入sudo群組。</p>
 <p><code># gpasswd -a whatever sudo</code></p>
-<p>3. 使用 <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="noopener">PuTTYgen</a> 建立公私鑰，也可以在Linux上用<code>ssh-keygen</code>指令建立。</p>
+<p>3. 使用 <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="noopener">PuTTYgen</a> 建立公私鑰，也可以在 Linux 上用<code>ssh-keygen</code>指令建立。</p>
 <p><img src="/images/ssh-key-login-linux-1.png" alt=""></p>
-<p>4. 登入剛剛建立的新使用者，在家目錄建立<code>.ssh</code>目錄。</p>
+<p>4. 登入剛剛建立的新使用者，在家目錄建立 <code>.ssh</code> 目錄。</p>
 <p><code>$ su - whatever</code></p>
 <p><code>$ mkdir .ssh</code></p>
 <p><code>$ chmod 700 .ssh</code></p>
-<p>5. 新增<code>authorized_keys</code>檔案，並將公鑰內容貼進去，<code>Ctrl+X</code>存檔。</p>
+<p>5. 新增 <code>authorized_keys</code> 檔案，並將公鑰內容貼進去，<code>Ctrl+X</code> 存檔。</p>
 <p><code>$ nano .ssh/authorized_keys</code></p>
 <p><code>$ chmod 600 .ssh/authorized_keys</code></p>
-<p>6. 輸入<code>exit</code>切換回<code>root</code>，修改這個檔案。</p>
+<p>6. 輸入 <code>exit</code> 切換回 <code>root</code>，修改這個檔案。</p>
 <p><code># nano /etc/ssh/sshd_config</code></p>
-<p>7. 拿掉這幾行前面的註解<code>#</code>。</p>
+<p>7. 拿掉這幾行前面的註解 <code>#</code>。</p>
 <p><code>RSAAuthentication yes</code><br><code>PubkeyAuthentication yes</code><br><code>AuthorizedKeysFile %h/.ssh/authorized_keys</code></p>
-<p>8. 將<code>PasswordAuthentication</code>設置為<code>no</code>，就不能用密碼登入嚕。</p>
+<p>8. 將 <code>PasswordAuthentication</code> 設置為 <code>no</code>，就不能用密碼登入嚕。</p>
 <p><code>PasswordAuthentication no</code></p>
-<p>9. <code>Ctrl+X</code>存檔後，重啟服務。</p>
+<p>9. <code>Ctrl+X</code> 存檔後，重啟服務。</p>
 <p><code># service ssh restart</code></p>
 <p>10. 接著就可以在PuTTY，用剛剛存下來的私鑰做驗證登入了(不用密碼)。</p>
 <p><img src="/images/ssh-key-login-linux-2.png" alt=""></p>
 <p><img src="/images/ssh-key-login-linux-3.png" alt=""></p>
 <p>&nbsp;</p>
-<p>因為公鑰是存放在whatever的家目錄，所以只能用whatever登入。</p>
-<p>要用root登入的話就要在/root做同樣的事情，或是調整<code>sshd_config</code>的設定，不建議啦。</p>
+<p>因為公鑰是存放在 whatever 的家目錄，所以只能用 whatever 登入。</p>
+<p>要用 root 登入的話就要在 /root 做同樣的事情，或是調整 <code>sshd_config</code> 的設定，不建議啦。</p>
 <hr>
 <p>偷貼個推廣連結，不喜歡就不要點吧～</p>
-<p>使用此連結註冊DigitalOcean的話可以得到10USD的額度，不過GitHub Education的promo code不知道還能不能用就是了，我沒試過。</p>
+<p>使用此連結註冊 DigitalOcean 的話可以得到 10USD 的額度，不過 GitHub Education 的promo code 不知道還能不能用就是了，我沒試過。</p>
 <p>Everyone you refer gets $10 in credit. Once they’ve spent $25 with us, you’ll get $25.</p>
 <p><a href="https://www.digitalocean.com/?refcode=fe1c690430d5" target="_blank" rel="noopener">DigitalOcean: Cloud computing designed for developers</a></p>
 <hr>
@@ -282,8 +282,8 @@
       <i class="fa fa-chevron-left"></i> Anagrams
     </a></div>
       <div class="post-nav-item">
-    <a href="/post/next-edit-time/" rel="next" title="Next主題修改更新時間的顯示規則">
-      Next主題修改更新時間的顯示規則 <i class="fa fa-chevron-right"></i>
+    <a href="/post/next-edit-time/" rel="next" title="Next 主題修改更新時間的顯示規則">
+      Next 主題修改更新時間的顯示規則 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
