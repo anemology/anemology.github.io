@@ -1,10 +1,10 @@
 ---
 title: Hexo 部署到 GitHub 之後失去 commit 紀錄
-categories:
-  - 部落格
 date: 2019-06-23 10:55:32
+categories:
+    - 部落格
 tags:
-  - hexo
+    - hexo
 ---
 
 上禮拜寫完文章之後，用 Hexo deploy 到 Github 之後，發現 commits 全沒了！

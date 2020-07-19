@@ -1,12 +1,12 @@
 ---
-title: 虛擬貨幣(Bitcoin)運作原理
-categories:
-  - 未分類
+title: 虛擬貨幣 (Bitcoin) 運作原理
 date: 2017-12-03 15:02:09
+categories:
+    - 未分類
 tags:
-  - bitcoin
-  - hash
-  - SHA-256
+    - bitcoin
+    - hash
+    - SHA-256
 ---
 
 [Ever wonder how Bitcoin (and other cryptocurrencies) actually work?](https://www.youtube.com/watch?v=bBC-nXj3Ng4)
@@ -17,11 +17,11 @@ tags:
 
 ##### 以下是個人簡單的筆記
 
-1. Bitcoin 並沒有一個中心機構來記錄所有的交易行為，而是將所有交易都記錄在一本**公開帳本**中，而 Bitcoin 的本質就是這本帳本。
+1. Bitcoin 並沒有一個中心機構來記錄所有的交易行為，而是將所有交易都記錄在一本 **公開帳本** 中，而 Bitcoin 的本質就是這本帳本。
 
 2. 所有人都可以在這本帳本上做紀錄，但要如何確保紀錄不會被造假?
 
-    紀錄時會使用**電子簽章**來證明是該人所記錄，而每一筆紀錄都有唯一的序號，就算別人複製了同一筆交易紀錄，但序號不同，驗證的結果也不會通過。
+    紀錄時會使用 **電子簽章** 來證明是該人所記錄，而每一筆紀錄都有唯一的序號，就算別人複製了同一筆交易紀錄，但序號不同，驗證的結果也不會通過。
 
 3. 那誰來維護這本帳本呢?
 

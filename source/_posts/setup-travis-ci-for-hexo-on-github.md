@@ -1,12 +1,12 @@
 ---
 title: 使用 Travis CI 自動部署 Hexo 部落格
-categories:
-  - 部落格
 date: 2019-06-30 16:22:49
+categories:
+    - 部落格
 tags:
-  - hexo
-  - travis-ci
-  - github
+    - hexo
+    - travis-ci
+    - github
 ---
 
 之前文章提到，部落格的分支有兩個，`hexo` 及 `master`，在 `hexo` 分支寫文章，之後使用 `hexo deploy` 部署到 Github 的 `master` 分支上，確定沒問題的時候再將原始碼 `push` 到 `hexo` 分支。

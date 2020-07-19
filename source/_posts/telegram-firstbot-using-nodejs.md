@@ -1,11 +1,11 @@
 ---
-title: 第一個Telegram Bot
-categories:
-  - 未分類
+title: 第一個 Telegram Bot
 date: 2019-07-16 10:54:12
+categories:
+    - 未分類
 tags:
-  - telegram
-  - nodejs
+    - telegram
+    - nodejs
 ---
 
 使用 Node.js 打造第一個 Telegram Bot，需要以下東西
