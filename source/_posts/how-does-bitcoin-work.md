@@ -3,7 +3,6 @@ title: 虛擬貨幣(Bitcoin)運作原理
 categories:
   - 未分類
 date: 2017-12-03 15:02:09
-updated: 1990-01-01 08:00:00
 tags:
   - bitcoin
   - hash

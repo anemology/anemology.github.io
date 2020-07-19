@@ -3,7 +3,6 @@ title: 使用 Travis CI 自動部署 Hexo 部落格
 categories:
   - 部落格
 date: 2019-06-30 16:22:49
-updated: 1990-01-01 08:00:00
 tags:
   - hexo
   - travis-ci

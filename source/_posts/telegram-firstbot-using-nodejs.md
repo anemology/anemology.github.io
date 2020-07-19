@@ -2,8 +2,7 @@
 title: 第一個Telegram Bot
 categories:
   - 未分類
-date: 2019-06-16 10:54:12
-updated: 1990-01-01 08:00:00
+date: 2019-07-16 10:54:12
 tags:
   - telegram
   - nodejs

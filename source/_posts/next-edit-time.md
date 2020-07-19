@@ -6,7 +6,6 @@ categories:
 tags:
 - hexo
 - next
-updated: 1990-01-01
 ---
 
 只有在更新時間 > 發表時間的時候才顯示
