@@ -20,20 +20,21 @@
     var CONFIG = {"hostname":"anemology.cc","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="版本: Microsoft SQL Server 2012 R2 1433 port開始功能表 → Microsoft SQL Server 2012 R2 → 組態工具 → SQL Server 組態管理員 → SQL Server 網路組態 → MSSQLSERVER的通訊協定 → TCP&#x2F;IP → 已啟用 → 是 → IP位置 → IPALL → TCP通訊埠 → 1433 混合驗證模式伺服">
+  <meta name="description" content="從去年開始， GitHub 的 dependabot 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。 因我的部落格也很久沒更新了，索性就一次將 Hexo 及 NexT 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。  Hexo 3.8.0 -&gt; 4.2.1 NexT 5.1.3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MS SQL Server啟用sa帳戶與1433連接埠">
-<meta property="og:url" content="https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/index.html">
+<meta property="og:title" content="Hexo 及 NexT 主題升級紀錄">
+<meta property="og:url" content="https://anemology.cc/post/hexo-and-next-update/index.html">
 <meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="版本: Microsoft SQL Server 2012 R2 1433 port開始功能表 → Microsoft SQL Server 2012 R2 → 組態工具 → SQL Server 組態管理員 → SQL Server 網路組態 → MSSQLSERVER的通訊協定 → TCP&#x2F;IP → 已啟用 → 是 → IP位置 → IPALL → TCP通訊埠 → 1433 混合驗證模式伺服">
+<meta property="og:description" content="從去年開始， GitHub 的 dependabot 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。 因我的部落格也很久沒更新了，索性就一次將 Hexo 及 NexT 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。  Hexo 3.8.0 -&gt; 4.2.1 NexT 5.1.3">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2018-06-09T09:36:29.000Z">
-<meta property="article:modified_time" content="2018-06-09T09:36:29.000Z">
+<meta property="article:published_time" content="2020-07-19T03:52:27.000Z">
+<meta property="article:modified_time" content="2020-07-19T03:52:27.000Z">
 <meta property="article:author" content="anemology">
-<meta property="article:tag" content="sql-server">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="next">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/">
+<link rel="canonical" href="https://anemology.cc/post/hexo-and-next-update/">
 
 
 <script id="page-configurations">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>MS SQL Server啟用sa帳戶與1433連接埠 | 翱翔在空中</title>
+  <title>Hexo 及 NexT 主題升級紀錄 | 翱翔在空中</title>
   
 
 
@@ -167,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/">
+    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/hexo-and-next-update/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -180,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MS SQL Server啟用sa帳戶與1433連接埠
+          Hexo 及 NexT 主題升級紀錄
         </h1>
 
         <div class="post-meta">
@@ -190,7 +191,7 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2018-06-09 17:36:29" itemprop="dateCreated datePublished" datetime="2018-06-09T17:36:29+08:00">2018-06-09</time>
+              <time title="創建時間：2020-07-19 11:52:27" itemprop="dateCreated datePublished" datetime="2020-07-19T11:52:27+08:00">2020-07-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -198,7 +199,7 @@
               </span>
               <span class="post-meta-item-text">分類於</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%B3%87%E6%96%99%E5%BA%AB/" itemprop="url" rel="index"><span itemprop="name">資料庫</span></a>
+                  <a href="/categories/%E9%83%A8%E8%90%BD%E6%A0%BC/" itemprop="url" rel="index"><span itemprop="name">部落格</span></a>
                 </span>
             </span>
 
@@ -213,11 +214,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>版本: <strong><em>Microsoft SQL Server 2012 R2</em></strong></p>
-<h2 id="1433-port"><a href="#1433-port" class="headerlink" title="1433 port"></a>1433 port</h2><p>開始功能表 → Microsoft SQL Server 2012 R2 → 組態工具 → SQL Server 組態管理員 → SQL Server 網路組態 → MSSQLSERVER的通訊協定 → TCP/IP → 已啟用 → 是 → IP位置 → IPALL → TCP通訊埠 → 1433</p>
-<h2 id="混合驗證模式"><a href="#混合驗證模式" class="headerlink" title="混合驗證模式"></a>混合驗證模式</h2><p>伺服器右鍵 → 屬性 → 安全性 → 伺服器驗證 → SQL Server及Windows驗證模式</p>
-<h2 id="sa帳戶"><a href="#sa帳戶" class="headerlink" title="sa帳戶"></a>sa帳戶</h2><p>伺服器 → 安全性 → 登入 → sa → 右鍵內容 → 設定密碼 → 狀態 → 設定 → 登入 → 已啟用</p>
-<p>所有設定完成之後，記得重啟SQL Server服務</p>
+        <p>從去年開始， GitHub 的 <a href="https://github.com/apps/dependabot" target="_blank" rel="noopener">dependabot</a> 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。</p>
+<p>因我的部落格也很久沒更新了，索性就一次將 <a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Hexo</a> 及 <a href="https://github.com/next-theme/hexo-theme-next" target="_blank" rel="noopener">NexT</a> 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。</p>
+<ul>
+<li>Hexo <code>3.8.0</code> -&gt; <code>4.2.1</code></li>
+<li>NexT <code>5.1.3</code> -&gt; <code>7.8.0</code></li>
+</ul>
+<a id="more"></a>
+
+<p>大版本更新通常會有 breaking changes，更新後發現有不少問題，因 config 自訂的地方也不多，決定整個打掉重練。</p>
+<h2 id="步驟"><a href="#步驟" class="headerlink" title="步驟"></a>步驟</h2><ol>
+<li><p>建一個全空的 hexo 部落格</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新 hexo-cli</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"><span class="comment"># 初始化 hexo 至 update_blog 資料夾</span></span><br><span class="line">hexo init update_blog</span><br><span class="line"><span class="built_in">cd</span> update_blog</span><br><span class="line"><span class="comment"># 安裝部署使用的套件 hexo-deployer-git</span></span><br><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打開 blog 資料夾底下的 <code>package.json</code>，確認 hexo 版本 (<code>&quot;hexo&quot;: &quot;^4.2.1&quot;</code>)</p>
+</li>
+<li><p>將原本部落格資料夾內的 <code>scaffolds</code>、<code>source</code> 資料夾複製到 <code>update_blog</code> 內</p>
+</li>
+<li><p>將原本部落格資料夾內的 <code>themes/next</code> 資料夾複製到相對應之路徑</p>
+</li>
+<li><p>刪除沒有用到的預設主題 <code>themes/landscape</code></p>
+</li>
+<li><p>下載最新的 NexT 主題</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> update_blog</span><br><span class="line"><span class="comment"># 因這邊要保留原本舊的 next 主題，所以將新版主題放到不同資料夾</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/hexo-theme-next</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>調整設定檔，這邊都直接使用新版的 yml 檔案</p>
+<ol>
+<li>比對新舊 <code>_config.yml</code>，有 <a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml#L6" target="_blank" rel="noopener">調整過的設定</a> 我用 <code>#@~@</code> 註記起來，以後比較好找</li>
+</ol>
+</li>
+<li><p>調整主題設定檔</p>
+<ol>
+<li>比對 <code>themes\hexo-theme-next\_config.yml</code> 和 <code>themes\next\_config.yml</code>，將有調整過的設定改寫至根目錄底下 <code>_config.yml</code> 的 <code>theme_config:</code> <a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml#L107" target="_blank" rel="noopener">區塊</a><br> 好處是主題內的設定檔就維持預設的樣子，以後可以整個資料夾更新，統一在同個設定檔案也比較好維護</li>
+<li>另外 <a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/DATA-FILES.md" target="_blank" rel="noopener">NexT 文件</a> 內有提到，也可以將設定寫到 <code>source/_data/next.yml</code>，就看個人選擇</li>
+</ol>
+</li>
+<li><p>完成之後可以在本機下 <code>hexo server</code>，看一下有無問題</p>
+</li>
+<li><p>最後就可以將變更 push 到遠端 hexo 分支，<a href="/post/setup-travis-ci-for-hexo-on-github/">之前設定的 Travis CI</a> 就會自動幫我們部署到 GitHub Pages 啦~</p>
+</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>去掉 post 內的 <code>updated</code> 日期，之後有更新再寫就好，<a href="/post/next-edit-time/">Next 主題修改更新時間的顯示規則</a> 就不用了<br>  不確定這是新版還是舊版 NexT 行為，現在預設是 <code>date</code> 與 <code>updated</code> 不同天，才會顯示更新時間，可以參考 <a href="https://github.com/theme-next/hexo-theme-next/commit/9f4f0143aff6e7e804e3396f33acdcf9a109efd0" target="_blank" rel="noopener">another_day 設定</a></li>
+<li>可以看一下 <code>_config.yml</code> 的 <a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml" target="_blank" rel="noopener">commit 紀錄</a>，會比較清楚</li>
+</ul>
+<h2 id="參考網址"><a href="#參考網址" class="headerlink" title="參考網址"></a>參考網址</h2><p><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md" target="_blank" rel="noopener">Update from NexT v5.1.x</a></p>
+<hr>
+<ul>
+<li><code>npm</code> version <code>6.9.0</code></li>
+<li><code>Hexo</code> version <code>4.2.1</code></li>
+<li><code>NexT</code> version <code>7.8.0</code></li>
+<li><code>git</code> version <code>2.22.0.windows.1</code></li>
+</ul>
 
     </div>
 
@@ -227,7 +275,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/sql-server/" rel="tag"># sql-server</a>
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/next/" rel="tag"># next</a>
           </div>
 
         
@@ -236,13 +285,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/post/how-does-bitcoin-work/" rel="prev" title="虛擬貨幣(Bitcoin)運作原理">
-      <i class="fa fa-chevron-left"></i> 虛擬貨幣(Bitcoin)運作原理
+    <a href="/post/telegram-firstbot-using-nodejs/" rel="prev" title="第一個Telegram Bot">
+      <i class="fa fa-chevron-left"></i> 第一個Telegram Bot
     </a></div>
-      <div class="post-nav-item">
-    <a href="/post/hexo-backup/" rel="next" title="Hexo備份至GitHub">
-      Hexo備份至GitHub <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -301,7 +347,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1433-port"><span class="nav-number">1.</span> <span class="nav-text">1433 port</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#混合驗證模式"><span class="nav-number">2.</span> <span class="nav-text">混合驗證模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sa帳戶"><span class="nav-number">3.</span> <span class="nav-text">sa帳戶</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#步驟"><span class="nav-number">1.</span> <span class="nav-text">步驟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考網址"><span class="nav-number">3.</span> <span class="nav-text">參考網址</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
