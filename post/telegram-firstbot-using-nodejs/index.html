@@ -1,128 +1,51 @@
 <!DOCTYPE html>
-
-
-
-
-<html class="theme-next gemini" lang="zh-tw">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-TW">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"anemology.cc","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="telegram,nodejs,">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="使用 Node.js 打造第一個 Telegram Bot，需要以下東西  Telegram 帳號 一台可以對外服務的 Server 或 PC">
-<meta name="keywords" content="telegram,nodejs">
+  <meta name="description" content="使用 Node.js 打造第一個 Telegram Bot，需要以下東西  Telegram 帳號 一台可以對外服務的 Server 或 PC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第一個Telegram Bot">
 <meta property="og:url" content="https://anemology.cc/post/telegram-firstbot-using-nodejs/index.html">
 <meta property="og:site_name" content="翱翔在空中">
 <meta property="og:description" content="使用 Node.js 打造第一個 Telegram Bot，需要以下東西  Telegram 帳號 一台可以對外服務的 Server 或 PC">
-<meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="1990-01-01T00:00:00.000Z">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-06-16T02:54:12.000Z">
+<meta property="article:modified_time" content="1990-01-01T00:00:00.000Z">
+<meta property="article:author" content="anemology">
+<meta property="article:tag" content="telegram">
+<meta property="article:tag" content="nodejs">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第一個Telegram Bot">
-<meta name="twitter:description" content="使用 Node.js 打造第一個 Telegram Bot，需要以下東西  Telegram 帳號 一台可以對外服務的 Server 或 PC">
+
+<link rel="canonical" href="https://anemology.cc/post/telegram-firstbot-using-nodejs/">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.3',
-    sidebar: {"position":"left","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '作者'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
   };
 </script>
-
-
-
-  <link rel="canonical" href="https://anemology.cc/post/telegram-firstbot-using-nodejs/">
-
-
-
-
 
   <title>第一個Telegram Bot | 翱翔在空中</title>
   
@@ -132,222 +55,170 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">翱翔在空中</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">我作筆記筆記做掉我</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">翱翔在空中</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我作筆記筆記做掉我</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首頁
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            關於
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            文章
-          </a>
-        </li>
-      
-        
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>文章</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>關於</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分類
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分類</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            標籤
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>標籤</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/telegram-firstbot-using-nodejs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="anemology">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="anemology">
+      <meta itemprop="description" content="a nobody">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="翱翔在空中">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">第一個Telegram Bot</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          第一個Telegram Bot
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-16T10:54:12+08:00">
-                2019-06-16
-              </time>
-            
+              <span class="post-meta-item-text">發表於</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="創建時間：2019-06-16 10:54:12" itemprop="dateCreated datePublished" datetime="2019-06-16T10:54:12+08:00">2019-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：1990-01-01 08:00:00" itemprop="dateModified" datetime="1990-01-01T08:00:00+08:00">1990-01-01</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
+              <span class="post-meta-item-text">分類於</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/未分類/" itemprop="url" rel="index">
-                    <span itemprop="name">未分類</span>
-                  </a>
+                  <a href="/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/" itemprop="url" rel="index"><span itemprop="name">未分類</span></a>
                 </span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <p>使用 Node.js 打造第一個 Telegram Bot，需要以下東西</p>
@@ -356,6 +227,7 @@
 <li>一台可以對外服務的 Server 或 PC</li>
 </ol>
 <a id="more"></a>
+
 <h2 id="建立Bot"><a href="#建立Bot" class="headerlink" title="建立Bot"></a>建立Bot</h2><ol>
 <li>於 Telegram 內，搜尋 <a href="https://telegram.me/botfather" target="_blank" rel="noopener">@botfather</a>，BotFather 是 Telegram 官方用來申請以及管理bot的機器人，要注意帳號要有藍色小勾勾。</li>
 <li>輸入指令 <code>/newbot</code>。</li>
@@ -379,6 +251,7 @@
 <h2 id="撰寫程式"><a href="#撰寫程式" class="headerlink" title="撰寫程式"></a>撰寫程式</h2><p>使用 <a href="https://core.telegram.org/bots/samples" target="_blank" rel="noopener">官網 Sample</a> 推薦，已經打包好的 <a href="https://github.com/yagop/node-telegram-bot-api" target="_blank" rel="noopener">Node-Telegram-bot</a> API，這樣就不用自己去寫 Request 接官方 API。</p>
 <p>先在主機上安裝 <code>Node.js</code> 及 <code>npm</code> ，再照以下安裝 <code>express</code> 及 <code>node-telegram-bot-api</code>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立資料夾</span></span><br><span class="line">mkdir telegram-firstbot</span><br><span class="line"><span class="comment"># 移動到資料夾內</span></span><br><span class="line"><span class="built_in">cd</span> telegram-firstbot</span><br><span class="line"><span class="comment"># 使用 npm 建立專案</span></span><br><span class="line">npm init</span><br><span class="line"><span class="comment"># 建立 index.js</span></span><br><span class="line">touch index.js</span><br><span class="line"><span class="comment"># 安裝 express</span></span><br><span class="line">npm install --save express</span><br><span class="line"><span class="comment"># 安裝 Node.js Telegram Bot API</span></span><br><span class="line">npm install --save node-telegram-bot-api</span><br></pre></td></tr></table></figure>
+
 <p><code>index.js</code>內容如下，記得替換掉以下參數</p>
 <ul>
 <li>@{YOUR_TOKEN} - <a href="https://telegram.me/botfather" target="_blank" rel="noopener">@botfather</a> 給你的 token</li>
@@ -388,6 +261,7 @@
 <li>@{YOUR_CERTIFICATE_PATH\cert.pem} - 於上個步驟產生的 <code>cert.pem</code> 檔案路徑</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TelegramBot = <span class="built_in">require</span>(<span class="string">'node-telegram-bot-api'</span>);</span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> https = <span class="built_in">require</span>(<span class="string">'https'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TOKEN = <span class="string">'@&#123;YOUR_TOKEN&#125;'</span>;</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'@&#123;YOUR_URL_WITHPORT&#125;'</span>;</span><br><span class="line"><span class="keyword">const</span> port = @&#123;YOUR_PORT&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// certificate</span></span><br><span class="line"><span class="keyword">const</span> privatekey = fs.readFileSync( <span class="string">'@&#123;YOUR_PRIVATEKEY_PATH\key.pem&#125;'</span> );</span><br><span class="line"><span class="keyword">const</span> certificate = fs.readFileSync( <span class="string">'@&#123;YOUR_CERTIFICATE_PATH\cert.pem&#125;'</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">// No need to pass any parameters as we will handle the updates with Express</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> TelegramBot(TOKEN);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This informs the Telegram servers of the new webhook.</span></span><br><span class="line"><span class="comment">// because we use self-signed certificate, we must provide certificate in parameters.</span></span><br><span class="line">bot.setWebHook(<span class="string">`<span class="subst">$&#123;url&#125;</span>/bot<span class="subst">$&#123;TOKEN&#125;</span>`</span>,&#123;</span><br><span class="line">    certificate: <span class="string">`@&#123;YOUR_CERTIFICATE_PATH\cert.pem&#125;`</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// parse the updates to JSON</span></span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line"></span><br><span class="line"><span class="comment">// We are receiving updates at the route below!</span></span><br><span class="line">app.post(<span class="string">`/bot<span class="subst">$&#123;TOKEN&#125;</span>`</span>, (req, res) =&gt; &#123;</span><br><span class="line">    bot.processUpdate(req.body);</span><br><span class="line">    res.sendStatus(<span class="number">200</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.send(<span class="string">'listening @3@'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Start Express Server with certificates</span></span><br><span class="line">https.createServer(&#123;</span><br><span class="line">    key: privatekey,</span><br><span class="line">    cert: certificate</span><br><span class="line">&#125;, app).listen(port);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Just to ping!</span></span><br><span class="line">bot.on(<span class="string">'message'</span>, msg =&gt; &#123;</span><br><span class="line">    bot.sendMessage(msg.chat.id, <span class="string">'You said: '</span> + msg.text);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><ol>
 <li>執行 <code>node index.js</code></li>
 <li>輸入網址，<code>https://1.2.3.4:8443</code> 看伺服器是否有回應 <code>listening @3@</code>。</li>
@@ -396,8 +270,10 @@
 </ol>
 <p>正常的話回應如下</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"ok"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"result"</span>: &#123;</span><br><span class="line">      <span class="attr">"url"</span>: <span class="string">"https://$&#123;ip or domain&#125;:$&#123;port&#125;/bot$&#123;apikey&#125;"</span>,</span><br><span class="line">      <span class="attr">"has_custom_certificate"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">"pending_update_count"</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">"max_connections"</span>: <span class="number">40</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>有錯誤可以查看 <code>last_error_messag</code></p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"ok"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"result"</span>: &#123;</span><br><span class="line">    <span class="attr">"url"</span>: <span class="string">"https://$&#123;ip or domain&#125;:$&#123;port&#125;/bot$&#123;apikey&#125;"</span>,</span><br><span class="line">    <span class="attr">"has_custom_certificate"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"pending_update_count"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">"last_error_date"</span>: <span class="number">1560603553</span>,</span><br><span class="line">    <span class="attr">"last_error_message"</span>: <span class="string">"Failed to connect to $&#123;ip or domain&#125;:$&#123;port&#125;"</span>,</span><br><span class="line">    <span class="attr">"max_connections"</span>: <span class="number">40</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <hr>
 <h2 id="參考網址"><a href="#參考網址" class="headerlink" title="參考網址"></a>參考網址</h2><p><a href="https://core.telegram.org/bots" target="_blank" rel="noopener">Bots: An introduction for developers - Telegram</a></p>
 <p><a href="https://github.com/yagop/node-telegram-bot-api/blob/master/examples/webhook/express.js" target="_blank" rel="noopener">node-telegram-bot-api/express.js at master · yagop/node-telegram-bot-api</a></p>
@@ -405,236 +281,156 @@
 <p><a href="https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-apache-for-centos-7" target="_blank" rel="noopener">How To Create an SSL Certificate on Apache for CentOS 7</a></p>
 <p><a href="https://stackoverflow.com/questions/11804202/how-do-i-setup-a-ssl-certificate-for-an-express-js-server" target="_blank" rel="noopener">node.js - How do I setup a SSL certificate for an express.js server? - Stack Overflow</a></p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/telegram/" rel="tag"># telegram</a>
-          
-            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/post/hexo-backup/" rel="next" title="Hexo備份至GitHub">
-                <i class="fa fa-chevron-left"></i> Hexo備份至GitHub
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/telegram/" rel="tag"># telegram</a>
+              <a href="/tags/nodejs/" rel="tag"># nodejs</a>
           </div>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/post/hexo-push-to-github-lost-commit-history/" rel="prev" title="Hexo 部署到 GitHub 之後失去 commit 紀錄">
-                Hexo 部署到 GitHub 之後失去 commit 紀錄 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-  
-
-
-        </div>
         
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/hexo-backup/" rel="prev" title="Hexo備份至GitHub">
+      <i class="fa fa-chevron-left"></i> Hexo備份至GitHub
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/hexo-push-to-github-lost-commit-history/" rel="next" title="Hexo 部署到 GitHub 之後失去 commit 紀錄">
+      Hexo 部署到 GitHub 之後失去 commit 紀錄 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目錄
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            本站概覽
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">anemology</p>
-              <p class="site-description motion-element" itemprop="description">a nobody</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">文章</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">分類</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">標籤</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          <div class="links-of-author motion-element">
-            
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/anemology" target="_blank" title="GitHub">
-                    
-                      <i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-            
-          </div>
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立Bot"><span class="nav-number">1.</span> <span class="nav-text">建立Bot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setWebhook-or-getUpdates"><span class="nav-number">2.</span> <span class="nav-text">setWebhook or getUpdates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立自簽憑證-Self-Signed-Certificate"><span class="nav-number">3.</span> <span class="nav-text">建立自簽憑證 (Self-Signed Certificate)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撰寫程式"><span class="nav-number">4.</span> <span class="nav-text">撰寫程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#測試"><span class="nav-number">5.</span> <span class="nav-text">測試</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考網址"><span class="nav-number">6.</span> <span class="nav-text">參考網址</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立Bot"><span class="nav-number">1.</span> <span class="nav-text">建立Bot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setWebhook-or-getUpdates"><span class="nav-number">2.</span> <span class="nav-text">setWebhook or getUpdates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立自簽憑證-Self-Signed-Certificate"><span class="nav-number">3.</span> <span class="nav-text">建立自簽憑證 (Self-Signed Certificate)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撰寫程式"><span class="nav-number">4.</span> <span class="nav-text">撰寫程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#測試"><span class="nav-number">5.</span> <span class="nav-text">測試</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#參考網址"><span class="nav-number">6.</span> <span class="nav-text">參考網址</span></a></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">anemology</p>
+  <div class="site-description" itemprop="description">a nobody</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
           
-        </div>
-      
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anemology" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anemology" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2020</span>
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">anemology</span>
-
-  
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
 
         
 
@@ -644,26 +440,21 @@
 
 
 
-        
+
       </div>
     </footer>
-
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+<script src="/js/utils.js"></script>
 
 
+<script src="/js/schemes/pisces.js"></script>
 
 
-
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -681,99 +472,8 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
 
   
 
