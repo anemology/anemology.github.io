@@ -74,7 +74,7 @@
 			<link>https://anemology.cc/post/hexo-backup/</link>
 			<pubDate>Sun, 07 Oct 2018 14:22:01 +0000</pubDate>
 			<guid>https://anemology.cc/post/hexo-backup/</guid>
-			<description>&lt;p&gt;如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。&lt;/p&gt;
+			<description>&lt;p&gt;如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。&lt;/p&gt;
 &lt;p&gt;以下就來說說如何在已經建立 &lt;code&gt;username.github.io&lt;/code&gt; 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。&lt;/p&gt;</description>
 		</item>
       	
@@ -84,7 +84,7 @@
 			<pubDate>Sat, 09 Jun 2018 17:36:29 +0000</pubDate>
 			<guid>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</guid>
 			<description>版本: Microsoft SQL Server 2012 R2
-1433 port 開始功能表 -&amp;gt; Microsoft SQL Server 2012 R2 -&amp;gt; 組態工具 -&amp;gt; SQL Server 組態管理員 -&amp;gt; SQL Server 網路組態 -&amp;gt; MSSQLSERVER 的通訊協定 -&amp;gt; TCP/IP -&amp;gt; 已啟用 -&amp;gt; 是 -&amp;gt; IP位置 -&amp;gt; IPALL -&amp;gt; TCP 通訊埠 -&amp;gt; 1433
+1433 port 開始功能表 -&amp;gt; Microsoft SQL Server 2012 R2 -&amp;gt; 組態工具 -&amp;gt; SQL Server 組態管理員 -&amp;gt; SQL Server 網路組態 -&amp;gt; MSSQLSERVER 的通訊協定 -&amp;gt; TCP/IP -&amp;gt; 已啟用 -&amp;gt; 是 -&amp;gt; IP 位置 -&amp;gt; IPALL -&amp;gt; TCP 通訊埠 -&amp;gt; 1433
 混合驗證模式 伺服器右鍵 -&amp;gt; 屬性 -&amp;gt; 安全性 -&amp;gt; 伺服器驗證 -&amp;gt; SQL Server 及 Windows 驗證模式
 sa 帳戶 伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 右鍵內容 -&amp;gt; 設定密碼 -&amp;gt; 狀態 -&amp;gt; 設定 -&amp;gt; 登入 -&amp;gt; 已啟用</description>
 		</item>
@@ -99,13 +99,13 @@ sa 帳戶 伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 
 		</item>
       	
 		<item>
-			<title>Hexo介紹和常用指令</title>
+			<title>Hexo 介紹和常用指令</title>
 			<link>https://anemology.cc/post/hexo-introduction-and-commands/</link>
 			<pubDate>Sat, 25 Nov 2017 23:52:18 +0000</pubDate>
 			<guid>https://anemology.cc/post/hexo-introduction-and-commands/</guid>
 			<description>&lt;h5 id=&#34;hexo-是什麼&#34;&gt;Hexo 是什麼?&lt;/h5&gt;
 &lt;p&gt;&lt;a href=&#34;https://hexo.io/zh-tw/&#34;&gt;Hexo&lt;/a&gt; 是一個基於 Node.js 所建立的網誌框架，你不需要懂 Node.js，只要會下 command 就行了。
-使用 &lt;code&gt;Markdown&lt;/code&gt; 來編寫文章，&lt;a href=&#34;https://hexo.io/zh-tw/&#34;&gt;Hexo&lt;/a&gt; 會將你寫的Markdown文章解析並產生靜態檔案，可以直接部署到 GitHub 上，完全不需要後端的支援。&lt;/p&gt;</description>
+使用 &lt;code&gt;Markdown&lt;/code&gt; 來編寫文章，&lt;a href=&#34;https://hexo.io/zh-tw/&#34;&gt;Hexo&lt;/a&gt; 會將你寫的 Markdown 文章解析並產生靜態檔案，可以直接部署到 GitHub 上，完全不需要後端的支援。&lt;/p&gt;</description>
 		</item>
       	
 		<item>

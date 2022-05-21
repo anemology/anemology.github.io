@@ -22,7 +22,7 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hexo 備份至 GitHub"/>
-<meta name="twitter:description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。
+<meta name="twitter:description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。
 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。"/>
 
 
@@ -40,6 +40,8 @@
   as="style"
 />
 
+
+  <link rel="stylesheet" href="https://anemology.cc/css/custom.css" />
 
 
 
@@ -146,24 +148,24 @@
   <div class="container" role="main">
     <article class="article" class="blog-post">
       
-  <p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。</p>
+  <p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。</p>
 <p>以下就來說說如何在已經建立 <code>username.github.io</code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。</p>
 <p>當然也可以在 GitHub 上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。</p>
 <p>首先進入到我們 blog 的資料夾，應該會有以下檔案及資料夾：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>blog<span style="color:#f92672">/</span>
-</span></span><span style="display:flex;"><span>    .deploy_git<span style="color:#f92672">/</span>       <span style="color:#75715e">--Hexo deploy to GitHub用
+</span></span><span style="display:flex;"><span>    .deploy_git<span style="color:#f92672">/</span>       <span style="color:#75715e">--Hexo deploy to GitHub 用
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    node_modules<span style="color:#f92672">/</span>      <span style="color:#75715e">--npm 套件
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">/</span>            <span style="color:#75715e">--Hexo 產生的靜態檔案
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    scaffolds<span style="color:#f92672">/</span>         <span style="color:#75715e">--Hexo 樣板*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">source</span><span style="color:#f92672">/</span>            <span style="color:#75715e">--原始文章的Markdown*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">source</span><span style="color:#f92672">/</span>            <span style="color:#75715e">--原始文章的 Markdown*
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    themes<span style="color:#f92672">/</span>            <span style="color:#75715e">--Hexo 主題*
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    .gitignore         <span style="color:#75715e">--git 排除檔案清單*
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    _config.yml        <span style="color:#75715e">--Hexo 設定檔*
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    db.json            <span style="color:#75715e">--Hexo DB
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    package.json       <span style="color:#75715e">--npm 套件資訊*
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    package<span style="color:#f92672">-</span><span style="color:#66d9ef">lock</span>.json  <span style="color:#75715e">--npm 套件資訊*
-</span></span></span></code></pre></div><p>打星號的檔案要放到GitHub上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到git裡。</p>
-<p>其實 Hexo 已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到git裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p>
+</span></span></span></code></pre></div><p>打星號的檔案要放到 GitHub 上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到 git 裡。</p>
+<p>其實 Hexo 已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到 git 裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>.DS_Store
 </span></span><span style="display:flex;"><span>Thumbs.db
 </span></span><span style="display:flex;"><span>db.json
