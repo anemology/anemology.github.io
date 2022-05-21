@@ -1,3 +1,33 @@
-baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = "https://anemology.cc/"
+languageCode = "zh-TW"
+title = "翱翔在空中"
+theme = "harbor"
+paginate = 5
+
+[params]
+    dateFormat = "January 2, 2006"
+    enableBottomNavigation = true
+
+[Author]
+  name = "anemology"
+
+[[params.nav]]
+  identifier = "tags"
+  name = "Tags"
+  icon = "fas fa-tag fa-lg"
+  url = "tags"
+  weight = 3
+
+[[params.nav]]
+  identifier = "search"
+  name = "Search"
+  icon = "fas fa-search fa-lg"
+  url = "search"
+  weight = 3
+
+[[params.nav]]
+  identifier = "archives"
+  name = "Archives"
+  icon = "fas fa-archive fa-lg"
+  url = "archives"
+  weight = 3
