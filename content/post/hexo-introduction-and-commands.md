@@ -1,5 +1,5 @@
 ---
-title: Hexo介紹和常用指令
+title: Hexo 介紹和常用指令
 date: 2017-11-25 23:52:18
 categories:
     - 部落格
@@ -10,7 +10,7 @@ tags:
 ##### Hexo 是什麼?
 
 [Hexo] 是一個基於 Node.js 所建立的網誌框架，你不需要懂 Node.js，只要會下 command 就行了。
-使用 `Markdown` 來編寫文章，[Hexo] 會將你寫的Markdown文章解析並產生靜態檔案，可以直接部署到 GitHub 上，完全不需要後端的支援。
+使用 `Markdown` 來編寫文章，[Hexo] 會將你寫的 Markdown 文章解析並產生靜態檔案，可以直接部署到 GitHub 上，完全不需要後端的支援。
 
 <!--more-->
 
@@ -25,7 +25,7 @@ tags:
 [Jekyll]: https://jekyllrb.com/
 [Hugo]: https://gohugo.io/
 
-##### Hexo常用指令
+##### Hexo 常用指令
 
     hexo server
 

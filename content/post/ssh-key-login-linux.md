@@ -18,13 +18,13 @@ tags:
 
 OS: Ubuntu 16.04.1 x64
 
-1. root 連到Linux Server，建立一個新的使用者。
+1. root 連到 Linux Server，建立一個新的使用者。
 
     ```bash
     add user whatever
     ```
 
-1. 將使用者加入sudo群組。
+1. 將使用者加入 sudo 群組。
 
     ```bash
     gpasswd -a whatever sudo
@@ -75,7 +75,7 @@ OS: Ubuntu 16.04.1 x64
     service ssh restart
     ```
 
-1. 接著就可以在 PuTTY，用剛剛存下來的私鑰做驗證登入了(不用密碼)。
+1. 接著就可以在 PuTTY，用剛剛存下來的私鑰做驗證登入了 (不用密碼)。
 
     ![ssh-key-login-linux-2](/img/ssh-key-login-linux-2.png)
 

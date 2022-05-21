@@ -7,7 +7,7 @@ tags:
     - hexo
 ---
 
-如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。
+如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。
 
 以下就來說說如何在已經建立 `username.github.io` 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。
 
@@ -19,11 +19,11 @@ tags:
 
 ```sql
 blog/
-    .deploy_git/       --Hexo deploy to GitHub用
+    .deploy_git/       --Hexo deploy to GitHub 用
     node_modules/      --npm 套件
     public/            --Hexo 產生的靜態檔案
     scaffolds/         --Hexo 樣板*
-    source/            --原始文章的Markdown*
+    source/            --原始文章的 Markdown*
     themes/            --Hexo 主題*
     .gitignore         --git 排除檔案清單*
     _config.yml        --Hexo 設定檔*
@@ -32,9 +32,9 @@ blog/
     package-lock.json  --npm 套件資訊*
 ```
 
-打星號的檔案要放到GitHub上，其他檔案因為 `npm` 或是 `Hexo` 都會幫我們自動建立，所以不需要特地放到git裡。
+打星號的檔案要放到 GitHub 上，其他檔案因為 `npm` 或是 `Hexo` 都會幫我們自動建立，所以不需要特地放到 git 裡。
 
-其實 Hexo 已經幫我們想好了，在 `.gitignore` 裡就有排除了不需要放到git裡面的檔案，如果你沒有這個檔案，自行新增一個即可。
+其實 Hexo 已經幫我們想好了，在 `.gitignore` 裡就有排除了不需要放到 git 裡面的檔案，如果你沒有這個檔案，自行新增一個即可。
 
 ```text
 .DS_Store

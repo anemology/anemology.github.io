@@ -15,9 +15,9 @@ tags:
 
 <!--more-->
 
-## 建立Bot
+## 建立 Bot
 
-1. 於 Telegram 內，搜尋 [@botfather]，BotFather 是 Telegram 官方用來申請以及管理bot的機器人，要注意帳號要有藍色小勾勾。
+1. 於 Telegram 內，搜尋 [@botfather]，BotFather 是 Telegram 官方用來申請以及管理 bot 的機器人，要注意帳號要有藍色小勾勾。
 2. 輸入指令 `/newbot`。
 3. 依照指示，依序輸入 bot 的顯示名稱，以及 @username。
 4. 最後會得到一組 token，像是 `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw` 這樣的字串，用以驗證身份。

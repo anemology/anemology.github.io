@@ -11,7 +11,7 @@ tags:
 
 ## 1433 port
 
-開始功能表 -> Microsoft SQL Server 2012 R2 -> 組態工具 -> SQL Server 組態管理員 -> SQL Server 網路組態 -> MSSQLSERVER 的通訊協定 -> TCP/IP -> 已啟用 -> 是 -> IP位置 -> IPALL -> TCP 通訊埠 -> 1433
+開始功能表 -> Microsoft SQL Server 2012 R2 -> 組態工具 -> SQL Server 組態管理員 -> SQL Server 網路組態 -> MSSQLSERVER 的通訊協定 -> TCP/IP -> 已啟用 -> 是 -> IP 位置 -> IPALL -> TCP 通訊埠 -> 1433
 
 ## 混合驗證模式
 

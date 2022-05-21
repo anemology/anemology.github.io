@@ -27,7 +27,7 @@ tags:
 
 ## 取得 Github Token
 
-因為部署之後需要 push 回 Github上，[Travis CI] 需要額外的 `Token`，來做這件事，在 Github 上產生一個 `Token` 供 CI 使用。
+因為部署之後需要 push 回 Github 上，[Travis CI] 需要額外的 `Token`，來做這件事，在 Github 上產生一個 `Token` 供 CI 使用。
 
 Settings → Developer settings → Personal access tokens → Generate new token → Note 可以註記是 Travis CI 使用 → Select scopes → 只要選 `public_repo` 就夠了 → Generate token
 
@@ -42,10 +42,10 @@ Settings → Developer settings → Personal access tokens → Generate new toke
 [Travis CI] 的設定檔名稱是 `.travis.yml` ，是告訴 [Travis CI] 要做什麼事情，放在網站原始碼的根目錄下就可以。
 
 ```yml
-# 使用nodejs
+# 使用 nodejs
 language: node_js
 
-# 指定nodejs版本
+# 指定 nodejs 版本
 node_js:
   - "10"
 
