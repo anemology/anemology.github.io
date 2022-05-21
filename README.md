@@ -1,5 +1,5 @@
 # Blog
 
-Generate using [Hexo](https://hexo.io/zh-tw/)
+Generate using [Hugo](https://gohugo.io/)
 
 Link: https://anemology.cc

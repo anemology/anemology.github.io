@@ -1,444 +1,254 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <head>
+    <meta charset="utf-8" />
+<title>虛擬貨幣 (Bitcoin) 運作原理</title>
+<meta name="description" 
+      content=""
+>
 
-<link rel="stylesheet" href="/css/main.css">
+  
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"anemology.cc","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Ever wonder how Bitcoin (and other cryptocurrencies) actually work? 看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?">
-<meta property="og:type" content="article">
-<meta property="og:title" content="虛擬貨幣 (Bitcoin) 運作原理">
-<meta property="og:url" content="https://anemology.cc/post/how-does-bitcoin-work/index.html">
-<meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="Ever wonder how Bitcoin (and other cryptocurrencies) actually work? 看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?">
-<meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2017-12-03T07:02:09.000Z">
-<meta property="article:modified_time" content="2017-12-03T07:02:09.000Z">
-<meta property="article:author" content="anemology">
-<meta property="article:tag" content="bitcoin">
-<meta property="article:tag" content="hash">
-<meta property="article:tag" content="SHA-256">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://anemology.cc/post/how-does-bitcoin-work/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-TW'
-  };
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://anemology.cc/index.xml"
+  title="翱翔在空中"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="虛擬貨幣 (Bitcoin) 運作原理"/>
+<meta name="twitter:description" content="Ever wonder how Bitcoin (and other cryptocurrencies) actually work?
+看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?"/>
+
+
+
+<link rel="stylesheet" href="https://anemology.cc/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
 </script>
 
-  <title>虛擬貨幣 (Bitcoin) 運作原理 | 翱翔在空中</title>
+
+<script defer crossorigin="anonymous" src="/js/theme.js" integrity=""></script>
+
+
+<script defer crossorigin="anonymous" src="/js/instantpage.min.js" integrity=""></script><meta name="generator" content="Hugo 0.98.0" />
+  </head>
+  <body>
+    
   
 
 
 
 
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
 
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切換導航欄">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/tags" id="Tags"
+              ><em class="fas fa-tag fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">翱翔在空中</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">我作筆記筆記做掉我</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>文章</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>關於</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分類</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>標籤</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
           
-
-          <div class="content post posts-expand">
-            
-
+            <h1>
+              虛擬貨幣 (Bitcoin) 運作原理
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;December 3, 2017
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://anemology.cc/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/"
+        >未分類</a
+      >&nbsp;
     
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/how-does-bitcoin-work/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="anemology">
-      <meta itemprop="description" content="a nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翱翔在空中">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          虛擬貨幣 (Bitcoin) 運作原理
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2017-12-03 15:02:09" itemprop="dateCreated datePublished" datetime="2017-12-03T15:02:09+08:00">2017-12-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/" itemprop="url" rel="index"><span itemprop="name">未分類</span></a>
-                </span>
-            </span>
+</span>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
+  
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
       
-        <p><a href="https://www.youtube.com/watch?v=bBC-nXj3Ng4" target="_blank" rel="noopener">Ever wonder how Bitcoin (and other cryptocurrencies) actually work?</a></p>
+  <p><a href="https://www.youtube.com/watch?v=bBC-nXj3Ng4">Ever wonder how Bitcoin (and other cryptocurrencies) actually work?</a></p>
 <p>看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?</p>
-<a id="more"></a>
-
-<h5 id="以下是個人簡單的筆記"><a href="#以下是個人簡單的筆記" class="headerlink" title="以下是個人簡單的筆記"></a>以下是個人簡單的筆記</h5><ol>
-<li><p>Bitcoin 並沒有一個中心機構來記錄所有的交易行為，而是將所有交易都記錄在一本 <strong>公開帳本</strong> 中，而 Bitcoin 的本質就是這本帳本。</p>
+<h5 id="以下是個人簡單的筆記">以下是個人簡單的筆記</h5>
+<ol>
+<li>
+<p>Bitcoin 並沒有一個中心機構來記錄所有的交易行為，而是將所有交易都記錄在一本 <strong>公開帳本</strong> 中，而 Bitcoin 的本質就是這本帳本。</p>
 </li>
-<li><p>所有人都可以在這本帳本上做紀錄，但要如何確保紀錄不會被造假?</p>
-<p> 紀錄時會使用 <strong>電子簽章</strong> 來證明是該人所記錄，而每一筆紀錄都有唯一的序號，就算別人複製了同一筆交易紀錄，但序號不同，驗證的結果也不會通過。</p>
+<li>
+<p>所有人都可以在這本帳本上做紀錄，但要如何確保紀錄不會被造假?</p>
+<p>紀錄時會使用 <strong>電子簽章</strong> 來證明是該人所記錄，而每一筆紀錄都有唯一的序號，就算別人複製了同一筆交易紀錄，但序號不同，驗證的結果也不會通過。</p>
 </li>
-<li><p>那誰來維護這本帳本呢?</p>
-<p> 帳本會被切割成一個一個區塊，而每個區塊的開頭都會有前一個區塊的 hash 值，以此就可以判斷每個區塊正確的順序，而這也稱為區塊鏈。</p>
+<li>
+<p>那誰來維護這本帳本呢?</p>
+<p>帳本會被切割成一個一個區塊，而每個區塊的開頭都會有前一個區塊的 hash 值，以此就可以判斷每個區塊正確的順序，而這也稱為區塊鏈。</p>
 </li>
-<li><p>每個區塊除了帳本上記錄的交易行為，還有一個最重要的東西，就是 <strong>proof of work</strong>，就像每筆紀錄需要電子簽章，每個區塊都需要 proof of work 才能證明它是有效的。</p>
+<li>
+<p>每個區塊除了帳本上記錄的交易行為，還有一個最重要的東西，就是 <strong>proof of work</strong>，就像每筆紀錄需要電子簽章，每個區塊都需要 proof of work 才能證明它是有效的。</p>
 </li>
-<li><p>proof of work 是一個特別的數字，該區塊加上 proof of work 算出來的 hash 值能讓 hash 值前面 n 位數為 0，就代表這個數字就是這個區塊的 proof of work。</p>
+<li>
+<p>proof of work 是一個特別的數字，該區塊加上 proof of work 算出來的 hash 值能讓 hash 值前面 n 位數為 0，就代表這個數字就是這個區塊的 proof of work。</p>
 </li>
-<li><p>而挖礦就是在計算 proof of work 數字，第一個算出這個數字的人，就可以得到建立這個區塊的獎勵。</p>
+<li>
+<p>而挖礦就是在計算 proof of work 數字，第一個算出這個數字的人，就可以得到建立這個區塊的獎勵。</p>
 </li>
-<li><p>第 5 點講到的 n 是不固定的，Bitcoin 會隨時改變 n，以確保每 10 分鐘都可以有一個區塊產生。</p>
+<li>
+<p>第 5 點講到的 n 是不固定的，Bitcoin 會隨時改變 n，以確保每 10 分鐘都可以有一個區塊產生。</p>
 </li>
 </ol>
 <hr>
-<h5 id="SHA-256-破解"><a href="#SHA-256-破解" class="headerlink" title="SHA-256 破解"></a>SHA-256 破解</h5><p>Bitcoin 的 hash 值是用 SHA-256 雜湊演算法來運算，而 SHA-256 有多難破解，可以看看以下這個影片</p>
-<p><a href="https://www.youtube.com/watch?v=S9JGmA5_unY" target="_blank" rel="noopener">How secure is 256 bit security?</a></p>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/bitcoin/" rel="tag"># bitcoin</a>
-              <a href="/tags/hash/" rel="tag"># hash</a>
-              <a href="/tags/SHA-256/" rel="tag"># SHA-256</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/post/hexo-introduction-and-commands/" rel="prev" title="Hexo介紹和常用指令">
-      <i class="fa fa-chevron-left"></i> Hexo介紹和常用指令
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/post/sql-server-enabled-sa-account-and-1433-port/" rel="next" title="MS SQL Server 啟用 sa 帳戶與 1433 連接埠">
-      MS SQL Server 啟用 sa 帳戶與 1433 連接埠 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
+<h5 id="sha-256-破解">SHA-256 破解</h5>
+<p>Bitcoin 的 hash 值是用 SHA-256 雜湊演算法來運算，而 SHA-256 有多難破解，可以看看以下這個影片</p>
+<p><a href="https://www.youtube.com/watch?v=S9JGmA5_unY">How secure is 256 bit security?</a></p>
 
 
 
-          </div>
+      
+        <div class="blog-tags">
           
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            <a
+              href="https://anemology.cc/tags/bitcoin/"
+              >bitcoin</a
+            >&nbsp;
+          
+            <a
+              href="https://anemology.cc/tags/hash/"
+              >hash</a
+            >&nbsp;
+          
+            <a
+              href="https://anemology.cc/tags/sha-256/"
+              >sha-256</a
+            >&nbsp;
+          
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+      
+
+      
+        <ul class="bottomnav"><li class="previous"><a href="/post/sql-server-enabled-sa-account-and-1433-port/"
+          ><span>&lt;&lt;&nbsp;</span>MS SQL Server 啟用 sa  …</a
+        ></li><li class="next"><a href="/post/hexo-introduction-and-commands/"
+          >Hexo介紹和常用指令<span>&nbsp;>></span></a
+        ></li></ul>
+
+      
+    </article>
+    
+    
+      
+
+    
   </div>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+    <footer>
+  
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目錄
-        </li>
-        <li class="sidebar-nav-overview">
-          本站概要
-        </li>
-      </ul>
+<div class="social-icons">
+  
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#以下是個人簡單的筆記"><span class="nav-number">1.</span> <span class="nav-text">以下是個人簡單的筆記</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SHA-256-破解"><span class="nav-number">2.</span> <span class="nav-text">SHA-256 破解</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">anemology</p>
-  <div class="site-description" itemprop="description">a nobody</div>
+  
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">12</span>
-          <span class="site-state-item-name">文章</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">分類</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">標籤</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/anemology" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anemology" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://anemology.cc/about">anemology</a>
+      &nbsp;&copy;
+      2020
+      
+        &nbsp;/&nbsp;
+        <a href="https://anemology.cc/">翱翔在空中</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
   </div>
+</footer>
 
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2016 – 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">anemology</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-</body>
+  </body>
 </html>

@@ -1,239 +1,203 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <head>
+    <meta charset="utf-8" />
+<title>Hexo 備份至 GitHub</title>
+<meta name="description" 
+      content=""
+>
 
-<link rel="stylesheet" href="/css/main.css">
+  
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"anemology.cc","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 備份至 GitHub">
-<meta property="og:url" content="https://anemology.cc/post/hexo-backup/index.html">
-<meta property="og:site_name" content="翱翔在空中">
-<meta property="og:description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。 以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。">
-<meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2018-10-07T06:22:01.000Z">
-<meta property="article:modified_time" content="2018-10-07T06:22:01.000Z">
-<meta property="article:author" content="anemology">
-<meta property="article:tag" content="hexo">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://anemology.cc/post/hexo-backup/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-TW'
-  };
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://anemology.cc/index.xml"
+  title="翱翔在空中"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hexo 備份至 GitHub"/>
+<meta name="twitter:description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。
+以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。"/>
+
+
+
+<link rel="stylesheet" href="https://anemology.cc/fontawesome/css/all.min.css" />
+
+
+
+
+<link
+  crossorigin="anonymous"
+  href="/css/styles.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+
+
+<link
+  id="dark-mode-theme"
+  crossorigin="anonymous"
+  href="/css/dark.min.css"
+  integrity=""
+  rel="preload stylesheet"
+  as="style"
+/>
+
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
 </script>
 
-  <title>Hexo 備份至 GitHub | 翱翔在空中</title>
+
+<script defer crossorigin="anonymous" src="/js/theme.js" integrity=""></script>
+
+
+<script defer crossorigin="anonymous" src="/js/instantpage.min.js" integrity=""></script><meta name="generator" content="Hugo 0.98.0" />
+  </head>
+  <body>
+    
   
 
 
 
 
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
 
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切換導航欄">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/tags" id="Tags"
+              ><em class="fas fa-tag fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">翱翔在空中</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">我作筆記筆記做掉我</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>文章</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>關於</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分類</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>標籤</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
+    <div class="intro-header">
+      <div class="container">
+        <div class="post-heading">
           
-
-          <div class="content post posts-expand">
-            
-
+            <h1>
+              Hexo 備份至 GitHub
+            </h1>
+          
+          
+            <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;October 7, 2018
+  
+    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+    
+      <a
+        href="https://anemology.cc/categories/%E9%83%A8%E8%90%BD%E6%A0%BC/"
+        >部落格</a
+      >&nbsp;
     
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://anemology.cc/post/hexo-backup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="anemology">
-      <meta itemprop="description" content="a nobody">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翱翔在空中">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Hexo 備份至 GitHub
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2018-10-07 14:22:01" itemprop="dateCreated datePublished" datetime="2018-10-07T14:22:01+08:00">2018-10-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%83%A8%E8%90%BD%E6%A0%BC/" itemprop="url" rel="index"><span itemprop="name">部落格</span></a>
-                </span>
-            </span>
+</span>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
+  
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
       
-        <p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。</p>
+  <p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的Markdown，或是 Hexo 的設定檔。</p>
 <p>以下就來說說如何在已經建立 <code>username.github.io</code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。</p>
-<a id="more"></a>
-
 <p>當然也可以在 GitHub 上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。</p>
 <p>首先進入到我們 blog 的資料夾，應該會有以下檔案及資料夾：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">blog/</span><br><span class="line">    .deploy_git/       <span class="comment">--Hexo deploy to GitHub用</span></span><br><span class="line">    node_modules/      <span class="comment">--npm 套件</span></span><br><span class="line">    public/            <span class="comment">--Hexo 產生的靜態檔案</span></span><br><span class="line">    scaffolds/         <span class="comment">--Hexo 樣板*</span></span><br><span class="line">    source/            <span class="comment">--原始文章的Markdown*</span></span><br><span class="line">    themes/            <span class="comment">--Hexo 主題*</span></span><br><span class="line">    .gitignore         <span class="comment">--git 排除檔案清單*</span></span><br><span class="line">    _config.yml        <span class="comment">--Hexo 設定檔*</span></span><br><span class="line">    db.json            <span class="comment">--Hexo DB</span></span><br><span class="line">    package.json       <span class="comment">--npm 套件資訊*</span></span><br><span class="line">    package-lock.json  <span class="comment">--npm 套件資訊*</span></span><br></pre></td></tr></table></figure>
-
-<p>打星號的檔案要放到GitHub上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到git裡。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>blog<span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>    .deploy_git<span style="color:#f92672">/</span>       <span style="color:#75715e">--Hexo deploy to GitHub用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    node_modules<span style="color:#f92672">/</span>      <span style="color:#75715e">--npm 套件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">/</span>            <span style="color:#75715e">--Hexo 產生的靜態檔案
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    scaffolds<span style="color:#f92672">/</span>         <span style="color:#75715e">--Hexo 樣板*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">source</span><span style="color:#f92672">/</span>            <span style="color:#75715e">--原始文章的Markdown*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    themes<span style="color:#f92672">/</span>            <span style="color:#75715e">--Hexo 主題*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    .gitignore         <span style="color:#75715e">--git 排除檔案清單*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    _config.yml        <span style="color:#75715e">--Hexo 設定檔*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    db.json            <span style="color:#75715e">--Hexo DB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    package.json       <span style="color:#75715e">--npm 套件資訊*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    package<span style="color:#f92672">-</span><span style="color:#66d9ef">lock</span>.json  <span style="color:#75715e">--npm 套件資訊*
+</span></span></span></code></pre></div><p>打星號的檔案要放到GitHub上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到git裡。</p>
 <p>其實 Hexo 已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到git裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules&#x2F;</span><br><span class="line">public&#x2F;</span><br><span class="line">.deploy*&#x2F;</span><br></pre></td></tr></table></figure>
-
-<h2 id="加入-git"><a href="#加入-git" class="headerlink" title="加入 git"></a>加入 git</h2><p>再來就可以執行 git 指令來將資料夾加入 git：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化</span></span><br><span class="line">git init .</span><br><span class="line"><span class="comment">#建立新分支 hexo</span></span><br><span class="line">git checkout -b hexo</span><br><span class="line"><span class="comment">#將檔案加入 git</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'Initial commit'</span></span><br><span class="line"><span class="comment">#加入遠端儲存庫位址</span></span><br><span class="line">git remote add origin https://github.com/username/username.github.io.git</span><br><span class="line"><span class="comment">#將 hexo 分支推送至遠端儲存庫</span></span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin hexo</span><br></pre></td></tr></table></figure>
-
-<p>這樣就完成啦，GitHub 的 <code>username.github.io</code> 儲存庫應該就會有兩個分支， <code>master</code> 儲存 Hexo 產生的靜態檔案， <code>hexo</code> 分支儲存我們 blog 的原始檔。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>.DS_Store
+</span></span><span style="display:flex;"><span>Thumbs.db
+</span></span><span style="display:flex;"><span>db.json
+</span></span><span style="display:flex;"><span>*.log
+</span></span><span style="display:flex;"><span>node_modules/
+</span></span><span style="display:flex;"><span>public/
+</span></span><span style="display:flex;"><span>.deploy*/
+</span></span></code></pre></div><h2 id="加入-git">加入 git</h2>
+<p>再來就可以執行 git 指令來將資料夾加入 git：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#初始化</span>
+</span></span><span style="display:flex;"><span>git init .
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#建立新分支 hexo</span>
+</span></span><span style="display:flex;"><span>git checkout -b hexo
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#將檔案加入 git</span>
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#39;Initial commit&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#加入遠端儲存庫位址</span>
+</span></span><span style="display:flex;"><span>git remote add origin https://github.com/username/username.github.io.git
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#將 hexo 分支推送至遠端儲存庫</span>
+</span></span><span style="display:flex;"><span>git push --set-upstream origin hexo
+</span></span></code></pre></div><p>這樣就完成啦，GitHub 的 <code>username.github.io</code> 儲存庫應該就會有兩個分支， <code>master</code> 儲存 Hexo 產生的靜態檔案， <code>hexo</code> 分支儲存我們 blog 的原始檔。</p>
 <p>以後寫完文章之後，就按照普通 git 流程，將檔案 push 至 GitHub 即可。</p>
-<h2 id="還原檔案"><a href="#還原檔案" class="headerlink" title="還原檔案"></a>還原檔案</h2><p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#將檔案 clone 回來</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/username/username.github.io.git</span><br><span class="line"><span class="built_in">cd</span> username.github.io/</span><br><span class="line"><span class="comment">#切換到 hexo 分支</span></span><br><span class="line">git checkout hexo</span><br><span class="line"><span class="comment">#依照 package.json 重新安裝 hexo 套件</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment">#最後啟動 hexo server 看是不是可以正常瀏覽</span></span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<p>以上。</p>
+<h2 id="還原檔案">還原檔案</h2>
+<p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#將檔案 clone 回來</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/username/username.github.io.git
+</span></span><span style="display:flex;"><span>cd username.github.io/
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#切換到 hexo 分支</span>
+</span></span><span style="display:flex;"><span>git checkout hexo
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#依照 package.json 重新安裝 hexo 套件</span>
+</span></span><span style="display:flex;"><span>npm install
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#最後啟動 hexo server 看是不是可以正常瀏覽</span>
+</span></span><span style="display:flex;"><span>hexo server
+</span></span></code></pre></div><p>以上。</p>
 <hr>
 <ul>
 <li><code>npm</code> version <code>6.4.1</code></li>
@@ -241,202 +205,66 @@
 <li><code>git</code> version <code>2.17.0.windows.1</code></li>
 </ul>
 
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"># hexo</a>
-          </div>
-
-        
 
 
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/post/sql-server-enabled-sa-account-and-1433-port/" rel="prev" title="MS SQL Server 啟用 sa 帳戶與 1433 連接埠">
-      <i class="fa fa-chevron-left"></i> MS SQL Server 啟用 sa 帳戶與 1433 連接埠
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/post/hexo-push-to-github-lost-commit-history/" rel="next" title="Hexo 部署到 GitHub 之後失去 commit 紀錄">
-      Hexo 部署到 GitHub 之後失去 commit 紀錄 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
+      
+        <div class="blog-tags">
           
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            <a
+              href="https://anemology.cc/tags/hexo/"
+              >hexo</a
+            >&nbsp;
+          
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+      
+
+      
+        <ul class="bottomnav"><li class="previous"><a href="/post/hexo-push-to-github-lost-commit-history/"
+          ><span>&lt;&lt;&nbsp;</span>Hexo 部署到 GitHub …</a
+        ></li><li class="next"><a href="/post/sql-server-enabled-sa-account-and-1433-port/"
+          >MS SQL Server 啟用 sa  …<span>&nbsp;>></span></a
+        ></li></ul>
+
+      
+    </article>
+    
+    
+      
+
+    
   </div>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+    <footer>
+  
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目錄
-        </li>
-        <li class="sidebar-nav-overview">
-          本站概要
-        </li>
-      </ul>
+<div class="social-icons">
+  
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#加入-git"><span class="nav-number">1.</span> <span class="nav-text">加入 git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#還原檔案"><span class="nav-number">2.</span> <span class="nav-text">還原檔案</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">anemology</p>
-  <div class="site-description" itemprop="description">a nobody</div>
+  
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">12</span>
-          <span class="site-state-item-name">文章</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">分類</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">標籤</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/anemology" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;anemology" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://anemology.cc/about">anemology</a>
+      &nbsp;&copy;
+      2020
+      
+        &nbsp;/&nbsp;
+        <a href="https://anemology.cc/">翱翔在空中</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
   </div>
+</footer>
 
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2016 – 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">anemology</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-</body>
+  </body>
 </html>
