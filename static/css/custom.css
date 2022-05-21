@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'Cascadia Code';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/CascadiaCode-Regular.woff2') format('woff2');
+}
+
+.pager li.active a {
+  background-color: #dddddd;
+}
+
+body,
+code,
+div.panel-body,
+footer,
+footer .copyright,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.blog-tags,
+.error-text,
+.pager li a,
+.post-read-more,
+.searchResultTitle {
+  font-family: 'Cascadia Code', Helvetica, sans-serif;
+}
+
+pre code {
+  font-family: 'Cascadia Code', Menlo, Monaco, Consolas, monospace;
+}
