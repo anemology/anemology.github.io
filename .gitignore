@@ -1,3 +1,6 @@
 themes/
 public/
 .hugo_build.lock
+# ignore symbolic links but not ignore img folders
+img
+!**/img/
