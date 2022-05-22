@@ -1,272 +1,52 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-  <head>
-    <meta charset="utf-8" />
-<title>Hexo 備份至 GitHub</title>
-<meta name="description" 
-      content=""
->
-
-  
-
-
-
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  href="https://anemology.cc/index.xml"
-  title="翱翔在空中"
-/>
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Hexo 備份至 GitHub"/>
-<meta name="twitter:description" content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。
-以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。"/>
-
-
-
-<link rel="stylesheet" href="https://anemology.cc/fontawesome/css/all.min.css" />
-
-
-
-
-<link
-  crossorigin="anonymous"
-  href="/css/styles.min.css"
-  integrity=""
-  rel="preload stylesheet"
-  as="style"
-/>
-
-
-  <link rel="stylesheet" href="https://anemology.cc/css/custom.css" />
-
-
-
-<link
-  id="dark-mode-theme"
-  crossorigin="anonymous"
-  href="/css/dark.min.css"
-  integrity=""
-  rel="preload stylesheet"
-  as="style"
-/>
-
-
-<script>
-  var darkTheme = document.getElementById('dark-mode-theme')
-  var storedTheme = localStorage.getItem('dark-mode-storage')
-
-  if (storedTheme === 'dark') {
-    darkTheme.disabled = false
-  } else if (storedTheme === 'light') {
-    darkTheme.disabled = true
-  }
-</script>
-
-
-<script defer crossorigin="anonymous" src="/js/theme.js" integrity=""></script>
-
-
-<script defer crossorigin="anonymous" src="/js/instantpage.min.js" integrity=""></script><meta name="generator" content="Hugo 0.98.0" />
-  </head>
-  <body>
-    
-  
-
-
-
-
-  <header>
-    <nav class="navbar">
-  <div class="nav">
-    
-
-    <ul class="nav-links">
-      
-        
-          <li>
-            <a href="/tags" id="Tags"
-              ><em class="fas fa-tag fa-lg"></em
-            ></a>
-          </li>
-          
-      
-        
-          <li>
-            <a href="/search" id="Search"
-              ><em class="fas fa-search fa-lg"></em
-            ></a>
-          </li>
-          
-      
-        
-          <li>
-            <a href="/archives" id="Archives"
-              ><em class="fas fa-archive fa-lg"></em
-            ></a>
-          </li>
-          
-      
-    </ul>
-  </div>
-</nav>
-
-    <div class="intro-header">
-      <div class="container">
-        <div class="post-heading">
-          
-            <h1>
-              Hexo 備份至 GitHub
-            </h1>
-          
-          
-            <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;October 7, 2018
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://anemology.cc/categories/%E9%83%A8%E8%90%BD%E6%A0%BC/"
-        >部落格</a
-      >&nbsp;
-    
-  
-</span>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-  
-
-    
-  <div class="container" role="main">
-    <article class="article" class="blog-post">
-      
-  <p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。</p>
-<p>以下就來說說如何在已經建立 <code>username.github.io</code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。</p>
-<p>當然也可以在 GitHub 上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。</p>
-<p>首先進入到我們 blog 的資料夾，應該會有以下檔案及資料夾：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>blog<span style="color:#f92672">/</span>
-</span></span><span style="display:flex;"><span>    .deploy_git<span style="color:#f92672">/</span>       <span style="color:#75715e">--Hexo deploy to GitHub 用
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    node_modules<span style="color:#f92672">/</span>      <span style="color:#75715e">--npm 套件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">/</span>            <span style="color:#75715e">--Hexo 產生的靜態檔案
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    scaffolds<span style="color:#f92672">/</span>         <span style="color:#75715e">--Hexo 樣板*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">source</span><span style="color:#f92672">/</span>            <span style="color:#75715e">--原始文章的 Markdown*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    themes<span style="color:#f92672">/</span>            <span style="color:#75715e">--Hexo 主題*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    .gitignore         <span style="color:#75715e">--git 排除檔案清單*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    _config.yml        <span style="color:#75715e">--Hexo 設定檔*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    db.json            <span style="color:#75715e">--Hexo DB
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    package.json       <span style="color:#75715e">--npm 套件資訊*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    package<span style="color:#f92672">-</span><span style="color:#66d9ef">lock</span>.json  <span style="color:#75715e">--npm 套件資訊*
-</span></span></span></code></pre></div><p>打星號的檔案要放到 GitHub 上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到 git 裡。</p>
-<p>其實 Hexo 已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到 git 裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>.DS_Store
-</span></span><span style="display:flex;"><span>Thumbs.db
-</span></span><span style="display:flex;"><span>db.json
-</span></span><span style="display:flex;"><span>*.log
-</span></span><span style="display:flex;"><span>node_modules/
-</span></span><span style="display:flex;"><span>public/
-</span></span><span style="display:flex;"><span>.deploy*/
-</span></span></code></pre></div><h2 id="加入-git">加入 git</h2>
-<p>再來就可以執行 git 指令來將資料夾加入 git：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#初始化</span>
-</span></span><span style="display:flex;"><span>git init .
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#建立新分支 hexo</span>
-</span></span><span style="display:flex;"><span>git checkout -b hexo
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#將檔案加入 git</span>
-</span></span><span style="display:flex;"><span>git add .
-</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#39;Initial commit&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#加入遠端儲存庫位址</span>
-</span></span><span style="display:flex;"><span>git remote add origin https://github.com/username/username.github.io.git
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#將 hexo 分支推送至遠端儲存庫</span>
-</span></span><span style="display:flex;"><span>git push --set-upstream origin hexo
-</span></span></code></pre></div><p>這樣就完成啦，GitHub 的 <code>username.github.io</code> 儲存庫應該就會有兩個分支， <code>master</code> 儲存 Hexo 產生的靜態檔案， <code>hexo</code> 分支儲存我們 blog 的原始檔。</p>
-<p>以後寫完文章之後，就按照普通 git 流程，將檔案 push 至 GitHub 即可。</p>
-<h2 id="還原檔案">還原檔案</h2>
-<p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#將檔案 clone 回來</span>
-</span></span><span style="display:flex;"><span>git clone https://github.com/username/username.github.io.git
-</span></span><span style="display:flex;"><span>cd username.github.io/
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#切換到 hexo 分支</span>
-</span></span><span style="display:flex;"><span>git checkout hexo
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#依照 package.json 重新安裝 hexo 套件</span>
-</span></span><span style="display:flex;"><span>npm install
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#最後啟動 hexo server 看是不是可以正常瀏覽</span>
-</span></span><span style="display:flex;"><span>hexo server
-</span></span></code></pre></div><p>以上。</p>
-<hr>
-<ul>
-<li><code>npm</code> version <code>6.4.1</code></li>
-<li><code>Hexo</code> version <code>3.7.1</code></li>
-<li><code>git</code> version <code>2.17.0.windows.1</code></li>
-</ul>
-
-
-
-      
-        <div class="blog-tags">
-          
-            <a
-              href="https://anemology.cc/tags/hexo/"
-              >hexo</a
-            >&nbsp;
-          
-        </div>
-      
-
-      
-        <ul class="bottomnav"><li class="previous"><a href="/post/hexo-push-to-github-lost-commit-history/"
-          ><span>&lt;&lt;&nbsp;</span>Hexo 部署到 GitHub …</a
-        ></li><li class="next"><a href="/post/sql-server-enabled-sa-account-and-1433-port/"
-          >MS SQL Server 啟用 sa  …<span>&nbsp;>></span></a
-        ></li></ul>
-
-      
-    </article>
-    
-    
-      
-
-    
-  </div>
-
-    <footer>
-  
-
-<div class="social-icons">
-  
-
-  
-</div>
-
-
-  
-  <div class="container">
-    <p class="credits copyright">
-      <a href="https://anemology.cc/about">anemology</a>
-      &nbsp;&copy;
-      2020
-      
-        &nbsp;/&nbsp;
-        <a href="https://anemology.cc/">翱翔在空中</a>
-      
-      &nbsp;&ndash;&nbsp;
-      <em class="fas fa-moon" id="dark-mode-toggle"></em>
-    </p>
-
-    <p class="credits theme-by">
-      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
-      Theme
-      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
-    </p>
-  </div>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><title>Hexo 備份至 GitHub</title><meta name=description content><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=alternate type=application/rss+xml href=https://anemology.cc/index.xml title=翱翔在空中><meta name=twitter:card content="summary"><meta name=twitter:title content="Hexo 備份至 GitHub"><meta name=twitter:description content="如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。
+以下就來說說如何在已經建立 username.github.io 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。"><link rel=stylesheet href=https://anemology.cc/fontawesome/css/all.min.css><link crossorigin=anonymous href=/css/styles.min.css integrity rel="preload stylesheet" as=style><link rel=stylesheet href=https://anemology.cc/css/custom.css><link id=dark-mode-theme crossorigin=anonymous href=/css/dark.min.css integrity rel="preload stylesheet" as=style><script>var darkTheme=document.getElementById("dark-mode-theme"),storedTheme=localStorage.getItem("dark-mode-storage");storedTheme==="dark"?darkTheme.disabled=!1:storedTheme==="light"&&(darkTheme.disabled=!0)</script><script defer crossorigin=anonymous src=/js/theme.js integrity></script>
+<script defer crossorigin=anonymous src=/js/instantpage.min.js integrity></script><meta name=generator content="Hugo 0.98.0"></head><body><header><nav class=navbar><div class=nav><ul class=nav-links><li><a href=/tags id=Tags><em class="fas fa-tag fa-lg"></em></a></li><li><a href=/search id=Search><em class="fas fa-search fa-lg"></em></a></li><li><a href=/archives id=Archives><em class="fas fa-archive fa-lg"></em></a></li></ul></div></nav><div class=intro-header><div class=container><div class=post-heading><h1>Hexo 備份至 GitHub</h1><span class=meta-post><em class="fa fa-calendar-alt"></em>&nbsp;October 7, 2018
+&nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+<a href=https://anemology.cc/categories/%E9%83%A8%E8%90%BD%E6%A0%BC/>部落格</a>&nbsp;</span></div></div></div></header><div class=container role=main><article class=article class=blog-post><p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。</p><p>以下就來說說如何在已經建立 <code>username.github.io</code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。</p><p>當然也可以在 GitHub 上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。</p><p>首先進入到我們 blog 的資料夾，應該會有以下檔案及資料夾：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>blog<span style=color:#f92672>/</span>
+</span></span><span style=display:flex><span>    .deploy_git<span style=color:#f92672>/</span>       <span style=color:#75715e>--Hexo deploy to GitHub 用
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    node_modules<span style=color:#f92672>/</span>      <span style=color:#75715e>--npm 套件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>public</span><span style=color:#f92672>/</span>            <span style=color:#75715e>--Hexo 產生的靜態檔案
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    scaffolds<span style=color:#f92672>/</span>         <span style=color:#75715e>--Hexo 樣板*
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>source</span><span style=color:#f92672>/</span>            <span style=color:#75715e>--原始文章的 Markdown*
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    themes<span style=color:#f92672>/</span>            <span style=color:#75715e>--Hexo 主題*
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    .gitignore         <span style=color:#75715e>--git 排除檔案清單*
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    _config.yml        <span style=color:#75715e>--Hexo 設定檔*
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    db.json            <span style=color:#75715e>--Hexo DB
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    package.json       <span style=color:#75715e>--npm 套件資訊*
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    package<span style=color:#f92672>-</span><span style=color:#66d9ef>lock</span>.json  <span style=color:#75715e>--npm 套件資訊*
+</span></span></span></code></pre></div><p>打星號的檔案要放到 GitHub 上，其他檔案因為 <code>npm</code> 或是 <code>Hexo</code> 都會幫我們自動建立，所以不需要特地放到 git 裡。</p><p>其實 Hexo 已經幫我們想好了，在 <code>.gitignore</code> 裡就有排除了不需要放到 git 裡面的檔案，如果你沒有這個檔案，自行新增一個即可。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>.DS_Store
+</span></span><span style=display:flex><span>Thumbs.db
+</span></span><span style=display:flex><span>db.json
+</span></span><span style=display:flex><span>*.log
+</span></span><span style=display:flex><span>node_modules/
+</span></span><span style=display:flex><span>public/
+</span></span><span style=display:flex><span>.deploy*/
+</span></span></code></pre></div><h2 id=加入-git>加入 git</h2><p>再來就可以執行 git 指令來將資料夾加入 git：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#初始化</span>
+</span></span><span style=display:flex><span>git init .
+</span></span><span style=display:flex><span><span style=color:#75715e>#建立新分支 hexo</span>
+</span></span><span style=display:flex><span>git checkout -b hexo
+</span></span><span style=display:flex><span><span style=color:#75715e>#將檔案加入 git</span>
+</span></span><span style=display:flex><span>git add .
+</span></span><span style=display:flex><span>git commit -m <span style=color:#e6db74>&#39;Initial commit&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#加入遠端儲存庫位址</span>
+</span></span><span style=display:flex><span>git remote add origin https://github.com/username/username.github.io.git
+</span></span><span style=display:flex><span><span style=color:#75715e>#將 hexo 分支推送至遠端儲存庫</span>
+</span></span><span style=display:flex><span>git push --set-upstream origin hexo
+</span></span></code></pre></div><p>這樣就完成啦，GitHub 的 <code>username.github.io</code> 儲存庫應該就會有兩個分支， <code>master</code> 儲存 Hexo 產生的靜態檔案， <code>hexo</code> 分支儲存我們 blog 的原始檔。</p><p>以後寫完文章之後，就按照普通 git 流程，將檔案 push 至 GitHub 即可。</p><h2 id=還原檔案>還原檔案</h2><p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#將檔案 clone 回來</span>
+</span></span><span style=display:flex><span>git clone https://github.com/username/username.github.io.git
+</span></span><span style=display:flex><span>cd username.github.io/
+</span></span><span style=display:flex><span><span style=color:#75715e>#切換到 hexo 分支</span>
+</span></span><span style=display:flex><span>git checkout hexo
+</span></span><span style=display:flex><span><span style=color:#75715e>#依照 package.json 重新安裝 hexo 套件</span>
+</span></span><span style=display:flex><span>npm install
+</span></span><span style=display:flex><span><span style=color:#75715e>#最後啟動 hexo server 看是不是可以正常瀏覽</span>
+</span></span><span style=display:flex><span>hexo server
+</span></span></code></pre></div><p>以上。</p><hr><ul><li><code>npm</code> version <code>6.4.1</code></li><li><code>Hexo</code> version <code>3.7.1</code></li><li><code>git</code> version <code>2.17.0.windows.1</code></li></ul><div class=blog-tags><a href=https://anemology.cc/tags/hexo/>hexo</a>&nbsp;</div><ul class=bottomnav><li class=previous><a href=/post/hexo-push-to-github-lost-commit-history/><span>&lt;&lt;&nbsp;</span>Hexo 部署到 GitHub …</a></li><li class=next><a href=/post/sql-server-enabled-sa-account-and-1433-port/>MS SQL Server 啟用 sa …<span>&nbsp;>></span></a></li></ul></article></div><footer><div class=social-icons></div><div class=container><p class="credits copyright"><a href=https://anemology.cc/about>anemology</a>
+&nbsp;&copy;
+2022
+&nbsp;/&nbsp;
+<a href=https://anemology.cc/>翱翔在空中</a>
+&nbsp;&ndash;&nbsp;
+<em class="fas fa-moon" id=dark-mode-toggle></em></p><p class="credits theme-by">Powered By <a href=https://gohugo.io>Hugo</a>&nbsp;
+Theme
+<a href=https://github.com/matsuyoshi30/harbor>Harbor</a></p></div></footer></body></html>

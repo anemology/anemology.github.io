@@ -5,6 +5,16 @@
         
             {
                 "id": 0,
+                "href": "https://anemology.cc/post/find-plurk-permalink/",
+                "title": "尋找 Plurk 噗文連結",
+                "section": "post",
+                "date" : "2022.05.21",
+                "body": "最近在改寫自己的 噗浪下載程式，發現噗文連結並沒有在 API response 內，因此尋找了一下，此篇文章則是記錄過程及思路。\n每篇噗文右下角向下箭頭點開，有個開啟網址的連結，可以連到單篇噗文的網頁，網址後段是 /p/xxxxxx。後面的 x 包含英數，看起來像是亂數或是雜湊值產生，初步猜想是後端生成。\n尋找流程   查看 /TimeLine/getPlurks (取得噗文列表)、/Responses/get (取得單篇噗文回應)，這兩支 API 回傳資料都沒有找到對應字串。\n  使用瀏覽器 DevTools 的網路，看原始 html 內容，也不是後端 render 回傳，因此判斷是 JavaScript 產生。\n  以下截圖皆為 Firefox，使用檢測元素指到 開啟網址 元素，class 是 pif-outlink，JavaScript 通常會使用 css selector + class name 來進行操作。\n  切到 DevTools 除錯器，按 Ctrl+Shift+F 搜尋現在網頁所載入的所有資源，在一個 minify 過的 js 內找到這個 class。點左下的大括號來將 js 排版一下，雖然變數命名沒有改變，但至少可以看到比較清楚的排版。\n產生連結的方式是 o.toString(36)，再往上找到 o 的定義，o = r(s)。\n  繼續往上，r 的定義是一個 function，.data() 是 jQuery 來取得某元素 data-attribue 的方法，因此可以判斷 e(s) 是某一個元素。\n最後可以得知，一開始的 o 會回傳某一個元素的 data-pid attribute。\n  回到 DevTools 檢測器，搜尋 data-pid，發現每一個噗文最外層 div 有這個 attribute，而這個 pid 其實就是 API 回傳的 plurk_id。\n  一開始產生連結的方法是 o.toString(36)，查了 MDN 的定義，是產生 n 進位的字串，把值丟進去跑，就可以產生對應的字串了。\n$ Number(1500449470).toString(36) \u0026#34;otbu7y\u0026#34;   最後要轉成 Python code，Python 有內建 hex() 轉換 16 進位文字，但是沒有支援 36 進位，因此使用 mod 和整除的方式來 簡單實作 一下，完成！\n"
+            }
+    
+        ,
+            {
+                "id": 1,
                 "href": "https://anemology.cc/post/hexo-and-next-update/",
                 "title": "Hexo 及 NexT 主題升級紀錄",
                 "section": "post",
@@ -14,7 +24,7 @@
     
         ,
             {
-                "id": 1,
+                "id": 2,
                 "href": "https://anemology.cc/post/telegram-firstbot-using-nodejs/",
                 "title": "第一個 Telegram Bot",
                 "section": "post",
@@ -24,7 +34,7 @@
     
         ,
             {
-                "id": 2,
+                "id": 3,
                 "href": "https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/",
                 "title": "使用 Travis CI 自動部署 Hexo 部落格",
                 "section": "post",
@@ -34,7 +44,7 @@
     
         ,
             {
-                "id": 3,
+                "id": 4,
                 "href": "https://anemology.cc/post/hexo-push-to-github-lost-commit-history/",
                 "title": "Hexo 部署到 GitHub 之後失去 commit 紀錄",
                 "section": "post",
@@ -44,7 +54,7 @@
     
         ,
             {
-                "id": 4,
+                "id": 5,
                 "href": "https://anemology.cc/post/hexo-backup/",
                 "title": "Hexo 備份至 GitHub",
                 "section": "post",
@@ -54,7 +64,7 @@
     
         ,
             {
-                "id": 5,
+                "id": 6,
                 "href": "https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/",
                 "title": "MS SQL Server 啟用 sa 帳戶與 1433 連接埠",
                 "section": "post",
@@ -64,7 +74,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 7,
                 "href": "https://anemology.cc/post/how-does-bitcoin-work/",
                 "title": "虛擬貨幣 (Bitcoin) 運作原理",
                 "section": "post",
@@ -74,7 +84,7 @@
     
         ,
             {
-                "id": 7,
+                "id": 8,
                 "href": "https://anemology.cc/post/hexo-introduction-and-commands/",
                 "title": "Hexo 介紹和常用指令",
                 "section": "post",
@@ -84,7 +94,7 @@
     
         ,
             {
-                "id": 8,
+                "id": 9,
                 "href": "https://anemology.cc/post/next-edit-time/",
                 "title": "Next 主題修改更新時間的顯示規則",
                 "section": "post",
@@ -94,7 +104,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 10,
                 "href": "https://anemology.cc/post/ssh-key-login-linux/",
                 "title": "使用 SSH Key 登入 Linux Server",
                 "section": "post",
@@ -104,7 +114,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 11,
                 "href": "https://anemology.cc/post/anagrams/",
                 "title": "Anagrams",
                 "section": "post",

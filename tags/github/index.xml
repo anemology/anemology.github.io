@@ -1,131 +1,34 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>github on 翱翔在空中</title>
-		<link>https://anemology.cc/tags/github/</link>
-		<description>Recent content in github </description>
-		<generator>Hugo -- gohugo.io</generator>
-		
-  		<language>zh-TW</language>
-		
-		<managingEditor>Page(/tags/github) (anemology)</managingEditor>
-    	
-  		<lastBuildDate>Sun, 30 Jun 2019 16:22:49 +0000</lastBuildDate>
-		
-		<atom:link href="/tags/github/" rel="self" type="application/rss+xml" />
-		
-		<item>
-			<title>Hexo 及 NexT 主題升級紀錄</title>
-			<link>https://anemology.cc/post/hexo-and-next-update/</link>
-			<pubDate>Sun, 19 Jul 2020 11:52:27 +0000</pubDate>
-			<guid>https://anemology.cc/post/hexo-and-next-update/</guid>
-			<description>&lt;p&gt;從去年開始， GitHub 的 &lt;a href=&#34;https://github.com/apps/dependabot&#34;&gt;dependabot&lt;/a&gt; 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。&lt;/p&gt;
-&lt;p&gt;因我的部落格也很久沒更新了，索性就一次將 &lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;Hexo&lt;/a&gt; 及 &lt;a href=&#34;https://github.com/next-theme/hexo-theme-next&#34;&gt;NexT&lt;/a&gt; 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Hexo &lt;code&gt;3.8.0&lt;/code&gt; -&amp;gt; &lt;code&gt;4.2.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;NexT &lt;code&gt;5.1.3&lt;/code&gt; -&amp;gt; &lt;code&gt;7.8.0&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
-		</item>
-      	
-		<item>
-			<title>第一個 Telegram Bot</title>
-			<link>https://anemology.cc/post/telegram-firstbot-using-nodejs/</link>
-			<pubDate>Tue, 16 Jul 2019 10:54:12 +0000</pubDate>
-			<guid>https://anemology.cc/post/telegram-firstbot-using-nodejs/</guid>
-			<description>&lt;p&gt;使用 Node.js 打造第一個 Telegram Bot，需要以下東西&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Telegram 帳號&lt;/li&gt;
-&lt;li&gt;一台可以對外服務的 Server 或 PC&lt;/li&gt;
-&lt;/ol&gt;</description>
-		</item>
-      	
-		<item>
-			<title>使用 Travis CI 自動部署 Hexo 部落格</title>
-			<link>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</link>
-			<pubDate>Sun, 30 Jun 2019 16:22:49 +0000</pubDate>
-			<guid>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</guid>
-			<description>&lt;p&gt;之前文章提到，部落格的分支有兩個，&lt;code&gt;hexo&lt;/code&gt; 及 &lt;code&gt;master&lt;/code&gt;，在 &lt;code&gt;hexo&lt;/code&gt; 分支寫文章，之後使用 &lt;code&gt;hexo deploy&lt;/code&gt; 部署到 Github 的 &lt;code&gt;master&lt;/code&gt; 分支上，確定沒問題的時候再將原始碼 &lt;code&gt;push&lt;/code&gt; 到 &lt;code&gt;hexo&lt;/code&gt; 分支。&lt;/p&gt;
-&lt;p&gt;但本機還需要安裝 &lt;code&gt;nodejs&lt;/code&gt; 以及 &lt;code&gt;hexo&lt;/code&gt; 才能使用 &lt;code&gt;hexo deploy&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;現在有了 &lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis CI&lt;/a&gt; 之後，就可以只專注在寫文章上，不用再去思考或是回想 &lt;code&gt;hexo&lt;/code&gt; 的指令如何下，流程就會變成以下：&lt;/p&gt;
-&lt;p&gt;在本機寫完文章，直接將原始碼 &lt;code&gt;push&lt;/code&gt; 到 &lt;code&gt;hexo&lt;/code&gt; 分支上，接著 &lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis CI&lt;/a&gt; 會幫自動做 &lt;code&gt;hexo deploy&lt;/code&gt; 的動作，自動部署回 Github。&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Hexo 部署到 GitHub 之後失去 commit 紀錄</title>
-			<link>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</link>
-			<pubDate>Sun, 23 Jun 2019 10:55:32 +0000</pubDate>
-			<guid>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</guid>
-			<description>&lt;p&gt;上禮拜寫完文章之後，用 Hexo deploy 到 Github 之後，發現 commits 全沒了！&lt;/p&gt;
-&lt;p&gt;只剩下今天的紀錄，一個 initial commit 和 新增文章的。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git log
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;commit 0c1e76b1e3c34dbc898efcf0be59743a4e715089 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;HEAD -&amp;gt; master&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Date:   Sun Jun &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt; 14:10:19 &lt;span style=&#34;color:#ae81ff&#34;&gt;2019&lt;/span&gt; +0800
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    new post - telegram firstbot using nodejs
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;commit dd80cc98ca5539898698b8277f18ba6b6c825e01
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Date:   Sun Jun &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt; 14:10:18 &lt;span style=&#34;color:#ae81ff&#34;&gt;2019&lt;/span&gt; +0800
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    First commit
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Hexo 備份至 GitHub</title>
-			<link>https://anemology.cc/post/hexo-backup/</link>
-			<pubDate>Sun, 07 Oct 2018 14:22:01 +0000</pubDate>
-			<guid>https://anemology.cc/post/hexo-backup/</guid>
-			<description>&lt;p&gt;如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。&lt;/p&gt;
-&lt;p&gt;以下就來說說如何在已經建立 &lt;code&gt;username.github.io&lt;/code&gt; 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>MS SQL Server 啟用 sa 帳戶與 1433 連接埠</title>
-			<link>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</link>
-			<pubDate>Sat, 09 Jun 2018 17:36:29 +0000</pubDate>
-			<guid>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</guid>
-			<description>版本: Microsoft SQL Server 2012 R2
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>github on 翱翔在空中</title><link>https://anemology.cc/tags/github/</link><description>Recent content in github</description><generator>Hugo -- gohugo.io</generator><language>zh-TW</language><managingEditor>Page(/tags/github) (anemology)</managingEditor><lastBuildDate>Sun, 30 Jun 2019 16:22:49 +0000</lastBuildDate><atom:link href="/tags/github/" rel="self" type="application/rss+xml"/><item><title>尋找 Plurk 噗文連結</title><link>https://anemology.cc/post/find-plurk-permalink/</link><pubDate>Sat, 21 May 2022 21:39:21 +0800</pubDate><guid>https://anemology.cc/post/find-plurk-permalink/</guid><description>&lt;p>最近在改寫自己的 &lt;a href="https://github.com/anemology/plurkdl">噗浪下載程式&lt;/a>，發現噗文連結並沒有在 API response 內，因此尋找了一下，此篇文章則是記錄過程及思路。&lt;/p></description></item><item><title>Hexo 及 NexT 主題升級紀錄</title><link>https://anemology.cc/post/hexo-and-next-update/</link><pubDate>Sun, 19 Jul 2020 11:52:27 +0000</pubDate><guid>https://anemology.cc/post/hexo-and-next-update/</guid><description>&lt;p>從去年開始， GitHub 的 &lt;a href="https://github.com/apps/dependabot">dependabot&lt;/a> 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。&lt;/p>
+&lt;p>因我的部落格也很久沒更新了，索性就一次將 &lt;a href="https://github.com/hexojs/hexo">Hexo&lt;/a> 及 &lt;a href="https://github.com/next-theme/hexo-theme-next">NexT&lt;/a> 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。&lt;/p>
+&lt;ul>
+&lt;li>Hexo &lt;code>3.8.0&lt;/code> -&amp;gt; &lt;code>4.2.1&lt;/code>&lt;/li>
+&lt;li>NexT &lt;code>5.1.3&lt;/code> -&amp;gt; &lt;code>7.8.0&lt;/code>&lt;/li>
+&lt;/ul></description></item><item><title>第一個 Telegram Bot</title><link>https://anemology.cc/post/telegram-firstbot-using-nodejs/</link><pubDate>Tue, 16 Jul 2019 10:54:12 +0000</pubDate><guid>https://anemology.cc/post/telegram-firstbot-using-nodejs/</guid><description>&lt;p>使用 Node.js 打造第一個 Telegram Bot，需要以下東西&lt;/p>
+&lt;ol>
+&lt;li>Telegram 帳號&lt;/li>
+&lt;li>一台可以對外服務的 Server 或 PC&lt;/li>
+&lt;/ol></description></item><item><title>使用 Travis CI 自動部署 Hexo 部落格</title><link>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</link><pubDate>Sun, 30 Jun 2019 16:22:49 +0000</pubDate><guid>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</guid><description>&lt;p>之前文章提到，部落格的分支有兩個，&lt;code>hexo&lt;/code> 及 &lt;code>master&lt;/code>，在 &lt;code>hexo&lt;/code> 分支寫文章，之後使用 &lt;code>hexo deploy&lt;/code> 部署到 Github 的 &lt;code>master&lt;/code> 分支上，確定沒問題的時候再將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支。&lt;/p>
+&lt;p>但本機還需要安裝 &lt;code>nodejs&lt;/code> 以及 &lt;code>hexo&lt;/code> 才能使用 &lt;code>hexo deploy&lt;/code>。&lt;/p>
+&lt;p>現在有了 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 之後，就可以只專注在寫文章上，不用再去思考或是回想 &lt;code>hexo&lt;/code> 的指令如何下，流程就會變成以下：&lt;/p>
+&lt;p>在本機寫完文章，直接將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支上，接著 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 會幫自動做 &lt;code>hexo deploy&lt;/code> 的動作，自動部署回 Github。&lt;/p></description></item><item><title>Hexo 部署到 GitHub 之後失去 commit 紀錄</title><link>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</link><pubDate>Sun, 23 Jun 2019 10:55:32 +0000</pubDate><guid>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</guid><description>&lt;p>上禮拜寫完文章之後，用 Hexo deploy 到 Github 之後，發現 commits 全沒了！&lt;/p>
+&lt;p>只剩下今天的紀錄，一個 initial commit 和 新增文章的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>commit 0c1e76b1e3c34dbc898efcf0be59743a4e715089 &lt;span style="color:#f92672">(&lt;/span>HEAD -&amp;gt; master&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Date: Sun Jun &lt;span style="color:#ae81ff">16&lt;/span> 14:10:19 &lt;span style="color:#ae81ff">2019&lt;/span> +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> new post - telegram firstbot using nodejs
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>commit dd80cc98ca5539898698b8277f18ba6b6c825e01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Date: Sun Jun &lt;span style="color:#ae81ff">16&lt;/span> 14:10:18 &lt;span style="color:#ae81ff">2019&lt;/span> +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> First commit
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Hexo 備份至 GitHub</title><link>https://anemology.cc/post/hexo-backup/</link><pubDate>Sun, 07 Oct 2018 14:22:01 +0000</pubDate><guid>https://anemology.cc/post/hexo-backup/</guid><description>&lt;p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。&lt;/p>
+&lt;p>以下就來說說如何在已經建立 &lt;code>username.github.io&lt;/code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。&lt;/p></description></item><item><title>MS SQL Server 啟用 sa 帳戶與 1433 連接埠</title><link>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</link><pubDate>Sat, 09 Jun 2018 17:36:29 +0000</pubDate><guid>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</guid><description>版本: Microsoft SQL Server 2012 R2
 1433 port 開始功能表 -&amp;gt; Microsoft SQL Server 2012 R2 -&amp;gt; 組態工具 -&amp;gt; SQL Server 組態管理員 -&amp;gt; SQL Server 網路組態 -&amp;gt; MSSQLSERVER 的通訊協定 -&amp;gt; TCP/IP -&amp;gt; 已啟用 -&amp;gt; 是 -&amp;gt; IP 位置 -&amp;gt; IPALL -&amp;gt; TCP 通訊埠 -&amp;gt; 1433
 混合驗證模式 伺服器右鍵 -&amp;gt; 屬性 -&amp;gt; 安全性 -&amp;gt; 伺服器驗證 -&amp;gt; SQL Server 及 Windows 驗證模式
-sa 帳戶 伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 右鍵內容 -&amp;gt; 設定密碼 -&amp;gt; 狀態 -&amp;gt; 設定 -&amp;gt; 登入 -&amp;gt; 已啟用</description>
-		</item>
-      	
-		<item>
-			<title>虛擬貨幣 (Bitcoin) 運作原理</title>
-			<link>https://anemology.cc/post/how-does-bitcoin-work/</link>
-			<pubDate>Sun, 03 Dec 2017 15:02:09 +0000</pubDate>
-			<guid>https://anemology.cc/post/how-does-bitcoin-work/</guid>
-			<description>&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=bBC-nXj3Ng4&#34;&gt;Ever wonder how Bitcoin (and other cryptocurrencies) actually work?&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Hexo 介紹和常用指令</title>
-			<link>https://anemology.cc/post/hexo-introduction-and-commands/</link>
-			<pubDate>Sat, 25 Nov 2017 23:52:18 +0000</pubDate>
-			<guid>https://anemology.cc/post/hexo-introduction-and-commands/</guid>
-			<description>&lt;h5 id=&#34;hexo-是什麼&#34;&gt;Hexo 是什麼?&lt;/h5&gt;
-&lt;p&gt;&lt;a href=&#34;https://hexo.io/zh-tw/&#34;&gt;Hexo&lt;/a&gt; 是一個基於 Node.js 所建立的網誌框架，你不需要懂 Node.js，只要會下 command 就行了。
-使用 &lt;code&gt;Markdown&lt;/code&gt; 來編寫文章，&lt;a href=&#34;https://hexo.io/zh-tw/&#34;&gt;Hexo&lt;/a&gt; 會將你寫的 Markdown 文章解析並產生靜態檔案，可以直接部署到 GitHub 上，完全不需要後端的支援。&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>Next 主題修改更新時間的顯示規則</title>
-			<link>https://anemology.cc/post/next-edit-time/</link>
-			<pubDate>Sat, 25 Nov 2017 18:19:01 +0000</pubDate>
-			<guid>https://anemology.cc/post/next-edit-time/</guid>
-			<description>&lt;p&gt;只有在更新時間 &amp;gt; 發表時間的時候才顯示&lt;/p&gt;
-&lt;p&gt;修改 themes\next\layout\_macro&amp;lt;span style=&amp;ldquo;color:red&amp;rdquo;&amp;gt;post.swig&lt;!-- raw HTML omitted --&gt;
-兩個 if 判斷子句中加入 &lt;code&gt;and post.updated &amp;gt; post.date&lt;/code&gt;&lt;/p&gt;</description>
-		</item>
-      	
-		<item>
-			<title>使用 SSH Key 登入 Linux Server</title>
-			<link>https://anemology.cc/post/ssh-key-login-linux/</link>
-			<pubDate>Sat, 07 Jan 2017 03:41:45 +0000</pubDate>
-			<guid>https://anemology.cc/post/ssh-key-login-linux/</guid>
-			<description>&lt;p&gt;最近因為在玩 P2P 的東西，所以需要一台 24/7 的電腦來跑。&lt;/p&gt;
-&lt;p&gt;剛好 GitHub Education 之前有送 DigitalOcean $50，就先拿來用了。&lt;/p&gt;</description>
-		</item>
-      	
-	</channel>
-</rss>
+sa 帳戶 伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 右鍵內容 -&amp;gt; 設定密碼 -&amp;gt; 狀態 -&amp;gt; 設定 -&amp;gt; 登入 -&amp;gt; 已啟用</description></item><item><title>虛擬貨幣 (Bitcoin) 運作原理</title><link>https://anemology.cc/post/how-does-bitcoin-work/</link><pubDate>Sun, 03 Dec 2017 15:02:09 +0000</pubDate><guid>https://anemology.cc/post/how-does-bitcoin-work/</guid><description>&lt;p>&lt;a href="https://www.youtube.com/watch?v=bBC-nXj3Ng4">Ever wonder how Bitcoin (and other cryptocurrencies) actually work?&lt;/a>&lt;/p>
+&lt;p>看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?&lt;/p></description></item><item><title>Hexo 介紹和常用指令</title><link>https://anemology.cc/post/hexo-introduction-and-commands/</link><pubDate>Sat, 25 Nov 2017 23:52:18 +0000</pubDate><guid>https://anemology.cc/post/hexo-introduction-and-commands/</guid><description>&lt;h5 id="hexo-是什麼">Hexo 是什麼?&lt;/h5>
+&lt;p>&lt;a href="https://hexo.io/zh-tw/">Hexo&lt;/a> 是一個基於 Node.js 所建立的網誌框架，你不需要懂 Node.js，只要會下 command 就行了。
+使用 &lt;code>Markdown&lt;/code> 來編寫文章，&lt;a href="https://hexo.io/zh-tw/">Hexo&lt;/a> 會將你寫的 Markdown 文章解析並產生靜態檔案，可以直接部署到 GitHub 上，完全不需要後端的支援。&lt;/p></description></item><item><title>Next 主題修改更新時間的顯示規則</title><link>https://anemology.cc/post/next-edit-time/</link><pubDate>Sat, 25 Nov 2017 18:19:01 +0000</pubDate><guid>https://anemology.cc/post/next-edit-time/</guid><description>&lt;p>只有在更新時間 &amp;gt; 發表時間的時候才顯示&lt;/p>
+&lt;p>修改 themes\next\layout\_macro&amp;lt;span style=&amp;ldquo;color:red&amp;rdquo;&amp;gt;post.swig&lt;!-- raw HTML omitted -->
+兩個 if 判斷子句中加入 &lt;code>and post.updated &amp;gt; post.date&lt;/code>&lt;/p></description></item></channel></rss>

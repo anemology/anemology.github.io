@@ -1,357 +1,97 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-  <head>
-    <meta charset="utf-8" />
-<title>第一個 Telegram Bot</title>
-<meta name="description" 
-      content=""
->
-
-  
-
-
-
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  href="https://anemology.cc/index.xml"
-  title="翱翔在空中"
-/>
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="第一個 Telegram Bot"/>
-<meta name="twitter:description" content="使用 Node.js 打造第一個 Telegram Bot，需要以下東西
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><title>第一個 Telegram Bot</title><meta name=description content><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=alternate type=application/rss+xml href=https://anemology.cc/index.xml title=翱翔在空中><meta name=twitter:card content="summary"><meta name=twitter:title content="第一個 Telegram Bot"><meta name=twitter:description content="使用 Node.js 打造第一個 Telegram Bot，需要以下東西
 
 Telegram 帳號
 一台可以對外服務的 Server 或 PC
-"/>
-
-
-
-<link rel="stylesheet" href="https://anemology.cc/fontawesome/css/all.min.css" />
-
-
-
-
-<link
-  crossorigin="anonymous"
-  href="/css/styles.min.css"
-  integrity=""
-  rel="preload stylesheet"
-  as="style"
-/>
-
-
-  <link rel="stylesheet" href="https://anemology.cc/css/custom.css" />
-
-
-
-<link
-  id="dark-mode-theme"
-  crossorigin="anonymous"
-  href="/css/dark.min.css"
-  integrity=""
-  rel="preload stylesheet"
-  as="style"
-/>
-
-
-<script>
-  var darkTheme = document.getElementById('dark-mode-theme')
-  var storedTheme = localStorage.getItem('dark-mode-storage')
-
-  if (storedTheme === 'dark') {
-    darkTheme.disabled = false
-  } else if (storedTheme === 'light') {
-    darkTheme.disabled = true
-  }
-</script>
-
-
-<script defer crossorigin="anonymous" src="/js/theme.js" integrity=""></script>
-
-
-<script defer crossorigin="anonymous" src="/js/instantpage.min.js" integrity=""></script><meta name="generator" content="Hugo 0.98.0" />
-  </head>
-  <body>
-    
-  
-
-
-
-
-  <header>
-    <nav class="navbar">
-  <div class="nav">
-    
-
-    <ul class="nav-links">
-      
-        
-          <li>
-            <a href="/tags" id="Tags"
-              ><em class="fas fa-tag fa-lg"></em
-            ></a>
-          </li>
-          
-      
-        
-          <li>
-            <a href="/search" id="Search"
-              ><em class="fas fa-search fa-lg"></em
-            ></a>
-          </li>
-          
-      
-        
-          <li>
-            <a href="/archives" id="Archives"
-              ><em class="fas fa-archive fa-lg"></em
-            ></a>
-          </li>
-          
-      
-    </ul>
-  </div>
-</nav>
-
-    <div class="intro-header">
-      <div class="container">
-        <div class="post-heading">
-          
-            <h1>
-              第一個 Telegram Bot
-            </h1>
-          
-          
-            <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;July 16, 2019
-  
-    &nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
-    
-      <a
-        href="https://anemology.cc/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/"
-        >未分類</a
-      >&nbsp;
-    
-  
-</span>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-  
-
-    
-  <div class="container" role="main">
-    <article class="article" class="blog-post">
-      
-  <p>使用 Node.js 打造第一個 Telegram Bot，需要以下東西</p>
-<ol>
-<li>Telegram 帳號</li>
-<li>一台可以對外服務的 Server 或 PC</li>
-</ol>
-<h2 id="建立-bot">建立 Bot</h2>
-<ol>
-<li>於 Telegram 內，搜尋 <a href="https://telegram.me/botfather">@botfather</a>，BotFather 是 Telegram 官方用來申請以及管理 bot 的機器人，要注意帳號要有藍色小勾勾。</li>
-<li>輸入指令 <code>/newbot</code>。</li>
-<li>依照指示，依序輸入 bot 的顯示名稱，以及 @username。</li>
-<li>最後會得到一組 token，像是 <code>110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw</code> 這樣的字串，用以驗證身份。</li>
-</ol>
-<h2 id="setwebhook-or-getupdates">setWebhook or getUpdates</h2>
-<p>Telegram Bot 有兩種接收更新的方法，</p>
-<ul>
-<li>setWebhook - 當 user 輸入指令或是按下按鈕時，Telegram 主動向 Bot <code>post</code> request。</li>
-<li>getUpdates - 每隔一段時間，由 Bot 主動向 Telegram 取得資料。</li>
-</ul>
-<p>引用 <a href="https://core.telegram.org/bots/webhooks">官網的一句話</a></p>
-<blockquote>
-<p>getUpdates is a pull mechanism, setWebhook is push</p>
-</blockquote>
-<p>選擇用 <code>setWebhook</code>，會比較即時。</p>
-<h2 id="建立自簽憑證-self-signed-certificate">建立自簽憑證 (Self-Signed Certificate)</h2>
-<p>Telegram <a href="https://core.telegram.org/bots/webhooks#a-domain-name">要求</a>，使用 Webhook 的 bot 伺服器要有 SSL 憑證，並且可以接受自簽憑證 ( 但憑證的 Common Name 必須是主機的 IP )，所以我們先用自簽憑證。</p>
-<p>p.s. 若是有自己的 Domain Name，可以使用 <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> 產生正式憑證。</p>
-<p>使用 <code>openssl</code> 建立憑證，輸入指令 <code>openssl req -newkey rsa:2048 -sha256 -nodes -keyout key.pem -x509 -days 365 -out cert.pem</code>。</p>
-<p>Common Name 必須填入主機的 IP，其餘全部直接按 <code>enter</code> 使用預設值即可。</p>
-<h2 id="撰寫程式">撰寫程式</h2>
-<p>使用 <a href="https://core.telegram.org/bots/samples">官網 Sample</a> 推薦，已經打包好的 <a href="https://github.com/yagop/node-telegram-bot-api">Node-Telegram-bot</a> API，這樣就不用自己去寫 Request 接官方 API。</p>
-<p>先在主機上安裝 <code>Node.js</code> 及 <code>npm</code> ，再照以下安裝 <code>express</code> 及 <code>node-telegram-bot-api</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 建立資料夾</span>
-</span></span><span style="display:flex;"><span>mkdir telegram-firstbot
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 移動到資料夾內</span>
-</span></span><span style="display:flex;"><span>cd telegram-firstbot
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用 npm 建立專案</span>
-</span></span><span style="display:flex;"><span>npm init
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 建立 index.js</span>
-</span></span><span style="display:flex;"><span>touch index.js
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安裝 express</span>
-</span></span><span style="display:flex;"><span>npm install --save express
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安裝 Node.js Telegram Bot API</span>
-</span></span><span style="display:flex;"><span>npm install --save node-telegram-bot-api
-</span></span></code></pre></div><p><code>index.js</code> 內容如下，記得替換掉以下參數</p>
-<ul>
-<li>@{YOUR_TOKEN} - <a href="https://telegram.me/botfather">@botfather</a> 給你的 token</li>
-<li>@{YOUR_URL_WITHPORT} - 你的 bot 網址，例如 <code>https://1.2.3.4:8443</code></li>
-<li>@{YOUR_PORT} - bot 使用的 port，Telegram 目前只接受 443, 80, 88, 8443</li>
-<li>@{YOUR_PRIVATEKEY_PATH\key.pem} - 於上個步驟產生的 <code>key.pem</code> 檔案路徑</li>
-<li>@{YOUR_CERTIFICATE_PATH\cert.pem} - 於上個步驟產生的 <code>cert.pem</code> 檔案路徑</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TelegramBot</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;node-telegram-bot-api&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">express</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;express&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bodyParser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;body-parser&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">https</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;https&#39;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TOKEN</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;@{YOUR_TOKEN}&#39;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;@{YOUR_URL_WITHPORT}&#39;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">port</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">@</span>{<span style="color:#a6e22e">YOUR_PORT</span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// certificate
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">privatekey</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>( <span style="color:#e6db74">&#39;@{YOUR_PRIVATEKEY_PATH\key.pem}&#39;</span> );
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">certificate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>( <span style="color:#e6db74">&#39;@{YOUR_CERTIFICATE_PATH\cert.pem}&#39;</span> );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// No need to pass any parameters as we will handle the updates with Express
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bot</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TelegramBot</span>(<span style="color:#a6e22e">TOKEN</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// This informs the Telegram servers of the new webhook.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// because we use self-signed certificate, we must provide certificate in parameters.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">setWebHook</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/bot</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">TOKEN</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">certificate</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`@{YOUR_CERTIFICATE_PATH\cert.pem}`</span>,
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// parse the updates to JSON
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">bodyParser</span>.<span style="color:#a6e22e">json</span>());
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// We are receiving updates at the route below!
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">post</span>(<span style="color:#e6db74">`/bot</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">TOKEN</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">processUpdate</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">body</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">sendStatus</span>(<span style="color:#ae81ff">200</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;listening @3@&#39;</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Start Express Server with certificates
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">https</span>.<span style="color:#a6e22e">createServer</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">privatekey</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cert</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">certificate</span>
-</span></span><span style="display:flex;"><span>}, <span style="color:#a6e22e">app</span>).<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">port</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Just to ping!
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;message&#39;</span>, <span style="color:#a6e22e">msg</span> =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">sendMessage</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">chat</span>.<span style="color:#a6e22e">id</span>, <span style="color:#e6db74">&#39;You said: &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">text</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><h2 id="測試">測試</h2>
-<ol>
-<li>執行 <code>node index.js</code></li>
-<li>輸入網址，<code>https://1.2.3.4:8443</code> 看伺服器是否有回應 <code>listening @3@</code>。</li>
-<li>用 Telegram 找到你的 bot，<code>http://t.me/@yourbotusername</code>，測試看看會不會回應我們輸入的訊息。</li>
-<li>可以使用 <code>https://api.telegram.org/bot&lt;token&gt;/getWebhookInfo</code>，查看 <code>Webhook</code> 的設定是否正常。</li>
-</ol>
-<p>正常的話回應如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;ok&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;result&#34;</span>: {
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://${ip or domain}:${port}/bot${apikey}&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;has_custom_certificate&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;pending_update_count&#34;</span>: <span style="color:#ae81ff">0</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;max_connections&#34;</span>: <span style="color:#ae81ff">40</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>有錯誤可以查看 <code>last_error_messag</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;ok&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;result&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://${ip or domain}:${port}/bot${apikey}&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;has_custom_certificate&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;pending_update_count&#34;</span>: <span style="color:#ae81ff">2</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;last_error_date&#34;</span>: <span style="color:#ae81ff">1560603553</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;last_error_message&#34;</span>: <span style="color:#e6db74">&#34;Failed to connect to ${ip or domain}:${port}&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;max_connections&#34;</span>: <span style="color:#ae81ff">40</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
-<h2 id="參考網址">參考網址</h2>
-<p><a href="https://core.telegram.org/bots">Bots: An introduction for developers - Telegram</a></p>
-<p><a href="https://github.com/yagop/node-telegram-bot-api/blob/master/examples/webhook/express.js">node-telegram-bot-api/express.js at master · yagop/node-telegram-bot-api</a></p>
-<p><a href="https://qiita.com/neetshin/items/0e2f6fa3ade41adb77bc">Node.jsでTelegramのチャットボットを作る</a></p>
-<p><a href="https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-apache-for-centos-7">How To Create an SSL Certificate on Apache for CentOS 7</a></p>
-<p><a href="https://stackoverflow.com/questions/11804202/how-do-i-setup-a-ssl-certificate-for-an-express-js-server">node.js - How do I setup a SSL certificate for an express.js server? - Stack Overflow</a></p>
-
-
-
-      
-        <div class="blog-tags">
-          
-            <a
-              href="https://anemology.cc/tags/telegram/"
-              >telegram</a
-            >&nbsp;
-          
-            <a
-              href="https://anemology.cc/tags/nodejs/"
-              >nodejs</a
-            >&nbsp;
-          
-        </div>
-      
-
-      
-        <ul class="bottomnav"><li class="previous"><a href="/post/hexo-and-next-update/"
-          ><span>&lt;&lt;&nbsp;</span>Hexo 及 NexT 主題升級紀錄</a
-        ></li><li class="next"><a href="/post/setup-travis-ci-for-hexo-on-github/"
-          >使用 Travis CI …<span>&nbsp;>></span></a
-        ></li></ul>
-
-      
-    </article>
-    
-    
-      
-
-    
-  </div>
-
-    <footer>
-  
-
-<div class="social-icons">
-  
-
-  
-</div>
-
-
-  
-  <div class="container">
-    <p class="credits copyright">
-      <a href="https://anemology.cc/about">anemology</a>
-      &nbsp;&copy;
-      2020
-      
-        &nbsp;/&nbsp;
-        <a href="https://anemology.cc/">翱翔在空中</a>
-      
-      &nbsp;&ndash;&nbsp;
-      <em class="fas fa-moon" id="dark-mode-toggle"></em>
-    </p>
-
-    <p class="credits theme-by">
-      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
-      Theme
-      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
-    </p>
-  </div>
-</footer>
-
-  </body>
-</html>
+"><link rel=stylesheet href=https://anemology.cc/fontawesome/css/all.min.css><link crossorigin=anonymous href=/css/styles.min.css integrity rel="preload stylesheet" as=style><link rel=stylesheet href=https://anemology.cc/css/custom.css><link id=dark-mode-theme crossorigin=anonymous href=/css/dark.min.css integrity rel="preload stylesheet" as=style><script>var darkTheme=document.getElementById("dark-mode-theme"),storedTheme=localStorage.getItem("dark-mode-storage");storedTheme==="dark"?darkTheme.disabled=!1:storedTheme==="light"&&(darkTheme.disabled=!0)</script><script defer crossorigin=anonymous src=/js/theme.js integrity></script>
+<script defer crossorigin=anonymous src=/js/instantpage.min.js integrity></script><meta name=generator content="Hugo 0.98.0"></head><body><header><nav class=navbar><div class=nav><ul class=nav-links><li><a href=/tags id=Tags><em class="fas fa-tag fa-lg"></em></a></li><li><a href=/search id=Search><em class="fas fa-search fa-lg"></em></a></li><li><a href=/archives id=Archives><em class="fas fa-archive fa-lg"></em></a></li></ul></div></nav><div class=intro-header><div class=container><div class=post-heading><h1>第一個 Telegram Bot</h1><span class=meta-post><em class="fa fa-calendar-alt"></em>&nbsp;July 16, 2019
+&nbsp;&nbsp;&nbsp;<em class="fa fa-folder-open"></em>&nbsp;
+<a href=https://anemology.cc/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/>未分類</a>&nbsp;</span></div></div></div></header><div class=container role=main><article class=article class=blog-post><p>使用 Node.js 打造第一個 Telegram Bot，需要以下東西</p><ol><li>Telegram 帳號</li><li>一台可以對外服務的 Server 或 PC</li></ol><h2 id=建立-bot>建立 Bot</h2><ol><li>於 Telegram 內，搜尋 <a href=https://telegram.me/botfather>@botfather</a>，BotFather 是 Telegram 官方用來申請以及管理 bot 的機器人，要注意帳號要有藍色小勾勾。</li><li>輸入指令 <code>/newbot</code>。</li><li>依照指示，依序輸入 bot 的顯示名稱，以及 @username。</li><li>最後會得到一組 token，像是 <code>110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw</code> 這樣的字串，用以驗證身份。</li></ol><h2 id=setwebhook-or-getupdates>setWebhook or getUpdates</h2><p>Telegram Bot 有兩種接收更新的方法，</p><ul><li>setWebhook - 當 user 輸入指令或是按下按鈕時，Telegram 主動向 Bot <code>post</code> request。</li><li>getUpdates - 每隔一段時間，由 Bot 主動向 Telegram 取得資料。</li></ul><p>引用 <a href=https://core.telegram.org/bots/webhooks>官網的一句話</a></p><blockquote><p>getUpdates is a pull mechanism, setWebhook is push</p></blockquote><p>選擇用 <code>setWebhook</code>，會比較即時。</p><h2 id=建立自簽憑證-self-signed-certificate>建立自簽憑證 (Self-Signed Certificate)</h2><p>Telegram <a href=https://core.telegram.org/bots/webhooks#a-domain-name>要求</a>，使用 Webhook 的 bot 伺服器要有 SSL 憑證，並且可以接受自簽憑證 ( 但憑證的 Common Name 必須是主機的 IP )，所以我們先用自簽憑證。</p><p>p.s. 若是有自己的 Domain Name，可以使用 <a href=https://letsencrypt.org/>Let&rsquo;s Encrypt</a> 產生正式憑證。</p><p>使用 <code>openssl</code> 建立憑證，輸入指令 <code>openssl req -newkey rsa:2048 -sha256 -nodes -keyout key.pem -x509 -days 365 -out cert.pem</code>。</p><p>Common Name 必須填入主機的 IP，其餘全部直接按 <code>enter</code> 使用預設值即可。</p><h2 id=撰寫程式>撰寫程式</h2><p>使用 <a href=https://core.telegram.org/bots/samples>官網 Sample</a> 推薦，已經打包好的 <a href=https://github.com/yagop/node-telegram-bot-api>Node-Telegram-bot</a> API，這樣就不用自己去寫 Request 接官方 API。</p><p>先在主機上安裝 <code>Node.js</code> 及 <code>npm</code> ，再照以下安裝 <code>express</code> 及 <code>node-telegram-bot-api</code>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 建立資料夾</span>
+</span></span><span style=display:flex><span>mkdir telegram-firstbot
+</span></span><span style=display:flex><span><span style=color:#75715e># 移動到資料夾內</span>
+</span></span><span style=display:flex><span>cd telegram-firstbot
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用 npm 建立專案</span>
+</span></span><span style=display:flex><span>npm init
+</span></span><span style=display:flex><span><span style=color:#75715e># 建立 index.js</span>
+</span></span><span style=display:flex><span>touch index.js
+</span></span><span style=display:flex><span><span style=color:#75715e># 安裝 express</span>
+</span></span><span style=display:flex><span>npm install --save express
+</span></span><span style=display:flex><span><span style=color:#75715e># 安裝 Node.js Telegram Bot API</span>
+</span></span><span style=display:flex><span>npm install --save node-telegram-bot-api
+</span></span></code></pre></div><p><code>index.js</code> 內容如下，記得替換掉以下參數</p><ul><li>@{YOUR_TOKEN} - <a href=https://telegram.me/botfather>@botfather</a> 給你的 token</li><li>@{YOUR_URL_WITHPORT} - 你的 bot 網址，例如 <code>https://1.2.3.4:8443</code></li><li>@{YOUR_PORT} - bot 使用的 port，Telegram 目前只接受 443, 80, 88, 8443</li><li>@{YOUR_PRIVATEKEY_PATH\key.pem} - 於上個步驟產生的 <code>key.pem</code> 檔案路徑</li><li>@{YOUR_CERTIFICATE_PATH\cert.pem} - 於上個步驟產生的 <code>cert.pem</code> 檔案路徑</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>TelegramBot</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;node-telegram-bot-api&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>express</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;express&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>bodyParser</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;body-parser&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fs</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;fs&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>https</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;https&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>TOKEN</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;@{YOUR_TOKEN}&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>url</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;@{YOUR_URL_WITHPORT}&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>port</span> <span style=color:#f92672>=</span> <span style=color:#960050;background-color:#1e0010>@</span>{<span style=color:#a6e22e>YOUR_PORT</span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// certificate
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>privatekey</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fs</span>.<span style=color:#a6e22e>readFileSync</span>( <span style=color:#e6db74>&#39;@{YOUR_PRIVATEKEY_PATH\key.pem}&#39;</span> );
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>certificate</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fs</span>.<span style=color:#a6e22e>readFileSync</span>( <span style=color:#e6db74>&#39;@{YOUR_CERTIFICATE_PATH\cert.pem}&#39;</span> );
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// No need to pass any parameters as we will handle the updates with Express
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>bot</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>TelegramBot</span>(<span style=color:#a6e22e>TOKEN</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This informs the Telegram servers of the new webhook.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// because we use self-signed certificate, we must provide certificate in parameters.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>bot</span>.<span style=color:#a6e22e>setWebHook</span>(<span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>url</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/bot</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>TOKEN</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>certificate</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`@{YOUR_CERTIFICATE_PATH\cert.pem}`</span>,
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>express</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// parse the updates to JSON
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>bodyParser</span>.<span style=color:#a6e22e>json</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// We are receiving updates at the route below!
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>post</span>(<span style=color:#e6db74>`/bot</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>TOKEN</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>, (<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>bot</span>.<span style=color:#a6e22e>processUpdate</span>(<span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>body</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>sendStatus</span>(<span style=color:#ae81ff>200</span>);
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/&#39;</span>, <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>send</span>(<span style=color:#e6db74>&#39;listening @3@&#39;</span>);
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Start Express Server with certificates
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>https</span>.<span style=color:#a6e22e>createServer</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>key</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>privatekey</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cert</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>certificate</span>
+</span></span><span style=display:flex><span>}, <span style=color:#a6e22e>app</span>).<span style=color:#a6e22e>listen</span>(<span style=color:#a6e22e>port</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Just to ping!
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>bot</span>.<span style=color:#a6e22e>on</span>(<span style=color:#e6db74>&#39;message&#39;</span>, <span style=color:#a6e22e>msg</span> =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>bot</span>.<span style=color:#a6e22e>sendMessage</span>(<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>chat</span>.<span style=color:#a6e22e>id</span>, <span style=color:#e6db74>&#39;You said: &#39;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>text</span>);
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><h2 id=測試>測試</h2><ol><li>執行 <code>node index.js</code></li><li>輸入網址，<code>https://1.2.3.4:8443</code> 看伺服器是否有回應 <code>listening @3@</code>。</li><li>用 Telegram 找到你的 bot，<code>http://t.me/@yourbotusername</code>，測試看看會不會回應我們輸入的訊息。</li><li>可以使用 <code>https://api.telegram.org/bot&lt;token>/getWebhookInfo</code>，查看 <code>Webhook</code> 的設定是否正常。</li></ol><p>正常的話回應如下</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;ok&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;result&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;https://${ip or domain}:${port}/bot${apikey}&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;has_custom_certificate&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;pending_update_count&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;max_connections&#34;</span>: <span style=color:#ae81ff>40</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>有錯誤可以查看 <code>last_error_messag</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;ok&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;result&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;https://${ip or domain}:${port}/bot${apikey}&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;has_custom_certificate&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;pending_update_count&#34;</span>: <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;last_error_date&#34;</span>: <span style=color:#ae81ff>1560603553</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;last_error_message&#34;</span>: <span style=color:#e6db74>&#34;Failed to connect to ${ip or domain}:${port}&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;max_connections&#34;</span>: <span style=color:#ae81ff>40</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><hr><h2 id=參考網址>參考網址</h2><p><a href=https://core.telegram.org/bots>Bots: An introduction for developers - Telegram</a></p><p><a href=https://github.com/yagop/node-telegram-bot-api/blob/master/examples/webhook/express.js>node-telegram-bot-api/express.js at master · yagop/node-telegram-bot-api</a></p><p><a href=https://qiita.com/neetshin/items/0e2f6fa3ade41adb77bc>Node.jsでTelegramのチャットボットを作る</a></p><p><a href=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-apache-for-centos-7>How To Create an SSL Certificate on Apache for CentOS 7</a></p><p><a href=https://stackoverflow.com/questions/11804202/how-do-i-setup-a-ssl-certificate-for-an-express-js-server>node.js - How do I setup a SSL certificate for an express.js server? - Stack Overflow</a></p><div class=blog-tags><a href=https://anemology.cc/tags/telegram/>telegram</a>&nbsp;
+<a href=https://anemology.cc/tags/nodejs/>nodejs</a>&nbsp;</div><ul class=bottomnav><li class=previous><a href=/post/hexo-and-next-update/><span>&lt;&lt;&nbsp;</span>Hexo 及 NexT 主題升級紀錄</a></li><li class=next><a href=/post/setup-travis-ci-for-hexo-on-github/>使用 Travis CI …<span>&nbsp;>></span></a></li></ul></article></div><footer><div class=social-icons></div><div class=container><p class="credits copyright"><a href=https://anemology.cc/about>anemology</a>
+&nbsp;&copy;
+2022
+&nbsp;/&nbsp;
+<a href=https://anemology.cc/>翱翔在空中</a>
+&nbsp;&ndash;&nbsp;
+<em class="fas fa-moon" id=dark-mode-toggle></em></p><p class="credits theme-by">Powered By <a href=https://gohugo.io>Hugo</a>&nbsp;
+Theme
+<a href=https://github.com/matsuyoshi30/harbor>Harbor</a></p></div></footer></body></html>
