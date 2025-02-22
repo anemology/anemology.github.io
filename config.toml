@@ -2,15 +2,19 @@ baseURL = "https://anemology.cc/"
 languageCode = "zh-TW"
 title = "翱翔在空中"
 theme = "harbor"
-paginate = 5
 
 [params]
     dateFormat = "January 2, 2006"
     enableBottomNavigation = true
     customCSS = ["/css/custom.css"]
 
-[Author]
+[params.author]
   name = "anemology"
+
+[pagination]
+  disableAliases = false
+  pagerSize = 5
+  path = "page"
 
 [[params.nav]]
   identifier = "tags"
@@ -32,3 +36,13 @@ paginate = 5
   icon = "fas fa-archive fa-lg"
   url = "archives"
   weight = 3
+
+[[params.social]]
+  name="GitHub"
+  url="https://github.com/anemology"
+  icon="fab fa-github"
+
+[[params.social]]
+  name="Twitter"
+  url="https://twitter.com/aanemology"
+  icon="fab fa-twitter"
