@@ -122,4 +122,14 @@
                 "body": "面試時做線上測試遇到一個 Anagrams 的問題，所以在這裡筆記一下~\n原始題目網址：https://www.testdome.com/Questions/PHP/AreAnagrams/4838?visibility=1\u0026amp;skillId=5\n判斷兩個字串是否為 Anagrams (暫譯:變位詞) Anagrams 的意思是兩個字串的組成是否相同\napple 和 pplea 會輸出 true\nbird 和 biidd 則會輸出 false\n解決方法\n判斷兩個字串長度是否相同，若不同就可以直接輸出 false。 將字串分割成陣列。 將陣列依照字母順序排列。 比對陣列裡的每個元素是否相同。 參考網址: [HackerRank]Java變位詞(Java Anagrams) | MagicLen\n"
             }
     
+        ,
+            {
+                "id": 12,
+                "href": "https://anemology.cc/about/",
+                "title": "About",
+                "section": "",
+                "date" : "2016.06.19",
+                "body": "What is WordPress.com?\nWhat can WordPress.com do?\nHow can I use WordPress.com?\nLet me tell you!\nAh\u0026hellip; I use Hexo now! :P @@\nSorry it\u0026rsquo;s Hugo :)\nIf you have any question, please go to GitHub and create an issue.\nMilestone 2016/06/19 Open blog on WordPress.com. 2017/11/19 Move blog to GitHub Pages + Hexo. 2018/10/06 Add custom domain anemology.cc 2022/05/21 Change static site generator to Hugo. "
+            }
+    
 ]
