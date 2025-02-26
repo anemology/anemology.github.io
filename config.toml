@@ -38,11 +38,17 @@ theme = "harbor"
   weight = 3
 
 [[params.social]]
-  name="GitHub"
-  url="https://github.com/anemology"
-  icon="fab fa-github"
+  name = "GitHub"
+  url = "https://github.com/anemology"
+  icon = "fab fa-github"
 
 [[params.social]]
-  name="Twitter"
-  url="https://twitter.com/aanemology"
-  icon="fab fa-twitter"
+  name = "Twitter"
+  url = "https://twitter.com/aanemology"
+  icon = "fab fa-twitter"
+
+[params.utteranc]
+  repo = "anemology/anemology.github.io"
+  issueTerm = "title"
+  label = "comment"
+  theme = "github-light"
