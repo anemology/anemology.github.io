@@ -1,0 +1,63 @@
+<!doctype html><html lang=zh-TW><head><meta charset=utf-8><title>使用 Certbot 與 Pebble 測試簽發憑證</title>
+<meta name=description content><meta name=author content="anemology"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=alternate type=application/rss+xml href=https://anemology.cc/index.xml title=翱翔在空中><meta name=twitter:card content="summary"><meta name=twitter:title content="使用 Certbot 與 Pebble 測試簽發憑證"><meta name=twitter:description content="在上一篇提到可以使用 Pebble 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。"><link rel=stylesheet href=https://anemology.cc/fontawesome/css/all.min.css><link crossorigin=anonymous href=/css/styles.min.css integrity rel="preload stylesheet" as=style><link rel=stylesheet href=https://anemology.cc/css/custom.css><link id=dark-mode-theme crossorigin=anonymous href=/css/dark.min.css integrity rel="preload stylesheet" as=style><script>var darkTheme=document.getElementById("dark-mode-theme"),storedTheme=localStorage.getItem("dark-mode-storage");storedTheme==="dark"?darkTheme.disabled=!1:storedTheme==="light"&&(darkTheme.disabled=!0)</script><script defer crossorigin=anonymous src=/js/theme.js integrity></script><script defer crossorigin=anonymous src=/js/instantpage.min.js integrity></script><meta name=generator content="Hugo 0.144.2"></head><body><header><nav class=navbar><div class=nav><ul class=nav-links><li><a href=/tags id=Tags><em class="fas fa-tag fa-lg"></em></a></li><li><a href=/search id=Search><em class="fas fa-search fa-lg"></em></a></li><li><a href=/archives id=Archives><em class="fas fa-archive fa-lg"></em></a></li></ul></div></nav><div class=intro-header><div class=container><div class=post-heading><h1>使用 Certbot 與 Pebble 測試簽發憑證</h1><span class=meta-post><em class="fa fa-calendar-alt"></em>&nbsp;March 1, 2025</span></div></div></div></header><div class=container role=main><article class=article class=blog-post><p>在上一篇提到可以使用 <a href=https://github.com/letsencrypt/pebble>Pebble</a> 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。</p><p>首先從 Pebble 的 GitHub 複製範例 <a href=https://github.com/letsencrypt/pebble/blob/307a947a4fde234ef74f6e54ce665b4c53beba40/docker-compose.yml>docker-compose.yml</a>，這邊我多加上了 <code>PEBBLE_VA_ALWAYS_VALID</code> 環境變數，因為主要目的是產出憑證，這可以讓 challenge validation 總是通過，讓我們不用額外設定 HTTP server 或是 DNS。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=display:flex><span><span style=color:#f92672>services</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>pebble</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/letsencrypt/pebble:latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: -<span style=color:#ae81ff>config test/config/pebble-config.json -strict -dnsserver 10.30.50.3:8053</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>14000</span>:<span style=color:#ae81ff>14000</span> <span style=color:#75715e># HTTPS ACME API</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>15000</span>:<span style=color:#ae81ff>15000</span> <span style=color:#75715e># HTTPS Management API</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>acmenet</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ipv4_address</span>: <span style=color:#ae81ff>10.30.50.2</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>PEBBLE_VA_ALWAYS_VALID=1</span> <span style=color:#75715e># Skipping Validation</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>challtestsrv</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/letsencrypt/pebble-challtestsrv:latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: -<span style=color:#ae81ff>defaultIPv6 &#34;&#34; -defaultIPv4 10.30.50.3</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>8055</span>:<span style=color:#ae81ff>8055</span> <span style=color:#75715e># HTTP Management API</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>acmenet</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ipv4_address</span>: <span style=color:#ae81ff>10.30.50.3</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>acmenet</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>driver</span>: <span style=color:#ae81ff>bridge</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ipam</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>driver</span>: <span style=color:#ae81ff>default</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>config</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>subnet</span>: <span style=color:#ae81ff>10.30.50.0</span><span style=color:#ae81ff>/24</span>
+</span></span></code></pre></div><p>透過 docker compose 將服務跑起來：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker compose up -d
+</span></span></code></pre></div><p>取得 container 的名稱，等等執行 Certbot 時會使用到：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo docker compose ps | grep <span style=color:#e6db74>&#34;pebble:latest&#34;</span>
+</span></span><span style=display:flex><span>certbot-pebble-1         ghcr.io/letsencrypt/pebble:latest                <span style=color:#e6db74>&#34;/app -config test/c…&#34;</span>   pebble         <span style=color:#ae81ff>7</span> days ago   Up <span style=color:#ae81ff>2</span> minutes   0.0.0.0:14000-&gt;14000/tcp, :::14000-&gt;14000/tcp, 0.0.0.0:15000-&gt;15000/tcp, :::15000-&gt;15000/tcp
+</span></span></code></pre></div><p>以我的環境來說 Pebble container 名稱是 <code>certbot-pebble-1</code>，因為 docker compose 會自動在前面加上資料夾名稱，檔案放在 certbot 資料夾下，所以自動被加上 <code>certbot_</code> 前綴。</p><p>最後來準備 Certbot command：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo docker run -it --rm --name certbot <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    -v <span style=color:#e6db74>&#34;./data/etc:/etc/letsencrypt&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    -v <span style=color:#e6db74>&#34;./data/lib:/var/lib/letsencrypt&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    -v <span style=color:#e6db74>&#34;./data/log:/var/log/letsencrypt&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --network container:certbot-pebble-1 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    certbot/certbot certonly <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --standalone <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --domain <span style=color:#e6db74>&#34;example.com,www.example.com&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --non-interactive <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --email eng@example.com <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --no-verify-ssl <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --agree-tos <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --server https://certbot-pebble-1:14000/dir <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        --verbose
+</span></span></code></pre></div><p>我們將 Certbot 存放資料的地方，mount 在 <code>./data</code> 底下；使用 <code>--network container:certbot-pebble-1</code> 將 Certbot 與 Pebble 在相同的 docker network 環境下執行，可以直接透過 container 名稱來存取 Pebble，所以需指定 <code>--server https://certbot-pebble-1:14000/dir</code>。若是沒有指定，預設指向 Let&rsquo;s Encrypt <a href=https://letsencrypt.org/docs/acme-protocol-updates/#api-endpoints>Production server</a>。</p><p>執行指令之後，不需要通過任何 challenge，會直接簽發憑證，有以下輸出：</p><pre tabindex=0><code class=language-log data-lang=log>Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/example.com/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/example.com/privkey.pem
+This certificate expires on 2025-03-08.
+These files will be updated when the certificate renews.
+</code></pre><p>憑證可以在剛剛 mount 的資料夾 <code>./data/etc/live/example.com/</code> 內找到，web server 需要的就會是 <code>fullchain.pem</code> 和 <code>privkey.pem</code>。</p><p>如果要查看 log</p><ol><li>Certbot: <code>cat ./data/log/letsencrypt.log</code></li><li>Pebble: <code>sudo docker compose logs</code></li></ol><div class=blog-tags><a href=https://anemology.cc/tags/acme/>acme</a>&nbsp;
+<a href=https://anemology.cc/tags/certbot/>certbot</a>&nbsp;
+<a href=https://anemology.cc/tags/certificate/>certificate</a>&nbsp;</div><ul class=bottomnav><li class=next><a href=/post/acme-certificate-profile/>ACME Certificate …<span>&nbsp;>></span></a></li></ul></article><br><br><hr><script src=https://utteranc.es/client.js repo=anemology/anemology.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script></div><footer><div class=social-icons><a href=https://github.com/anemology name=GitHub><em class="fab fa-github"></em>
+</a>&nbsp;&ndash;&nbsp;
+<a href=https://twitter.com/aanemology name=Twitter><em class="fab fa-twitter"></em></a></div><div class=container><p class="credits copyright"><a href=https://anemology.cc/about>anemology</a>
+&nbsp;&copy;
+2025
+&nbsp;/&nbsp;
+<a href=https://anemology.cc/>翱翔在空中</a>
+&nbsp;&ndash;&nbsp;
+<em class="fas fa-moon" id=dark-mode-toggle></em></p><p class="credits theme-by">Powered By <a href=https://gohugo.io>Hugo</a>&nbsp;
+Theme
+<a href=https://github.com/matsuyoshi30/harbor>Harbor</a></p></div></footer></body></html>

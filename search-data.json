@@ -5,6 +5,16 @@
         
             {
                 "id": 0,
+                "href": "https://anemology.cc/post/test-certbot-with-pebble/",
+                "title": "使用 Certbot 與 Pebble 測試簽發憑證",
+                "section": "post",
+                "date" : "2025.03.01",
+                "body": "在上一篇提到可以使用 Pebble 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。\n首先從 Pebble 的 GitHub 複製範例 docker-compose.yml，這邊我多加上了 PEBBLE_VA_ALWAYS_VALID 環境變數，因為主要目的是產出憑證，這可以讓 challenge validation 總是通過，讓我們不用額外設定 HTTP server 或是 DNS。\nservices: pebble: image: ghcr.io/letsencrypt/pebble:latest command: -config test/config/pebble-config.json -strict -dnsserver 10.30.50.3:8053 ports: - 14000:14000 # HTTPS ACME API - 15000:15000 # HTTPS Management API networks: acmenet: ipv4_address: 10.30.50.2 environment: - PEBBLE_VA_ALWAYS_VALID=1 # Skipping Validation challtestsrv: image: ghcr.io/letsencrypt/pebble-challtestsrv:latest command: -defaultIPv6 \u0026#34;\u0026#34; -defaultIPv4 10.30.50.3 ports: - 8055:8055 # HTTP Management API networks: acmenet: ipv4_address: 10.30.50.3 networks: acmenet: driver: bridge ipam: driver: default config: - subnet: 10.30.50.0/24 透過 docker compose 將服務跑起來：\ndocker compose up -d 取得 container 的名稱，等等執行 Certbot 時會使用到：\n$ sudo docker compose ps | grep \u0026#34;pebble:latest\u0026#34; certbot-pebble-1 ghcr.io/letsencrypt/pebble:latest \u0026#34;/app -config test/c…\u0026#34; pebble 7 days ago Up 2 minutes 0.0.0.0:14000-\u0026gt;14000/tcp, :::14000-\u0026gt;14000/tcp, 0.0.0.0:15000-\u0026gt;15000/tcp, :::15000-\u0026gt;15000/tcp 以我的環境來說 Pebble container 名稱是 certbot-pebble-1，因為 docker compose 會自動在前面加上資料夾名稱，檔案放在 certbot 資料夾下，所以自動被加上 certbot_ 前綴。\n最後來準備 Certbot command：\nsudo docker run -it --rm --name certbot \\ -v \u0026#34;./data/etc:/etc/letsencrypt\u0026#34; \\ -v \u0026#34;./data/lib:/var/lib/letsencrypt\u0026#34; \\ -v \u0026#34;./data/log:/var/log/letsencrypt\u0026#34; \\ --network container:certbot-pebble-1 \\ certbot/certbot certonly \\ --standalone \\ --domain \u0026#34;example.com,www.example.com\u0026#34; \\ --non-interactive \\ --email eng@example.com \\ --no-verify-ssl \\ --agree-tos \\ --server https://certbot-pebble-1:14000/dir \\ --verbose 我們將 Certbot 存放資料的地方，mount 在 ./data 底下；使用 --network container:certbot-pebble-1 將 Certbot 與 Pebble 在相同的 docker network 環境下執行，可以直接透過 container 名稱來存取 Pebble，所以需指定 --server https://certbot-pebble-1:14000/dir。若是沒有指定，預設指向 Let\u0026rsquo;s Encrypt Production server。\n執行指令之後，不需要通過任何 challenge，會直接簽發憑證，有以下輸出：\nSuccessfully received certificate. Certificate is saved at: /etc/letsencrypt/live/example.com/fullchain.pem Key is saved at: /etc/letsencrypt/live/example.com/privkey.pem This certificate expires on 2025-03-08. These files will be updated when the certificate renews. 憑證可以在剛剛 mount 的資料夾 ./data/etc/live/example.com/ 內找到，web server 需要的就會是 fullchain.pem 和 privkey.pem。\n如果要查看 log\nCertbot: cat ./data/log/letsencrypt.log Pebble: sudo docker compose logs "
+            }
+    
+        ,
+            {
+                "id": 1,
                 "href": "https://anemology.cc/post/acme-certificate-profile/",
                 "title": "ACME Certificate Profile",
                 "section": "post",
@@ -14,7 +24,7 @@
     
         ,
             {
-                "id": 1,
+                "id": 2,
                 "href": "https://anemology.cc/post/find-plurk-permalink/",
                 "title": "尋找 Plurk 噗文連結",
                 "section": "post",
@@ -24,7 +34,7 @@
     
         ,
             {
-                "id": 2,
+                "id": 3,
                 "href": "https://anemology.cc/post/hexo-and-next-update/",
                 "title": "Hexo 及 NexT 主題升級紀錄",
                 "section": "post",
@@ -34,7 +44,7 @@
     
         ,
             {
-                "id": 3,
+                "id": 4,
                 "href": "https://anemology.cc/post/telegram-firstbot-using-nodejs/",
                 "title": "第一個 Telegram Bot",
                 "section": "post",
@@ -44,7 +54,7 @@
     
         ,
             {
-                "id": 4,
+                "id": 5,
                 "href": "https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/",
                 "title": "使用 Travis CI 自動部署 Hexo 部落格",
                 "section": "post",
@@ -54,7 +64,7 @@
     
         ,
             {
-                "id": 5,
+                "id": 6,
                 "href": "https://anemology.cc/post/hexo-push-to-github-lost-commit-history/",
                 "title": "Hexo 部署到 GitHub 之後失去 commit 紀錄",
                 "section": "post",
@@ -64,7 +74,7 @@
     
         ,
             {
-                "id": 6,
+                "id": 7,
                 "href": "https://anemology.cc/post/hexo-backup/",
                 "title": "Hexo 備份至 GitHub",
                 "section": "post",
@@ -74,7 +84,7 @@
     
         ,
             {
-                "id": 7,
+                "id": 8,
                 "href": "https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/",
                 "title": "MS SQL Server 啟用 sa 帳戶與 1433 連接埠",
                 "section": "post",
@@ -84,7 +94,7 @@
     
         ,
             {
-                "id": 8,
+                "id": 9,
                 "href": "https://anemology.cc/post/how-does-bitcoin-work/",
                 "title": "虛擬貨幣 (Bitcoin) 運作原理",
                 "section": "post",
@@ -94,7 +104,7 @@
     
         ,
             {
-                "id": 9,
+                "id": 10,
                 "href": "https://anemology.cc/post/hexo-introduction-and-commands/",
                 "title": "Hexo 介紹和常用指令",
                 "section": "post",
@@ -104,7 +114,7 @@
     
         ,
             {
-                "id": 10,
+                "id": 11,
                 "href": "https://anemology.cc/post/next-edit-time/",
                 "title": "Next 主題修改更新時間的顯示規則",
                 "section": "post",
@@ -114,7 +124,7 @@
     
         ,
             {
-                "id": 11,
+                "id": 12,
                 "href": "https://anemology.cc/post/ssh-key-login-linux/",
                 "title": "使用 SSH Key 登入 Linux Server",
                 "section": "post",
@@ -124,7 +134,7 @@
     
         ,
             {
-                "id": 12,
+                "id": 13,
                 "href": "https://anemology.cc/post/anagrams/",
                 "title": "Anagrams",
                 "section": "post",
@@ -134,7 +144,7 @@
     
         ,
             {
-                "id": 13,
+                "id": 14,
                 "href": "https://anemology.cc/about/",
                 "title": "About",
                 "section": "",
