@@ -1,16 +1,388 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 翱翔在空中</title><link>https://anemology.cc/post/</link><description>Recent content in Posts</description><generator>Hugo -- gohugo.io</generator><language>zh-TW</language><managingEditor>/post (anemology)</managingEditor><lastBuildDate>Sat, 01 Mar 2025 15:38:22 +0800</lastBuildDate><atom:link href="/post/" rel="self" type="application/rss+xml"/><item><title>使用 Certbot 與 Pebble 測試簽發憑證</title><link>https://anemology.cc/post/test-certbot-with-pebble/</link><pubDate>Sat, 01 Mar 2025 15:38:22 +0800</pubDate><guid>https://anemology.cc/post/test-certbot-with-pebble/</guid><description>&lt;p>在上一篇提到可以使用 &lt;a href="https://github.com/letsencrypt/pebble">Pebble&lt;/a> 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。&lt;/p></description></item><item><title>ACME Certificate Profile</title><link>https://anemology.cc/post/acme-certificate-profile/</link><pubDate>Sat, 22 Feb 2025 19:37:45 +0800</pubDate><guid>https://anemology.cc/post/acme-certificate-profile/</guid><description>&lt;p>最近要將公司服務更新憑證的方式改用 ACME client，在測試的時候發現 pebble 簽發的憑證有效期限從原本的三個月變成了五天，這篇文章會稍微記錄一下原因。&lt;/p></description></item><item><title>尋找 Plurk 噗文連結</title><link>https://anemology.cc/post/find-plurk-permalink/</link><pubDate>Sat, 21 May 2022 21:39:21 +0800</pubDate><guid>https://anemology.cc/post/find-plurk-permalink/</guid><description>&lt;p>最近在改寫自己的 &lt;a href="https://github.com/anemology/plurkdl">噗浪下載程式&lt;/a>，發現噗文連結並沒有在 API response 內，因此尋找了一下，此篇文章則是記錄過程及思路。&lt;/p></description></item><item><title>Hexo 及 NexT 主題升級紀錄</title><link>https://anemology.cc/post/hexo-and-next-update/</link><pubDate>Sun, 19 Jul 2020 11:52:27 +0000</pubDate><guid>https://anemology.cc/post/hexo-and-next-update/</guid><description>&lt;p>從去年開始， GitHub 的 &lt;a href="https://github.com/apps/dependabot">dependabot&lt;/a> 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 翱翔在空中</title><link>https://anemology.cc/post/</link><description>Recent content in Posts on 翱翔在空中</description><generator>Hugo</generator><language>zh-TW</language><lastBuildDate>Sat, 01 Mar 2025 15:38:22 +0800</lastBuildDate><atom:link href="https://anemology.cc/post/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Certbot 與 Pebble 測試簽發憑證</title><link>https://anemology.cc/post/test-certbot-with-pebble/</link><pubDate>Sat, 01 Mar 2025 15:38:22 +0800</pubDate><guid>https://anemology.cc/post/test-certbot-with-pebble/</guid><description>&lt;p>在上一篇提到可以使用 &lt;a href="https://github.com/letsencrypt/pebble">Pebble&lt;/a> 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。&lt;/p>
+&lt;p>首先從 Pebble 的 GitHub 複製範例 &lt;a href="https://github.com/letsencrypt/pebble/blob/307a947a4fde234ef74f6e54ce665b4c53beba40/docker-compose.yml">docker-compose.yml&lt;/a>，這邊我多加上了 &lt;code>PEBBLE_VA_ALWAYS_VALID&lt;/code> 環境變數，因為主要目的是產出憑證，這可以讓 challenge validation 總是通過，讓我們不用額外設定 HTTP server 或是 DNS。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yml" data-lang="yml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">services&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">pebble&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">ghcr.io/letsencrypt/pebble:latest&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">command&lt;/span>: -&lt;span style="color:#ae81ff">config test/config/pebble-config.json -strict -dnsserver 10.30.50.3:8053&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ports&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">14000&lt;/span>:&lt;span style="color:#ae81ff">14000&lt;/span> &lt;span style="color:#75715e"># HTTPS ACME API&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">15000&lt;/span>:&lt;span style="color:#ae81ff">15000&lt;/span> &lt;span style="color:#75715e"># HTTPS Management API&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">networks&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">acmenet&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ipv4_address&lt;/span>: &lt;span style="color:#ae81ff">10.30.50.2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">environment&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">PEBBLE_VA_ALWAYS_VALID=1&lt;/span> &lt;span style="color:#75715e"># Skipping Validation&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">challtestsrv&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">ghcr.io/letsencrypt/pebble-challtestsrv:latest&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">command&lt;/span>: -&lt;span style="color:#ae81ff">defaultIPv6 &amp;#34;&amp;#34; -defaultIPv4 10.30.50.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ports&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">8055&lt;/span>:&lt;span style="color:#ae81ff">8055&lt;/span> &lt;span style="color:#75715e"># HTTP Management API&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">networks&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">acmenet&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ipv4_address&lt;/span>: &lt;span style="color:#ae81ff">10.30.50.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">networks&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">acmenet&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">driver&lt;/span>: &lt;span style="color:#ae81ff">bridge&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ipam&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">driver&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">config&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#f92672">subnet&lt;/span>: &lt;span style="color:#ae81ff">10.30.50.0&lt;/span>&lt;span style="color:#ae81ff">/24&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>透過 docker compose 將服務跑起來：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>docker compose up -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>取得 container 的名稱，等等執行 Certbot 時會使用到：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo docker compose ps | grep &lt;span style="color:#e6db74">&amp;#34;pebble:latest&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>certbot-pebble-1 ghcr.io/letsencrypt/pebble:latest &lt;span style="color:#e6db74">&amp;#34;/app -config test/c…&amp;#34;&lt;/span> pebble &lt;span style="color:#ae81ff">7&lt;/span> days ago Up &lt;span style="color:#ae81ff">2&lt;/span> minutes 0.0.0.0:14000-&amp;gt;14000/tcp, :::14000-&amp;gt;14000/tcp, 0.0.0.0:15000-&amp;gt;15000/tcp, :::15000-&amp;gt;15000/tcp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以我的環境來說 Pebble container 名稱是 &lt;code>certbot-pebble-1&lt;/code>，因為 docker compose 會自動在前面加上資料夾名稱，檔案放在 certbot 資料夾下，所以自動被加上 &lt;code>certbot_&lt;/code> 前綴。&lt;/p>
+&lt;p>最後來準備 Certbot command：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo docker run -it --rm --name certbot &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -v &lt;span style="color:#e6db74">&amp;#34;./data/etc:/etc/letsencrypt&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -v &lt;span style="color:#e6db74">&amp;#34;./data/lib:/var/lib/letsencrypt&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -v &lt;span style="color:#e6db74">&amp;#34;./data/log:/var/log/letsencrypt&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --network container:certbot-pebble-1 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> certbot/certbot certonly &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --standalone &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --domain &lt;span style="color:#e6db74">&amp;#34;example.com,www.example.com&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --non-interactive &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --email eng@example.com &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --no-verify-ssl &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --agree-tos &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --server https://certbot-pebble-1:14000/dir &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --verbose
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我們將 Certbot 存放資料的地方，mount 在 &lt;code>./data&lt;/code> 底下；使用 &lt;code>--network container:certbot-pebble-1&lt;/code> 將 Certbot 與 Pebble 在相同的 docker network 環境下執行，可以直接透過 container 名稱來存取 Pebble，所以需指定 &lt;code>--server https://certbot-pebble-1:14000/dir&lt;/code>。若是沒有指定，預設指向 Let&amp;rsquo;s Encrypt &lt;a href="https://letsencrypt.org/docs/acme-protocol-updates/#api-endpoints">Production server&lt;/a>。&lt;/p>
+&lt;p>執行指令之後，不需要通過任何 challenge，會直接簽發憑證，有以下輸出：&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-log" data-lang="log">Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/example.com/fullchain.pem
+Key is saved at: /etc/letsencrypt/live/example.com/privkey.pem
+This certificate expires on 2025-03-08.
+These files will be updated when the certificate renews.
+&lt;/code>&lt;/pre>&lt;p>憑證可以在剛剛 mount 的資料夾 &lt;code>./data/etc/live/example.com/&lt;/code> 內找到，web server 需要的就會是 &lt;code>fullchain.pem&lt;/code> 和 &lt;code>privkey.pem&lt;/code>。&lt;/p>
+&lt;p>如果要查看 log&lt;/p>
+&lt;ol>
+&lt;li>Certbot: &lt;code>cat ./data/log/letsencrypt.log&lt;/code>&lt;/li>
+&lt;li>Pebble: &lt;code>sudo docker compose logs&lt;/code>&lt;/li>
+&lt;/ol></description></item><item><title>ACME Certificate Profile</title><link>https://anemology.cc/post/acme-certificate-profile/</link><pubDate>Sat, 22 Feb 2025 19:37:45 +0800</pubDate><guid>https://anemology.cc/post/acme-certificate-profile/</guid><description>&lt;p>最近要將公司服務更新憑證的方式改用 ACME client，在測試的時候發現 pebble 簽發的憑證有效期限從原本的三個月變成了五天，這篇文章會稍微記錄一下原因。&lt;/p>
+&lt;p>ACME (Automatic Certificate Management Environment) &lt;a href="https://datatracker.ietf.org/doc/rfc8555/">RFC 8555&lt;/a> 是為了自動化更新憑證而誕生的一個協定。&lt;/p>
+&lt;p>&lt;a href="https://github.com/letsencrypt/pebble">pebble&lt;/a> 是 &lt;a href="https://letsencrypt.org/">Let&amp;rsquo;s Encrypt&lt;/a> 提供的 ACME 測試 server，可以簡單地在 CI 環境內或者 local 進行測試，雖然 Let&amp;rsquo;s Encrypt 也有提供 &lt;a href="https://letsencrypt.org/docs/staging-environment/">staging&lt;/a> 環境，但是有一個 self-hosted 的測試環境再加上可以自訂設定還是比較方便。而這篇文章會用 ACME client &lt;a href="https://github.com/certbot/certbot">certbot&lt;/a> 搭配 pebble 測試。&lt;/p>
+&lt;p>首先用 docker 起一個 local 的 pebble server，使用 certbot 產生 example.com 憑證，Not Before 會是當下時間，而 Not After 則是三個月後：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ openssl x509 -noout -text -in /etc/live/example.com/cert.pem | grep &lt;span style="color:#e6db74">&amp;#34;Validity&amp;#34;&lt;/span> -A2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Validity
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not Before: Feb &lt;span style="color:#ae81ff">22&lt;/span> 08:35:30 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not After : May &lt;span style="color:#ae81ff">23&lt;/span> 08:35:29 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>再用一次 certbot 加上 &lt;code>--force-renewal&lt;/code> 強制 renew 後，發現期限竟然變成了六天後：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ openssl x509 -noout -text -in /etc/live/example.com/cert.pem | grep &lt;span style="color:#e6db74">&amp;#34;Validity&amp;#34;&lt;/span> -A2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Validity
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not Before: Feb &lt;span style="color:#ae81ff">22&lt;/span> 09:30:29 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not After : Feb &lt;span style="color:#ae81ff">28&lt;/span> 09:30:28 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>所以就去查 pebble source code 看有沒有什麼關於有效期限的設定，最後在 &lt;a href="https://github.com/letsencrypt/pebble/blob/9a99831fce2f8f72cb1124b051da99dbe133fde9/test/config/pebble-config.json#L23">test/config/pebble-config.json&lt;/a> 內發現 &lt;code>&amp;quot;validityPeriod&amp;quot;: 518400&lt;/code>，剛好 518400 秒 == 6 天。&lt;/p>
+&lt;p>而 profiles 內有兩個設定，&lt;code>default&lt;/code> 和 &lt;code>shortlived&lt;/code>， pebble 是怎麼選擇的呢？如果 ACME client 在發出 order 時沒有指定 profile，pebble &lt;a href="https://github.com/letsencrypt/pebble/blob/9a99831fce2f8f72cb1124b051da99dbe133fde9/wfe/wfe.go#L1731">wfe/wfe.go&lt;/a> 就會隨機選&amp;hellip;&lt;/p>
+&lt;hr>
+&lt;p>&lt;a href="https://datatracker.ietf.org/doc/draft-aaron-acme-profiles/">Profile selection&lt;/a> 目前還只是 draft，而 Let&amp;rsquo;s Encrypt 在&lt;a href="https://letsencrypt.org/2025/01/09/acme-profiles/">公告&lt;/a>內指出會由 server 決定，不確定各 CA 的 ACME server 會怎麼實作&lt;/p>
+&lt;blockquote>
+&lt;p>If the new-order request does not specify a profile, then the server will select one for it.&lt;/p>&lt;/blockquote>
+&lt;p>而 certbot 今天剛好在相關的 issue &lt;a href="https://github.com/certbot/certbot/issues/9261#issuecomment-2675915347">#9261&lt;/a> 內有更新，預計今年會實作 ACME profiles。&lt;/p>
+&lt;p>如果要固定 profile，暫時的解決方式是修改 pebble-config.json 只留下想要的，或是改用有支援的 client &lt;a href="https://github.com/go-acme/lego/releases/tag/v4.22.0">lego&lt;/a>。&lt;/p>
+&lt;p>最後，有興趣的也可以看看 Let’s Encrypt 最新的公告 &lt;a href="https://letsencrypt.org/2025/02/20/first-short-lived-cert-issued/">We Issued Our First Six Day Cert - Let&amp;rsquo;s Encrypt&lt;/a>&lt;/p></description></item><item><title>尋找 Plurk 噗文連結</title><link>https://anemology.cc/post/find-plurk-permalink/</link><pubDate>Sat, 21 May 2022 21:39:21 +0800</pubDate><guid>https://anemology.cc/post/find-plurk-permalink/</guid><description>&lt;p>最近在改寫自己的 &lt;a href="https://github.com/anemology/plurkdl">噗浪下載程式&lt;/a>，發現噗文連結並沒有在 API response 內，因此尋找了一下，此篇文章則是記錄過程及思路。&lt;/p>
+&lt;p>每篇噗文右下角向下箭頭點開，有個開啟網址的連結，可以連到單篇噗文的網頁，網址後段是 &lt;code>/p/xxxxxx&lt;/code>。後面的 &lt;code>x&lt;/code> 包含英數，看起來像是亂數或是雜湊值產生，初步猜想是後端生成。&lt;/p>
+&lt;h2 id="尋找流程">尋找流程&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>查看 &lt;code>/TimeLine/getPlurks&lt;/code> (取得噗文列表)、&lt;code>/Responses/get&lt;/code> (取得單篇噗文回應)，這兩支 API 回傳資料都沒有找到對應字串。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用瀏覽器 DevTools 的網路，看原始 html 內容，也不是後端 render 回傳，因此判斷是 JavaScript 產生。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>以下截圖皆為 Firefox，使用檢測元素指到 &lt;strong>開啟網址&lt;/strong> 元素，class 是 &lt;code>pif-outlink&lt;/code>，JavaScript 通常會使用 css selector + class name 來進行操作。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/find-plurk-permalink-1.png" alt="find-plurk-permalink-1">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>切到 DevTools 除錯器，按 Ctrl+Shift+F 搜尋現在網頁所載入的所有資源，在一個 minify 過的 js 內找到這個 class。點左下的大括號來將 js 排版一下，雖然變數命名沒有改變，但至少可以看到比較清楚的排版。&lt;/p>
+&lt;p>產生連結的方式是 &lt;code>o.toString(36)&lt;/code>，再往上找到 &lt;code>o&lt;/code> 的定義，&lt;code>o = r(s)&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/find-plurk-permalink-2.png" alt="find-plurk-permalink-2">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>繼續往上，&lt;code>r&lt;/code> 的定義是一個 function，&lt;code>.data()&lt;/code> 是 jQuery 來取得某元素 data-attribue 的方法，因此可以判斷 &lt;code>e(s)&lt;/code> 是某一個元素。&lt;/p>
+&lt;p>最後可以得知，一開始的 &lt;code>o&lt;/code> 會回傳某一個元素的 &lt;code>data-pid&lt;/code> attribute。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/find-plurk-permalink-3.png" alt="find-plurk-permalink-3">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>回到 DevTools 檢測器，搜尋 &lt;code>data-pid&lt;/code>，發現每一個噗文最外層 div 有這個 attribute，而這個 pid 其實就是 API 回傳的 &lt;code>plurk_id&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/find-plurk-permalink-4.png" alt="find-plurk-permalink-4">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一開始產生連結的方法是 &lt;code>o.toString(36)&lt;/code>，查了 &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString">MDN 的定義&lt;/a>，是產生 n 進位的字串，把值丟進去跑，就可以產生對應的字串了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">$&lt;/span> Number(&lt;span style="color:#ae81ff">1500449470&lt;/span>).&lt;span style="color:#a6e22e">toString&lt;/span>(&lt;span style="color:#ae81ff">36&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">&amp;#34;otbu7y&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;p>最後要轉成 Python code，Python 有內建 &lt;code>hex()&lt;/code> 轉換 16 進位文字，但是沒有支援 36 進位，因此使用 mod 和整除的方式來 &lt;a href="https://github.com/anemology/plurkdl/blob/master/plurkdl.py#L162">簡單實作&lt;/a> 一下，完成！&lt;/p></description></item><item><title>Hexo 及 NexT 主題升級紀錄</title><link>https://anemology.cc/post/hexo-and-next-update/</link><pubDate>Sun, 19 Jul 2020 11:52:27 +0000</pubDate><guid>https://anemology.cc/post/hexo-and-next-update/</guid><description>&lt;p>從去年開始， GitHub 的 &lt;a href="https://github.com/apps/dependabot">dependabot&lt;/a> 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。&lt;/p>
 &lt;p>因我的部落格也很久沒更新了，索性就一次將 &lt;a href="https://github.com/hexojs/hexo">Hexo&lt;/a> 及 &lt;a href="https://github.com/next-theme/hexo-theme-next">NexT&lt;/a> 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。&lt;/p>
 &lt;ul>
 &lt;li>Hexo &lt;code>3.8.0&lt;/code> -&amp;gt; &lt;code>4.2.1&lt;/code>&lt;/li>
 &lt;li>NexT &lt;code>5.1.3&lt;/code> -&amp;gt; &lt;code>7.8.0&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>大版本更新通常會有 breaking changes，更新後發現有不少問題，因 config 自訂的地方也不多，決定整個打掉重練。&lt;/p>
+&lt;h2 id="步驟">步驟&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>建一個全空的 hexo 部落格&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 更新 hexo-cli&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm install hexo-cli -g
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 初始化 hexo 至 update_blog 資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hexo init update_blog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd update_blog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 安裝部署使用的套件 hexo-deployer-git&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm install hexo-deployer-git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>打開 blog 資料夾底下的 &lt;code>package.json&lt;/code>，確認 hexo 版本 (&lt;code>&amp;quot;hexo&amp;quot;: &amp;quot;^4.2.1&amp;quot;&lt;/code>)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>將原本部落格資料夾內的 &lt;code>scaffolds&lt;/code>、&lt;code>source&lt;/code> 資料夾複製到 &lt;code>update_blog&lt;/code> 內&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>將原本部落格資料夾內的 &lt;code>themes/next&lt;/code> 資料夾複製到相對應之路徑&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>刪除沒有用到的預設主題 &lt;code>themes/landscape&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下載最新的 NexT 主題&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cd update_blog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 因這邊要保留原本舊的 next 主題，所以將新版主題放到不同資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git clone https://github.com/theme-next/hexo-theme-next themes/hexo-theme-next
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>調整設定檔，這邊都直接使用新版的 yml 檔案&lt;/p>
+&lt;ol>
+&lt;li>比對新舊 &lt;code>_config.yml&lt;/code>，有 &lt;a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml#L6">調整過的設定&lt;/a> 我用 &lt;code>#@~@&lt;/code> 註記起來，以後比較好找&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>調整主題設定檔&lt;/p>
+&lt;ol>
+&lt;li>比對 &lt;code>themes\hexo-theme-next\_config.yml&lt;/code> 和 &lt;code>themes\next\_config.yml&lt;/code>，將有調整過的設定改寫至根目錄底下 &lt;code>_config.yml&lt;/code> 的 &lt;code>theme_config:&lt;/code> &lt;a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml#L107">區塊&lt;/a>
+好處是主題內的設定檔就維持預設的樣子，以後可以整個資料夾更新，統一在同個設定檔案也比較好維護&lt;/li>
+&lt;li>另外 &lt;a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/DATA-FILES.md">NexT 文件&lt;/a> 內有提到，也可以將設定寫到 &lt;code>source/_data/next.yml&lt;/code>，就看個人選擇&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>完成之後可以在本機下 &lt;code>hexo server&lt;/code>，看一下有無問題&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>最後就可以將變更 push 到遠端 hexo 分支，&lt;a href="https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/">之前設定的 Travis CI&lt;/a> 就會自動幫我們部署到 GitHub Pages 啦~&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>去掉 post 內的 &lt;code>updated&lt;/code> 日期，之後有更新再寫就好，&lt;a href="https://anemology.cc/post/next-edit-time/">Next 主題修改更新時間的顯示規則&lt;/a> 就不用了
+不確定這是新版還是舊版 NexT 行為，現在預設是 &lt;code>date&lt;/code> 與 &lt;code>updated&lt;/code> 不同天，才會顯示更新時間，可以參考 &lt;a href="https://github.com/theme-next/hexo-theme-next/commit/9f4f0143aff6e7e804e3396f33acdcf9a109efd0">another_day 設定&lt;/a>&lt;/li>
+&lt;li>可以看一下 &lt;code>_config.yml&lt;/code> 的 &lt;a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml">commit 紀錄&lt;/a>，會比較清楚&lt;/li>
+&lt;/ul>
+&lt;h2 id="參考網址">參考網址&lt;/h2>
+&lt;p>&lt;a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md">Update from NexT v5.1.x&lt;/a>&lt;/p>
+&lt;hr>
+&lt;ul>
+&lt;li>&lt;code>npm&lt;/code> version &lt;code>6.9.0&lt;/code>&lt;/li>
+&lt;li>&lt;code>Hexo&lt;/code> version &lt;code>4.2.1&lt;/code>&lt;/li>
+&lt;li>&lt;code>NexT&lt;/code> version &lt;code>7.8.0&lt;/code>&lt;/li>
+&lt;li>&lt;code>git&lt;/code> version &lt;code>2.22.0.windows.1&lt;/code>&lt;/li>
 &lt;/ul></description></item><item><title>第一個 Telegram Bot</title><link>https://anemology.cc/post/telegram-firstbot-using-nodejs/</link><pubDate>Tue, 16 Jul 2019 10:54:12 +0000</pubDate><guid>https://anemology.cc/post/telegram-firstbot-using-nodejs/</guid><description>&lt;p>使用 Node.js 打造第一個 Telegram Bot，需要以下東西&lt;/p>
 &lt;ol>
 &lt;li>Telegram 帳號&lt;/li>
 &lt;li>一台可以對外服務的 Server 或 PC&lt;/li>
-&lt;/ol></description></item><item><title>使用 Travis CI 自動部署 Hexo 部落格</title><link>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</link><pubDate>Sun, 30 Jun 2019 16:22:49 +0000</pubDate><guid>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</guid><description>&lt;p>之前文章提到，部落格的分支有兩個，&lt;code>hexo&lt;/code> 及 &lt;code>master&lt;/code>，在 &lt;code>hexo&lt;/code> 分支寫文章，之後使用 &lt;code>hexo deploy&lt;/code> 部署到 Github 的 &lt;code>master&lt;/code> 分支上，確定沒問題的時候再將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支。&lt;/p>
+&lt;/ol>
+&lt;h2 id="建立-bot">建立 Bot&lt;/h2>
+&lt;ol>
+&lt;li>於 Telegram 內，搜尋 &lt;a href="https://telegram.me/botfather">@botfather&lt;/a>，BotFather 是 Telegram 官方用來申請以及管理 bot 的機器人，要注意帳號要有藍色小勾勾。&lt;/li>
+&lt;li>輸入指令 &lt;code>/newbot&lt;/code>。&lt;/li>
+&lt;li>依照指示，依序輸入 bot 的顯示名稱，以及 @username。&lt;/li>
+&lt;li>最後會得到一組 token，像是 &lt;code>110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw&lt;/code> 這樣的字串，用以驗證身份。&lt;/li>
+&lt;/ol>
+&lt;h2 id="setwebhook-or-getupdates">setWebhook or getUpdates&lt;/h2>
+&lt;p>Telegram Bot 有兩種接收更新的方法，&lt;/p>
+&lt;ul>
+&lt;li>setWebhook - 當 user 輸入指令或是按下按鈕時，Telegram 主動向 Bot &lt;code>post&lt;/code> request。&lt;/li>
+&lt;li>getUpdates - 每隔一段時間，由 Bot 主動向 Telegram 取得資料。&lt;/li>
+&lt;/ul>
+&lt;p>引用 &lt;a href="https://core.telegram.org/bots/webhooks">官網的一句話&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>getUpdates is a pull mechanism, setWebhook is push&lt;/p>&lt;/blockquote>
+&lt;p>選擇用 &lt;code>setWebhook&lt;/code>，會比較即時。&lt;/p>
+&lt;h2 id="建立自簽憑證-self-signed-certificate">建立自簽憑證 (Self-Signed Certificate)&lt;/h2>
+&lt;p>Telegram &lt;a href="https://core.telegram.org/bots/webhooks#a-domain-name">要求&lt;/a>，使用 Webhook 的 bot 伺服器要有 SSL 憑證，並且可以接受自簽憑證 ( 但憑證的 Common Name 必須是主機的 IP )，所以我們先用自簽憑證。&lt;/p>
+&lt;p>p.s. 若是有自己的 Domain Name，可以使用 &lt;a href="https://letsencrypt.org/">Let&amp;rsquo;s Encrypt&lt;/a> 產生正式憑證。&lt;/p>
+&lt;p>使用 &lt;code>openssl&lt;/code> 建立憑證，輸入指令 &lt;code>openssl req -newkey rsa:2048 -sha256 -nodes -keyout key.pem -x509 -days 365 -out cert.pem&lt;/code>。&lt;/p>
+&lt;p>Common Name 必須填入主機的 IP，其餘全部直接按 &lt;code>enter&lt;/code> 使用預設值即可。&lt;/p>
+&lt;h2 id="撰寫程式">撰寫程式&lt;/h2>
+&lt;p>使用 &lt;a href="https://core.telegram.org/bots/samples">官網 Sample&lt;/a> 推薦，已經打包好的 &lt;a href="https://github.com/yagop/node-telegram-bot-api">Node-Telegram-bot&lt;/a> API，這樣就不用自己去寫 Request 接官方 API。&lt;/p>
+&lt;p>先在主機上安裝 &lt;code>Node.js&lt;/code> 及 &lt;code>npm&lt;/code> ，再照以下安裝 &lt;code>express&lt;/code> 及 &lt;code>node-telegram-bot-api&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 建立資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mkdir telegram-firstbot
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 移動到資料夾內&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd telegram-firstbot
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 使用 npm 建立專案&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm init
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 建立 index.js&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>touch index.js
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 安裝 express&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm install --save express
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 安裝 Node.js Telegram Bot API&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm install --save node-telegram-bot-api
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>index.js&lt;/code> 內容如下，記得替換掉以下參數&lt;/p>
+&lt;ul>
+&lt;li>@{YOUR_TOKEN} - &lt;a href="https://telegram.me/botfather">@botfather&lt;/a> 給你的 token&lt;/li>
+&lt;li>@{YOUR_URL_WITHPORT} - 你的 bot 網址，例如 &lt;code>https://1.2.3.4:8443&lt;/code>&lt;/li>
+&lt;li>@{YOUR_PORT} - bot 使用的 port，Telegram 目前只接受 443, 80, 88, 8443&lt;/li>
+&lt;li>@{YOUR_PRIVATEKEY_PATH\key.pem} - 於上個步驟產生的 &lt;code>key.pem&lt;/code> 檔案路徑&lt;/li>
+&lt;li>@{YOUR_CERTIFICATE_PATH\cert.pem} - 於上個步驟產生的 &lt;code>cert.pem&lt;/code> 檔案路徑&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">TelegramBot&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;node-telegram-bot-api&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;express&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">bodyParser&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;body-parser&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">fs&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;fs&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">https&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;https&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">TOKEN&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;@{YOUR_TOKEN}&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">url&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;@{YOUR_URL_WITHPORT}&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">@&lt;/span>{&lt;span style="color:#a6e22e">YOUR_PORT&lt;/span>};
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// certificate
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">privatekey&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">fs&lt;/span>.&lt;span style="color:#a6e22e">readFileSync&lt;/span>( &lt;span style="color:#e6db74">&amp;#39;@{YOUR_PRIVATEKEY_PATH\key.pem}&amp;#39;&lt;/span> );
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">certificate&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">fs&lt;/span>.&lt;span style="color:#a6e22e">readFileSync&lt;/span>( &lt;span style="color:#e6db74">&amp;#39;@{YOUR_CERTIFICATE_PATH\cert.pem}&amp;#39;&lt;/span> );
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// No need to pass any parameters as we will handle the updates with Express
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">bot&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">TelegramBot&lt;/span>(&lt;span style="color:#a6e22e">TOKEN&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// This informs the Telegram servers of the new webhook.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// because we use self-signed certificate, we must provide certificate in parameters.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">bot&lt;/span>.&lt;span style="color:#a6e22e">setWebHook&lt;/span>(&lt;span style="color:#e6db74">`&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">url&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/bot&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">TOKEN&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>,{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">certificate&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">`@{YOUR_CERTIFICATE_PATH\cert.pem}`&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">app&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// parse the updates to JSON
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">use&lt;/span>(&lt;span style="color:#a6e22e">bodyParser&lt;/span>.&lt;span style="color:#a6e22e">json&lt;/span>());
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// We are receiving updates at the route below!
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">`/bot&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">TOKEN&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">bot&lt;/span>.&lt;span style="color:#a6e22e">processUpdate&lt;/span>(&lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">body&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">sendStatus&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span> (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">send&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;listening @3@&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Start Express Server with certificates
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">https&lt;/span>.&lt;span style="color:#a6e22e">createServer&lt;/span>({
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">key&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">privatekey&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">cert&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">certificate&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}, &lt;span style="color:#a6e22e">app&lt;/span>).&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Just to ping!
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">bot&lt;/span>.&lt;span style="color:#a6e22e">on&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;message&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">msg&lt;/span> =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">bot&lt;/span>.&lt;span style="color:#a6e22e">sendMessage&lt;/span>(&lt;span style="color:#a6e22e">msg&lt;/span>.&lt;span style="color:#a6e22e">chat&lt;/span>.&lt;span style="color:#a6e22e">id&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;You said: &amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">msg&lt;/span>.&lt;span style="color:#a6e22e">text&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="測試">測試&lt;/h2>
+&lt;ol>
+&lt;li>執行 &lt;code>node index.js&lt;/code>&lt;/li>
+&lt;li>輸入網址，&lt;code>https://1.2.3.4:8443&lt;/code> 看伺服器是否有回應 &lt;code>listening @3@&lt;/code>。&lt;/li>
+&lt;li>用 Telegram 找到你的 bot，&lt;code>http://t.me/@yourbotusername&lt;/code>，測試看看會不會回應我們輸入的訊息。&lt;/li>
+&lt;li>可以使用 &lt;code>https://api.telegram.org/bot&amp;lt;token&amp;gt;/getWebhookInfo&lt;/code>，查看 &lt;code>Webhook&lt;/code> 的設定是否正常。&lt;/li>
+&lt;/ol>
+&lt;p>正常的話回應如下&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;ok&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;result&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;url&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://${ip or domain}:${port}/bot${apikey}&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;has_custom_certificate&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;pending_update_count&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">0&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;max_connections&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>有錯誤可以查看 &lt;code>last_error_messag&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;ok&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;result&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;url&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://${ip or domain}:${port}/bot${apikey}&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;has_custom_certificate&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;pending_update_count&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;last_error_date&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">1560603553&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;last_error_message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Failed to connect to ${ip or domain}:${port}&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;max_connections&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="參考網址">參考網址&lt;/h2>
+&lt;p>&lt;a href="https://core.telegram.org/bots">Bots: An introduction for developers - Telegram&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://github.com/yagop/node-telegram-bot-api/blob/master/examples/webhook/express.js">node-telegram-bot-api/express.js at master · yagop/node-telegram-bot-api&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://qiita.com/neetshin/items/0e2f6fa3ade41adb77bc">Node.jsでTelegramのチャットボットを作る&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-apache-for-centos-7">How To Create an SSL Certificate on Apache for CentOS 7&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://stackoverflow.com/questions/11804202/how-do-i-setup-a-ssl-certificate-for-an-express-js-server">node.js - How do I setup a SSL certificate for an express.js server? - Stack Overflow&lt;/a>&lt;/p></description></item><item><title>使用 Travis CI 自動部署 Hexo 部落格</title><link>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</link><pubDate>Sun, 30 Jun 2019 16:22:49 +0000</pubDate><guid>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</guid><description>&lt;p>之前文章提到，部落格的分支有兩個，&lt;code>hexo&lt;/code> 及 &lt;code>master&lt;/code>，在 &lt;code>hexo&lt;/code> 分支寫文章，之後使用 &lt;code>hexo deploy&lt;/code> 部署到 Github 的 &lt;code>master&lt;/code> 分支上，確定沒問題的時候再將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支。&lt;/p>
 &lt;p>但本機還需要安裝 &lt;code>nodejs&lt;/code> 以及 &lt;code>hexo&lt;/code> 才能使用 &lt;code>hexo deploy&lt;/code>。&lt;/p>
 &lt;p>現在有了 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 之後，就可以只專注在寫文章上，不用再去思考或是回想 &lt;code>hexo&lt;/code> 的指令如何下，流程就會變成以下：&lt;/p>
-&lt;p>在本機寫完文章，直接將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支上，接著 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 會幫自動做 &lt;code>hexo deploy&lt;/code> 的動作，自動部署回 Github。&lt;/p></description></item><item><title>Hexo 部署到 GitHub 之後失去 commit 紀錄</title><link>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</link><pubDate>Sun, 23 Jun 2019 10:55:32 +0000</pubDate><guid>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</guid><description>&lt;p>上禮拜寫完文章之後，用 Hexo deploy 到 Github 之後，發現 commits 全沒了！&lt;/p>
+&lt;p>在本機寫完文章，直接將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支上，接著 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 會幫自動做 &lt;code>hexo deploy&lt;/code> 的動作，自動部署回 Github。&lt;/p>
+&lt;h2 id="連結-travis-ci">連結 Travis CI&lt;/h2>
+&lt;p>直接使用 Github 的帳號登入 &lt;a href="https://travis-ci.org">Travis CI&lt;/a>，將部落格 repo 的開關打開，如下圖， &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 會在我們每一次 push 到 Github 時自動跑建置或測試。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/setup-travis-ci-for-hexo-on-github-1.png" alt="travis-ci-settings">&lt;/p>
+&lt;h2 id="取得-github-token">取得 Github Token&lt;/h2>
+&lt;p>因為部署之後需要 push 回 Github 上，&lt;a href="https://travis-ci.org">Travis CI&lt;/a> 需要額外的 &lt;code>Token&lt;/code>，來做這件事，在 Github 上產生一個 &lt;code>Token&lt;/code> 供 CI 使用。&lt;/p>
+&lt;p>Settings → Developer settings → Personal access tokens → Generate new token → Note 可以註記是 Travis CI 使用 → Select scopes → 只要選 &lt;code>public_repo&lt;/code> 就夠了 → Generate token&lt;/p>
+&lt;p>然後會出現一段英數字混雜的 token，複製起來貼到 Travis CI Repo 設定的 &lt;code>Environment Variables&lt;/code> 的 Value 位置，Name 為 &lt;code>GH_TOKEN&lt;/code>，按下 &lt;code>ADD&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/setup-travis-ci-for-hexo-on-github-2.png" alt="travis-ci-repo-settings">&lt;/p>
+&lt;p>看到很多文章，以前 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 設定的這些敏感資訊，因為會顯示在 log 裡，需要額外加密。但現在 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 都直接做好了，像是環境變數等等，在 log 內會變成 &lt;code>[secure]&lt;/code> 字串，就不用擔心洩漏的問題。&lt;/p>
+&lt;h2 id="編寫-travis-ci-設定檔">編寫 Travis CI 設定檔&lt;/h2>
+&lt;p>&lt;a href="https://travis-ci.org">Travis CI&lt;/a> 的設定檔名稱是 &lt;code>.travis.yml&lt;/code> ，是告訴 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 要做什麼事情，放在網站原始碼的根目錄下就可以。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yml" data-lang="yml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 使用 nodejs&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">language&lt;/span>: &lt;span style="color:#ae81ff">node_js&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 指定 nodejs 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">node_js&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#e6db74">&amp;#34;10&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 設定需要快取的資料夾，減少往後建置時間&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">cache&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">directories&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">node_modules&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 只在 hexo 分支提交時進行動作&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">branches&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">only&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">hexo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">before_install&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 設定時區&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">export TZ=&amp;#39;Asia/Taipei&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">install&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 安裝相關套件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">npm install hexo-cli -g&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">npm install&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">before_script&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 替換 hexo 設定檔 deploy:repo 的網址，使用 token 進行身分認證及提交，GH_TOKEN 為剛剛設定的 Environment Variables&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">sed -i&amp;#39;&amp;#39; &amp;#34;s~https://github.com/anemology/anemology.github.io.git~https://${GH_TOKEN}:x-oauth-basic@github.com/anemology/anemology.github.io.git~&amp;#34; _config.yml&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 替換 hexo 設定檔 deploy:message 的值，這樣就不用每一次都要去改 deploy 時的訊息，如果用預設的 site update 就可以不用改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">sed -i&amp;#39;&amp;#39; &amp;#34;s~CommitMessageWillReplacedByTravisCI~${TRAVIS_COMMIT_MESSAGE}~&amp;#34; _config.yml&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">script&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 清理 hexo 資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">hexo clean&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 建立 public 資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">hexo generate&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 因上一篇文章提到的，在不同機器上進行 hexo deploy，紀錄會不見，這邊先將 master repo clone 下來到 .deploy_git 資料夾，就可以保持原先的 commit 紀錄&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">git clone --depth 1 -b master https://github.com/anemology/anemology.github.io .deploy_git&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 進行部屬&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">hexo deploy&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="總結">總結&lt;/h2>
+&lt;p>這樣之後每一次寫完文章，只要將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支上，就可以自動部署啦~ 再也不用記 &lt;code>hexo&lt;/code> 的指令了。&lt;/p>
+&lt;p>或是可以直接在 Github 上對應位置新增 &lt;code>Markdown&lt;/code> 檔案，按照 &lt;code>hexo&lt;/code> 文章的格式撰寫完，也會有一樣的效果。&lt;/p>
+&lt;p>但要注意用 Github 新增檔案的時候，commit 訊息不能填下面的 &lt;code>extended description&lt;/code>，在建置的時候 &lt;code>${TRAVIS_COMMIT_MESSAGE}&lt;/code> 那行會出錯，因為 commit 訊息有兩行。 （個人踩雷經驗，或許重新改寫一下 &lt;code>sed&lt;/code> 寫法可以解決。&lt;/p>
+&lt;h2 id="參考網址">參考網址&lt;/h2>
+&lt;p>&lt;a href="https://e.printstacktrace.blog/hexo-git-deployer-removes-commits-history-lets-do-something-about-that/">Hexo git deployer removes commits history? Let&amp;rsquo;s do something about that!&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://docs.travis-ci.com/user/best-practices-security">Best Practices in Securing Your Data - Travis CI&lt;/a>&lt;/p></description></item><item><title>Hexo 部署到 GitHub 之後失去 commit 紀錄</title><link>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</link><pubDate>Sun, 23 Jun 2019 10:55:32 +0000</pubDate><guid>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</guid><description>&lt;p>上禮拜寫完文章之後，用 Hexo deploy 到 Github 之後，發現 commits 全沒了！&lt;/p>
 &lt;p>只剩下今天的紀錄，一個 initial commit 和 新增文章的。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git log
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>commit 0c1e76b1e3c34dbc898efcf0be59743a4e715089 &lt;span style="color:#f92672">(&lt;/span>HEAD -&amp;gt; master&lt;span style="color:#f92672">)&lt;/span>
@@ -22,12 +394,246 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Date: Sun Jun &lt;span style="color:#ae81ff">16&lt;/span> 14:10:18 &lt;span style="color:#ae81ff">2019&lt;/span> +0800
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> First commit
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Hexo 備份至 GitHub</title><link>https://anemology.cc/post/hexo-backup/</link><pubDate>Sun, 07 Oct 2018 14:22:01 +0000</pubDate><guid>https://anemology.cc/post/hexo-backup/</guid><description>&lt;p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。&lt;/p>
-&lt;p>以下就來說說如何在已經建立 &lt;code>username.github.io&lt;/code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。&lt;/p></description></item><item><title>MS SQL Server 啟用 sa 帳戶與 1433 連接埠</title><link>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</link><pubDate>Sat, 09 Jun 2018 17:36:29 +0000</pubDate><guid>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</guid><description>&lt;p>版本: &lt;em>&lt;strong>Microsoft SQL Server 2012 R2&lt;/strong>&lt;/em>&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>調查後發現，在本機有一個 &lt;code>.deploy_git&lt;/code> 資料夾，是用來 deploy 用的資料夾。&lt;/p>
+&lt;p>在 deploy 時的動作是&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>檢查有無 &lt;code>.deploy_git&lt;/code> 資料夾，如無則建立，並做 initial commit。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>複製 &lt;code>public&lt;/code> 資料夾內容到 &lt;code>.deploy_git&lt;/code> 資料夾裡。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>commit&lt;/code> 並 &lt;code>push&lt;/code> 至 Github 上。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>會發生 commit 紀錄不見的原因有二&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>換電腦，本機上沒有 &lt;code>.deploy_git&lt;/code> 資料夾，導致 deploy 時重新建立。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>deploy 時 &lt;code>push&lt;/code> 到 Github 上，加了參數 &lt;code>--force&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;p>最後我去舊電腦裡的資料夾，將 &lt;code>.deploy_git&lt;/code> 資料夾弄回來，再重新 deploy 一次就行了。&lt;/p>
+&lt;p>若是沒有保留，那些紀錄就真的沒有了。&lt;/p>
+&lt;p>所以說要在不同電腦寫作時，還要額外備份 &lt;code>.deploy_git&lt;/code> 資料夾，或是在 deploy 前，將 Github 上的紀錄先 &lt;code>pull&lt;/code> 到本機上。&lt;/p>
+&lt;p>若是沒有換電腦還真的不會踩到這個雷&amp;hellip; &lt;code>git push --force&lt;/code> 真的要慎用。&lt;/p>
+&lt;h2 id="參考網址">參考網址&lt;/h2>
+&lt;p>&lt;a href="https://e.printstacktrace.blog/hexo-git-deployer-removes-commits-history-lets-do-something-about-that/">Hexo git deployer removes commits history? Let&amp;rsquo;s do something about that!&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://github.com/hexojs/hexo-deployer-git/blob/master/lib/deployer.js">hexojs/hexo-deployer-git: Git deployer plugin for Hexo.&lt;/a>&lt;/p></description></item><item><title>Hexo 備份至 GitHub</title><link>https://anemology.cc/post/hexo-backup/</link><pubDate>Sun, 07 Oct 2018 14:22:01 +0000</pubDate><guid>https://anemology.cc/post/hexo-backup/</guid><description>&lt;p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。&lt;/p>
+&lt;p>以下就來說說如何在已經建立 &lt;code>username.github.io&lt;/code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。&lt;/p>
+&lt;p>當然也可以在 GitHub 上開一個新的儲存庫，但在參考多方意見後，還是決定在相同的儲存庫下存放檔案。&lt;/p>
+&lt;p>首先進入到我們 blog 的資料夾，應該會有以下檔案及資料夾：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>blog&lt;span style="color:#f92672">/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .deploy_git&lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#75715e">--Hexo deploy to GitHub 用
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> node_modules&lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#75715e">--npm 套件
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span>&lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#75715e">--Hexo 產生的靜態檔案
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> scaffolds&lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#75715e">--Hexo 樣板*
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">source&lt;/span>&lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#75715e">--原始文章的 Markdown*
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> themes&lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#75715e">--Hexo 主題*
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> .gitignore &lt;span style="color:#75715e">--git 排除檔案清單*
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> _config.yml &lt;span style="color:#75715e">--Hexo 設定檔*
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> db.json &lt;span style="color:#75715e">--Hexo DB
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> package.json &lt;span style="color:#75715e">--npm 套件資訊*
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> package&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#66d9ef">lock&lt;/span>.json &lt;span style="color:#75715e">--npm 套件資訊*
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>打星號的檔案要放到 GitHub 上，其他檔案因為 &lt;code>npm&lt;/code> 或是 &lt;code>Hexo&lt;/code> 都會幫我們自動建立，所以不需要特地放到 git 裡。&lt;/p>
+&lt;p>其實 Hexo 已經幫我們想好了，在 &lt;code>.gitignore&lt;/code> 裡就有排除了不需要放到 git 裡面的檔案，如果你沒有這個檔案，自行新增一個即可。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>.DS_Store
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Thumbs.db
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>db.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>*.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_modules/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>public/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>.deploy*/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="加入-git">加入 git&lt;/h2>
+&lt;p>再來就可以執行 git 指令來將資料夾加入 git：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#初始化&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git init .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#建立新分支 hexo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout -b hexo
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#將檔案加入 git&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git add .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git commit -m &lt;span style="color:#e6db74">&amp;#39;Initial commit&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#加入遠端儲存庫位址&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git remote add origin https://github.com/username/username.github.io.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#將 hexo 分支推送至遠端儲存庫&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push --set-upstream origin hexo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>這樣就完成啦，GitHub 的 &lt;code>username.github.io&lt;/code> 儲存庫應該就會有兩個分支， &lt;code>master&lt;/code> 儲存 Hexo 產生的靜態檔案， &lt;code>hexo&lt;/code> 分支儲存我們 blog 的原始檔。&lt;/p>
+&lt;p>以後寫完文章之後，就按照普通 git 流程，將檔案 push 至 GitHub 即可。&lt;/p>
+&lt;h2 id="還原檔案">還原檔案&lt;/h2>
+&lt;p>如果檔案不小心遺失或想要在另外一台電腦上寫作，也很簡單，步驟如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#將檔案 clone 回來&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git clone https://github.com/username/username.github.io.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd username.github.io/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#切換到 hexo 分支&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout hexo
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#依照 package.json 重新安裝 hexo 套件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm install
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#最後啟動 hexo server 看是不是可以正常瀏覽&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hexo server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上。&lt;/p>
+&lt;hr>
+&lt;ul>
+&lt;li>&lt;code>npm&lt;/code> version &lt;code>6.4.1&lt;/code>&lt;/li>
+&lt;li>&lt;code>Hexo&lt;/code> version &lt;code>3.7.1&lt;/code>&lt;/li>
+&lt;li>&lt;code>git&lt;/code> version &lt;code>2.17.0.windows.1&lt;/code>&lt;/li>
+&lt;/ul></description></item><item><title>MS SQL Server 啟用 sa 帳戶與 1433 連接埠</title><link>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</link><pubDate>Sat, 09 Jun 2018 17:36:29 +0000</pubDate><guid>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</guid><description>&lt;p>版本: &lt;em>&lt;strong>Microsoft SQL Server 2012 R2&lt;/strong>&lt;/em>&lt;/p>
 &lt;h2 id="1433-port">1433 port&lt;/h2>
 &lt;p>開始功能表 -&amp;gt; Microsoft SQL Server 2012 R2 -&amp;gt; 組態工具 -&amp;gt; SQL Server 組態管理員 -&amp;gt; SQL Server 網路組態 -&amp;gt; MSSQLSERVER 的通訊協定 -&amp;gt; TCP/IP -&amp;gt; 已啟用 -&amp;gt; 是 -&amp;gt; IP 位置 -&amp;gt; IPALL -&amp;gt; TCP 通訊埠 -&amp;gt; 1433&lt;/p>
 &lt;h2 id="混合驗證模式">混合驗證模式&lt;/h2>
 &lt;p>伺服器右鍵 -&amp;gt; 屬性 -&amp;gt; 安全性 -&amp;gt; 伺服器驗證 -&amp;gt; SQL Server 及 Windows 驗證模式&lt;/p>
 &lt;h2 id="sa-帳戶">sa 帳戶&lt;/h2>
-&lt;p>伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 右鍵內容 -&amp;gt; 設定密碼 -&amp;gt; 狀態 -&amp;gt; 設定 -&amp;gt; 登入 -&amp;gt; 已啟用&lt;/p></description></item><item><title>虛擬貨幣 (Bitcoin) 運作原理</title><link>https://anemology.cc/post/how-does-bitcoin-work/</link><pubDate>Sun, 03 Dec 2017 15:02:09 +0000</pubDate><guid>https://anemology.cc/post/how-does-bitcoin-work/</guid><description>&lt;p>&lt;a href="https://www.youtube.com/watch?v=bBC-nXj3Ng4">Ever wonder how Bitcoin (and other cryptocurrencies) actually work?&lt;/a>&lt;/p>
-&lt;p>看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?&lt;/p></description></item></channel></rss>
+&lt;p>伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 右鍵內容 -&amp;gt; 設定密碼 -&amp;gt; 狀態 -&amp;gt; 設定 -&amp;gt; 登入 -&amp;gt; 已啟用&lt;/p>
+&lt;p>所有設定完成之後，記得重啟 SQL Server 服務&lt;/p></description></item><item><title>虛擬貨幣 (Bitcoin) 運作原理</title><link>https://anemology.cc/post/how-does-bitcoin-work/</link><pubDate>Sun, 03 Dec 2017 15:02:09 +0000</pubDate><guid>https://anemology.cc/post/how-does-bitcoin-work/</guid><description>&lt;p>&lt;a href="https://www.youtube.com/watch?v=bBC-nXj3Ng4">Ever wonder how Bitcoin (and other cryptocurrencies) actually work?&lt;/a>&lt;/p>
+&lt;p>看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?&lt;/p>
+&lt;h5 id="以下是個人簡單的筆記">以下是個人簡單的筆記&lt;/h5>
+&lt;ol>
+&lt;li>
+&lt;p>Bitcoin 並沒有一個中心機構來記錄所有的交易行為，而是將所有交易都記錄在一本 &lt;strong>公開帳本&lt;/strong> 中，而 Bitcoin 的本質就是這本帳本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>所有人都可以在這本帳本上做紀錄，但要如何確保紀錄不會被造假?&lt;/p>
+&lt;p>紀錄時會使用 &lt;strong>電子簽章&lt;/strong> 來證明是該人所記錄，而每一筆紀錄都有唯一的序號，就算別人複製了同一筆交易紀錄，但序號不同，驗證的結果也不會通過。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>那誰來維護這本帳本呢?&lt;/p>
+&lt;p>帳本會被切割成一個一個區塊，而每個區塊的開頭都會有前一個區塊的 hash 值，以此就可以判斷每個區塊正確的順序，而這也稱為區塊鏈。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>每個區塊除了帳本上記錄的交易行為，還有一個最重要的東西，就是 &lt;strong>proof of work&lt;/strong>，就像每筆紀錄需要電子簽章，每個區塊都需要 proof of work 才能證明它是有效的。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>proof of work 是一個特別的數字，該區塊加上 proof of work 算出來的 hash 值能讓 hash 值前面 n 位數為 0，就代表這個數字就是這個區塊的 proof of work。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>而挖礦就是在計算 proof of work 數字，第一個算出這個數字的人，就可以得到建立這個區塊的獎勵。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>第 5 點講到的 n 是不固定的，Bitcoin 會隨時改變 n，以確保每 10 分鐘都可以有一個區塊產生。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h5 id="sha-256-破解">SHA-256 破解&lt;/h5>
+&lt;p>Bitcoin 的 hash 值是用 SHA-256 雜湊演算法來運算，而 SHA-256 有多難破解，可以看看以下這個影片&lt;/p>
+&lt;p>&lt;a href="https://www.youtube.com/watch?v=S9JGmA5_unY">How secure is 256 bit security?&lt;/a>&lt;/p></description></item><item><title>Hexo 介紹和常用指令</title><link>https://anemology.cc/post/hexo-introduction-and-commands/</link><pubDate>Sat, 25 Nov 2017 23:52:18 +0000</pubDate><guid>https://anemology.cc/post/hexo-introduction-and-commands/</guid><description>&lt;h5 id="hexo-是什麼">Hexo 是什麼?&lt;/h5>
+&lt;p>&lt;a href="https://hexo.io/zh-tw/">Hexo&lt;/a> 是一個基於 Node.js 所建立的網誌框架，你不需要懂 Node.js，只要會下 command 就行了。
+使用 &lt;code>Markdown&lt;/code> 來編寫文章，&lt;a href="https://hexo.io/zh-tw/">Hexo&lt;/a> 會將你寫的 Markdown 文章解析並產生靜態檔案，可以直接部署到 GitHub 上，完全不需要後端的支援。&lt;/p>
+&lt;p>大多數人部署到 GitHub 的原因是，它可以免費置放靜態檔案，缺點是必須公開所有的程式碼，
+而 &lt;a href="https://hexo.io/zh-tw/">Hexo&lt;/a> 也有方便的指令可以將你的網誌部署到 GitHub 上。
+當然其他網頁伺服器軟體也可以，但就要自行架設主機，建置環境。&lt;/p>
+&lt;p>我選擇 &lt;a href="https://hexo.io/zh-tw/">Hexo&lt;/a> 的原因是&amp;hellip;它有完整的繁體中文文件!
+你也可以選擇很多人在用的 &lt;a href="https://jekyllrb.com/">Jekyll&lt;/a>、&lt;a href="https://gohugo.io/">Hugo&lt;/a>&lt;/p>
+&lt;h5 id="hexo-常用指令">Hexo 常用指令&lt;/h5>
+&lt;pre>&lt;code>hexo server
+&lt;/code>&lt;/pre>
+&lt;p>啟動伺服器，瀏覽 &lt;a href="http://localhost:4000/">http://localhost:4000/&lt;/a> 就可以看到所產生好的網誌。&lt;/p>
+&lt;pre>&lt;code>hexo new post HelloWorld
+&lt;/code>&lt;/pre>
+&lt;p>建立一篇新的文章，在 &lt;code>source\_posts&lt;/code> 底下會產生一個 &lt;code>HelloWorld.md&lt;/code> 的檔案，編輯這個檔案來撰寫文章。&lt;/p>
+&lt;pre>&lt;code>hexo clean
+&lt;/code>&lt;/pre>
+&lt;p>刪除快取檔案 &lt;code>db.json&lt;/code> 和放置靜態檔案的 &lt;code>public&lt;/code> 資料夾。&lt;/p>
+&lt;pre>&lt;code>hexo generate
+&lt;/code>&lt;/pre>
+&lt;p>產生靜態檔案於 &lt;code>public&lt;/code> 資料夾。&lt;/p>
+&lt;pre>&lt;code>hexo deploy
+&lt;/code>&lt;/pre>
+&lt;p>部屬網誌，需先於 &lt;code>_config.yml&lt;/code> 中設定 &lt;code>deploy&lt;/code> 相關參數。&lt;/p></description></item><item><title>Next 主題修改更新時間的顯示規則</title><link>https://anemology.cc/post/next-edit-time/</link><pubDate>Sat, 25 Nov 2017 18:19:01 +0000</pubDate><guid>https://anemology.cc/post/next-edit-time/</guid><description>&lt;p>只有在更新時間 &amp;gt; 發表時間的時候才顯示&lt;/p>
+&lt;p>修改 themes\next\layout\_macro&amp;lt;span style=&amp;ldquo;color:red&amp;rdquo;&amp;gt;post.swig&lt;!-- raw HTML omitted -->
+兩個 if 判斷子句中加入 &lt;code>and post.updated &amp;gt; post.date&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#f92672">div&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-time&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% if theme.post_meta.created_at and theme.post_meta.updated_at and post.updated &amp;gt; post.date %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta-divider&amp;#34;&lt;/span>&amp;gt;|&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% endif %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% if theme.post_meta.updated_at and post.updated &amp;gt; post.date %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta-item-icon&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">i&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;fa fa-calendar-check-o&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#f92672">i&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% if theme.post_meta.item_text %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta-item-text&amp;#34;&lt;/span>&amp;gt;{{ __(&amp;#39;post.modified&amp;#39;) }}&amp;amp;#58;&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% endif %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">time&lt;/span> &lt;span style="color:#a6e22e">title&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;{{ __(&amp;#39;post.modified&amp;#39;) }}&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">itemprop&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;dateModified&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">datetime&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;{{ moment(post.updated).format() }}&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{ date(post.updated, config.date_format) }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/&lt;span style="color:#f92672">time&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% endif %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 SSH Key 登入 Linux Server</title><link>https://anemology.cc/post/ssh-key-login-linux/</link><pubDate>Sat, 07 Jan 2017 03:41:45 +0000</pubDate><guid>https://anemology.cc/post/ssh-key-login-linux/</guid><description>&lt;p>最近因為在玩 P2P 的東西，所以需要一台 24/7 的電腦來跑。&lt;/p>
+&lt;p>剛好 GitHub Education 之前有送 DigitalOcean $50，就先拿來用了。&lt;/p>
+&lt;p>怎麼在 DigitalOcean 建立 Droplet 就不說了，新建立好像可以直接匯入 SSH Key，就不用手動加 SSH Key。&lt;/p>
+&lt;p>OS: Ubuntu 16.04.1 x64&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>root 連到 Linux Server，建立一個新的使用者。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>add user whatever
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>將使用者加入 sudo 群組。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gpasswd -a whatever sudo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>使用 &lt;a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTYgen&lt;/a> 建立公私鑰，也可以在 Linux 上用 &lt;code>ssh-keygen&lt;/code> 指令建立。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/ssh-key-login-linux-1.png" alt="ssh-key-login-linux-1">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>登入剛剛建立的新使用者，在家目錄建立 &lt;code>.ssh&lt;/code> 目錄。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>su - whatever
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mkdir .ssh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>chmod &lt;span style="color:#ae81ff">700&lt;/span> .ssh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>新增 &lt;code>authorized_keys&lt;/code> 檔案，並將公鑰內容貼進去，&lt;code>Ctrl+X&lt;/code> 存檔。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nano .ssh/authorized_keys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>chmod &lt;span style="color:#ae81ff">600&lt;/span> .ssh/authorized_keys
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>輸入 &lt;code>exit&lt;/code> 切換回 &lt;code>root&lt;/code>，修改這個檔案。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>nano /etc/ssh/sshd_config
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>拿掉這幾行前面的註解 &lt;code>#&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>RSAAuthentication yes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>PubkeyAuthentication yes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>AuthorizedKeysFile %h/.ssh/authorized_keys
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>將 &lt;code>PasswordAuthentication&lt;/code> 設置為 &lt;code>no&lt;/code>，就不能用密碼登入嚕。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>PasswordAuthentication no
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>Ctrl+X&lt;/code> 存檔後，重啟服務。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>service ssh restart
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>接著就可以在 PuTTY，用剛剛存下來的私鑰做驗證登入了 (不用密碼)。&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/ssh-key-login-linux-2.png" alt="ssh-key-login-linux-2">&lt;/p>
+&lt;p>&lt;img src="https://anemology.cc/img/ssh-key-login-linux-3.png" alt="img/ssh-key-login-linux-3">&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p> &lt;/p>
+&lt;p>因為公鑰是存放在 whatever 的家目錄，所以只能用 whatever 登入。&lt;/p>
+&lt;p>要用 root 登入的話就要在 /root 做同樣的事情，或是調整 &lt;code>sshd_config&lt;/code> 的設定，不建議啦。&lt;/p>
+&lt;hr>
+&lt;p>參考資料：&lt;/p>
+&lt;p>&lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04">Initial Server Setup with Ubuntu 14.04&lt;/a>&lt;/p></description></item><item><title>Anagrams</title><link>https://anemology.cc/post/anagrams/</link><pubDate>Wed, 29 Jun 2016 18:22:11 +0000</pubDate><guid>https://anemology.cc/post/anagrams/</guid><description>&lt;p>面試時做線上測試遇到一個 Anagrams 的問題，所以在這裡筆記一下~&lt;/p>
+&lt;hr>
+&lt;p>原始題目網址：&lt;a href="https://www.testdome.com/Questions/PHP/AreAnagrams/4838?visibility=1&amp;amp;skillId=5">https://www.testdome.com/Questions/PHP/AreAnagrams/4838?visibility=1&amp;amp;skillId=5&lt;/a>&lt;/p>
+&lt;h3 id="判斷兩個字串是否為-anagrams-暫譯變位詞">判斷兩個字串是否為 Anagrams (暫譯:變位詞)&lt;/h3>
+&lt;p>Anagrams 的意思是兩個字串的組成是否相同&lt;/p>
+&lt;p>apple 和 pplea 會輸出 true&lt;/p>
+&lt;p>bird 和 biidd 則會輸出 false&lt;/p>
+&lt;p>解決方法&lt;/p>
+&lt;ol>
+&lt;li>判斷兩個字串長度是否相同，若不同就可以直接輸出 false。&lt;/li>
+&lt;li>將字串分割成陣列。&lt;/li>
+&lt;li>將陣列依照字母順序排列。&lt;/li>
+&lt;li>比對陣列裡的每個元素是否相同。
+ &lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;p>參考網址:
+&lt;a href="https://magiclen.org/hackerrank-java-anagrams/">[HackerRank]Java變位詞(Java Anagrams) | MagicLen&lt;/a>&lt;/p></description></item></channel></rss>

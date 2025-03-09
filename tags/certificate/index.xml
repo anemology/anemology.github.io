@@ -1,33 +1,84 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Certificate on 翱翔在空中</title><link>https://anemology.cc/tags/certificate/</link><description>Recent content in Certificate</description><generator>Hugo -- gohugo.io</generator><language>zh-TW</language><managingEditor>/tags/certificate (anemology)</managingEditor><lastBuildDate>Sat, 01 Mar 2025 15:38:22 +0800</lastBuildDate><atom:link href="/tags/certificate/" rel="self" type="application/rss+xml"/><item><title>使用 Certbot 與 Pebble 測試簽發憑證</title><link>https://anemology.cc/post/test-certbot-with-pebble/</link><pubDate>Sat, 01 Mar 2025 15:38:22 +0800</pubDate><guid>https://anemology.cc/post/test-certbot-with-pebble/</guid><description>&lt;p>在上一篇提到可以使用 &lt;a href="https://github.com/letsencrypt/pebble">Pebble&lt;/a> 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。&lt;/p></description></item><item><title>ACME Certificate Profile</title><link>https://anemology.cc/post/acme-certificate-profile/</link><pubDate>Sat, 22 Feb 2025 19:37:45 +0800</pubDate><guid>https://anemology.cc/post/acme-certificate-profile/</guid><description>&lt;p>最近要將公司服務更新憑證的方式改用 ACME client，在測試的時候發現 pebble 簽發的憑證有效期限從原本的三個月變成了五天，這篇文章會稍微記錄一下原因。&lt;/p></description></item><item><title>尋找 Plurk 噗文連結</title><link>https://anemology.cc/post/find-plurk-permalink/</link><pubDate>Sat, 21 May 2022 21:39:21 +0800</pubDate><guid>https://anemology.cc/post/find-plurk-permalink/</guid><description>&lt;p>最近在改寫自己的 &lt;a href="https://github.com/anemology/plurkdl">噗浪下載程式&lt;/a>，發現噗文連結並沒有在 API response 內，因此尋找了一下，此篇文章則是記錄過程及思路。&lt;/p></description></item><item><title>Hexo 及 NexT 主題升級紀錄</title><link>https://anemology.cc/post/hexo-and-next-update/</link><pubDate>Sun, 19 Jul 2020 11:52:27 +0000</pubDate><guid>https://anemology.cc/post/hexo-and-next-update/</guid><description>&lt;p>從去年開始， GitHub 的 &lt;a href="https://github.com/apps/dependabot">dependabot&lt;/a> 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。&lt;/p>
-&lt;p>因我的部落格也很久沒更新了，索性就一次將 &lt;a href="https://github.com/hexojs/hexo">Hexo&lt;/a> 及 &lt;a href="https://github.com/next-theme/hexo-theme-next">NexT&lt;/a> 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。&lt;/p>
-&lt;ul>
-&lt;li>Hexo &lt;code>3.8.0&lt;/code> -&amp;gt; &lt;code>4.2.1&lt;/code>&lt;/li>
-&lt;li>NexT &lt;code>5.1.3&lt;/code> -&amp;gt; &lt;code>7.8.0&lt;/code>&lt;/li>
-&lt;/ul></description></item><item><title>第一個 Telegram Bot</title><link>https://anemology.cc/post/telegram-firstbot-using-nodejs/</link><pubDate>Tue, 16 Jul 2019 10:54:12 +0000</pubDate><guid>https://anemology.cc/post/telegram-firstbot-using-nodejs/</guid><description>&lt;p>使用 Node.js 打造第一個 Telegram Bot，需要以下東西&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Certificate on 翱翔在空中</title><link>https://anemology.cc/tags/certificate/</link><description>Recent content in Certificate on 翱翔在空中</description><generator>Hugo</generator><language>zh-TW</language><lastBuildDate>Sat, 01 Mar 2025 15:38:22 +0800</lastBuildDate><atom:link href="https://anemology.cc/tags/certificate/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Certbot 與 Pebble 測試簽發憑證</title><link>https://anemology.cc/post/test-certbot-with-pebble/</link><pubDate>Sat, 01 Mar 2025 15:38:22 +0800</pubDate><guid>https://anemology.cc/post/test-certbot-with-pebble/</guid><description>&lt;p>在上一篇提到可以使用 &lt;a href="https://github.com/letsencrypt/pebble">Pebble&lt;/a> 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。&lt;/p>
+&lt;p>首先從 Pebble 的 GitHub 複製範例 &lt;a href="https://github.com/letsencrypt/pebble/blob/307a947a4fde234ef74f6e54ce665b4c53beba40/docker-compose.yml">docker-compose.yml&lt;/a>，這邊我多加上了 &lt;code>PEBBLE_VA_ALWAYS_VALID&lt;/code> 環境變數，因為主要目的是產出憑證，這可以讓 challenge validation 總是通過，讓我們不用額外設定 HTTP server 或是 DNS。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yml" data-lang="yml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">services&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">pebble&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">ghcr.io/letsencrypt/pebble:latest&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">command&lt;/span>: -&lt;span style="color:#ae81ff">config test/config/pebble-config.json -strict -dnsserver 10.30.50.3:8053&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ports&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">14000&lt;/span>:&lt;span style="color:#ae81ff">14000&lt;/span> &lt;span style="color:#75715e"># HTTPS ACME API&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">15000&lt;/span>:&lt;span style="color:#ae81ff">15000&lt;/span> &lt;span style="color:#75715e"># HTTPS Management API&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">networks&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">acmenet&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ipv4_address&lt;/span>: &lt;span style="color:#ae81ff">10.30.50.2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">environment&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">PEBBLE_VA_ALWAYS_VALID=1&lt;/span> &lt;span style="color:#75715e"># Skipping Validation&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">challtestsrv&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">ghcr.io/letsencrypt/pebble-challtestsrv:latest&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">command&lt;/span>: -&lt;span style="color:#ae81ff">defaultIPv6 &amp;#34;&amp;#34; -defaultIPv4 10.30.50.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ports&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#ae81ff">8055&lt;/span>:&lt;span style="color:#ae81ff">8055&lt;/span> &lt;span style="color:#75715e"># HTTP Management API&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">networks&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">acmenet&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ipv4_address&lt;/span>: &lt;span style="color:#ae81ff">10.30.50.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">networks&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">acmenet&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">driver&lt;/span>: &lt;span style="color:#ae81ff">bridge&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">ipam&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">driver&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">config&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> - &lt;span style="color:#f92672">subnet&lt;/span>: &lt;span style="color:#ae81ff">10.30.50.0&lt;/span>&lt;span style="color:#ae81ff">/24&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>透過 docker compose 將服務跑起來：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>docker compose up -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>取得 container 的名稱，等等執行 Certbot 時會使用到：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ sudo docker compose ps | grep &lt;span style="color:#e6db74">&amp;#34;pebble:latest&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>certbot-pebble-1 ghcr.io/letsencrypt/pebble:latest &lt;span style="color:#e6db74">&amp;#34;/app -config test/c…&amp;#34;&lt;/span> pebble &lt;span style="color:#ae81ff">7&lt;/span> days ago Up &lt;span style="color:#ae81ff">2&lt;/span> minutes 0.0.0.0:14000-&amp;gt;14000/tcp, :::14000-&amp;gt;14000/tcp, 0.0.0.0:15000-&amp;gt;15000/tcp, :::15000-&amp;gt;15000/tcp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以我的環境來說 Pebble container 名稱是 &lt;code>certbot-pebble-1&lt;/code>，因為 docker compose 會自動在前面加上資料夾名稱，檔案放在 certbot 資料夾下，所以自動被加上 &lt;code>certbot_&lt;/code> 前綴。&lt;/p>
+&lt;p>最後來準備 Certbot command：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo docker run -it --rm --name certbot &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -v &lt;span style="color:#e6db74">&amp;#34;./data/etc:/etc/letsencrypt&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -v &lt;span style="color:#e6db74">&amp;#34;./data/lib:/var/lib/letsencrypt&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -v &lt;span style="color:#e6db74">&amp;#34;./data/log:/var/log/letsencrypt&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --network container:certbot-pebble-1 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> certbot/certbot certonly &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --standalone &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --domain &lt;span style="color:#e6db74">&amp;#34;example.com,www.example.com&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --non-interactive &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --email eng@example.com &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --no-verify-ssl &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --agree-tos &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --server https://certbot-pebble-1:14000/dir &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> --verbose
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我們將 Certbot 存放資料的地方，mount 在 &lt;code>./data&lt;/code> 底下；使用 &lt;code>--network container:certbot-pebble-1&lt;/code> 將 Certbot 與 Pebble 在相同的 docker network 環境下執行，可以直接透過 container 名稱來存取 Pebble，所以需指定 &lt;code>--server https://certbot-pebble-1:14000/dir&lt;/code>。若是沒有指定，預設指向 Let&amp;rsquo;s Encrypt &lt;a href="https://letsencrypt.org/docs/acme-protocol-updates/#api-endpoints">Production server&lt;/a>。&lt;/p>
+&lt;p>執行指令之後，不需要通過任何 challenge，會直接簽發憑證，有以下輸出：&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-log" data-lang="log">Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/example.com/fullchain.pem
+Key is saved at: /etc/letsencrypt/live/example.com/privkey.pem
+This certificate expires on 2025-03-08.
+These files will be updated when the certificate renews.
+&lt;/code>&lt;/pre>&lt;p>憑證可以在剛剛 mount 的資料夾 &lt;code>./data/etc/live/example.com/&lt;/code> 內找到，web server 需要的就會是 &lt;code>fullchain.pem&lt;/code> 和 &lt;code>privkey.pem&lt;/code>。&lt;/p>
+&lt;p>如果要查看 log&lt;/p>
 &lt;ol>
-&lt;li>Telegram 帳號&lt;/li>
-&lt;li>一台可以對外服務的 Server 或 PC&lt;/li>
-&lt;/ol></description></item><item><title>使用 Travis CI 自動部署 Hexo 部落格</title><link>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</link><pubDate>Sun, 30 Jun 2019 16:22:49 +0000</pubDate><guid>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</guid><description>&lt;p>之前文章提到，部落格的分支有兩個，&lt;code>hexo&lt;/code> 及 &lt;code>master&lt;/code>，在 &lt;code>hexo&lt;/code> 分支寫文章，之後使用 &lt;code>hexo deploy&lt;/code> 部署到 Github 的 &lt;code>master&lt;/code> 分支上，確定沒問題的時候再將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支。&lt;/p>
-&lt;p>但本機還需要安裝 &lt;code>nodejs&lt;/code> 以及 &lt;code>hexo&lt;/code> 才能使用 &lt;code>hexo deploy&lt;/code>。&lt;/p>
-&lt;p>現在有了 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 之後，就可以只專注在寫文章上，不用再去思考或是回想 &lt;code>hexo&lt;/code> 的指令如何下，流程就會變成以下：&lt;/p>
-&lt;p>在本機寫完文章，直接將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支上，接著 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 會幫自動做 &lt;code>hexo deploy&lt;/code> 的動作，自動部署回 Github。&lt;/p></description></item><item><title>Hexo 部署到 GitHub 之後失去 commit 紀錄</title><link>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</link><pubDate>Sun, 23 Jun 2019 10:55:32 +0000</pubDate><guid>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</guid><description>&lt;p>上禮拜寫完文章之後，用 Hexo deploy 到 Github 之後，發現 commits 全沒了！&lt;/p>
-&lt;p>只剩下今天的紀錄，一個 initial commit 和 新增文章的。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git log
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>commit 0c1e76b1e3c34dbc898efcf0be59743a4e715089 &lt;span style="color:#f92672">(&lt;/span>HEAD -&amp;gt; master&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Date: Sun Jun &lt;span style="color:#ae81ff">16&lt;/span> 14:10:19 &lt;span style="color:#ae81ff">2019&lt;/span> +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> new post - telegram firstbot using nodejs
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>commit dd80cc98ca5539898698b8277f18ba6b6c825e01
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Date: Sun Jun &lt;span style="color:#ae81ff">16&lt;/span> 14:10:18 &lt;span style="color:#ae81ff">2019&lt;/span> +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> First commit
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Hexo 備份至 GitHub</title><link>https://anemology.cc/post/hexo-backup/</link><pubDate>Sun, 07 Oct 2018 14:22:01 +0000</pubDate><guid>https://anemology.cc/post/hexo-backup/</guid><description>&lt;p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。&lt;/p>
-&lt;p>以下就來說說如何在已經建立 &lt;code>username.github.io&lt;/code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。&lt;/p></description></item><item><title>MS SQL Server 啟用 sa 帳戶與 1433 連接埠</title><link>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</link><pubDate>Sat, 09 Jun 2018 17:36:29 +0000</pubDate><guid>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</guid><description>&lt;p>版本: &lt;em>&lt;strong>Microsoft SQL Server 2012 R2&lt;/strong>&lt;/em>&lt;/p>
-&lt;h2 id="1433-port">1433 port&lt;/h2>
-&lt;p>開始功能表 -&amp;gt; Microsoft SQL Server 2012 R2 -&amp;gt; 組態工具 -&amp;gt; SQL Server 組態管理員 -&amp;gt; SQL Server 網路組態 -&amp;gt; MSSQLSERVER 的通訊協定 -&amp;gt; TCP/IP -&amp;gt; 已啟用 -&amp;gt; 是 -&amp;gt; IP 位置 -&amp;gt; IPALL -&amp;gt; TCP 通訊埠 -&amp;gt; 1433&lt;/p>
-&lt;h2 id="混合驗證模式">混合驗證模式&lt;/h2>
-&lt;p>伺服器右鍵 -&amp;gt; 屬性 -&amp;gt; 安全性 -&amp;gt; 伺服器驗證 -&amp;gt; SQL Server 及 Windows 驗證模式&lt;/p>
-&lt;h2 id="sa-帳戶">sa 帳戶&lt;/h2>
-&lt;p>伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 右鍵內容 -&amp;gt; 設定密碼 -&amp;gt; 狀態 -&amp;gt; 設定 -&amp;gt; 登入 -&amp;gt; 已啟用&lt;/p></description></item><item><title>虛擬貨幣 (Bitcoin) 運作原理</title><link>https://anemology.cc/post/how-does-bitcoin-work/</link><pubDate>Sun, 03 Dec 2017 15:02:09 +0000</pubDate><guid>https://anemology.cc/post/how-does-bitcoin-work/</guid><description>&lt;p>&lt;a href="https://www.youtube.com/watch?v=bBC-nXj3Ng4">Ever wonder how Bitcoin (and other cryptocurrencies) actually work?&lt;/a>&lt;/p>
-&lt;p>看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?&lt;/p></description></item></channel></rss>
+&lt;li>Certbot: &lt;code>cat ./data/log/letsencrypt.log&lt;/code>&lt;/li>
+&lt;li>Pebble: &lt;code>sudo docker compose logs&lt;/code>&lt;/li>
+&lt;/ol></description></item><item><title>ACME Certificate Profile</title><link>https://anemology.cc/post/acme-certificate-profile/</link><pubDate>Sat, 22 Feb 2025 19:37:45 +0800</pubDate><guid>https://anemology.cc/post/acme-certificate-profile/</guid><description>&lt;p>最近要將公司服務更新憑證的方式改用 ACME client，在測試的時候發現 pebble 簽發的憑證有效期限從原本的三個月變成了五天，這篇文章會稍微記錄一下原因。&lt;/p>
+&lt;p>ACME (Automatic Certificate Management Environment) &lt;a href="https://datatracker.ietf.org/doc/rfc8555/">RFC 8555&lt;/a> 是為了自動化更新憑證而誕生的一個協定。&lt;/p>
+&lt;p>&lt;a href="https://github.com/letsencrypt/pebble">pebble&lt;/a> 是 &lt;a href="https://letsencrypt.org/">Let&amp;rsquo;s Encrypt&lt;/a> 提供的 ACME 測試 server，可以簡單地在 CI 環境內或者 local 進行測試，雖然 Let&amp;rsquo;s Encrypt 也有提供 &lt;a href="https://letsencrypt.org/docs/staging-environment/">staging&lt;/a> 環境，但是有一個 self-hosted 的測試環境再加上可以自訂設定還是比較方便。而這篇文章會用 ACME client &lt;a href="https://github.com/certbot/certbot">certbot&lt;/a> 搭配 pebble 測試。&lt;/p>
+&lt;p>首先用 docker 起一個 local 的 pebble server，使用 certbot 產生 example.com 憑證，Not Before 會是當下時間，而 Not After 則是三個月後：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ openssl x509 -noout -text -in /etc/live/example.com/cert.pem | grep &lt;span style="color:#e6db74">&amp;#34;Validity&amp;#34;&lt;/span> -A2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Validity
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not Before: Feb &lt;span style="color:#ae81ff">22&lt;/span> 08:35:30 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not After : May &lt;span style="color:#ae81ff">23&lt;/span> 08:35:29 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>再用一次 certbot 加上 &lt;code>--force-renewal&lt;/code> 強制 renew 後，發現期限竟然變成了六天後：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ openssl x509 -noout -text -in /etc/live/example.com/cert.pem | grep &lt;span style="color:#e6db74">&amp;#34;Validity&amp;#34;&lt;/span> -A2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Validity
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not Before: Feb &lt;span style="color:#ae81ff">22&lt;/span> 09:30:29 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Not After : Feb &lt;span style="color:#ae81ff">28&lt;/span> 09:30:28 &lt;span style="color:#ae81ff">2025&lt;/span> GMT
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>所以就去查 pebble source code 看有沒有什麼關於有效期限的設定，最後在 &lt;a href="https://github.com/letsencrypt/pebble/blob/9a99831fce2f8f72cb1124b051da99dbe133fde9/test/config/pebble-config.json#L23">test/config/pebble-config.json&lt;/a> 內發現 &lt;code>&amp;quot;validityPeriod&amp;quot;: 518400&lt;/code>，剛好 518400 秒 == 6 天。&lt;/p>
+&lt;p>而 profiles 內有兩個設定，&lt;code>default&lt;/code> 和 &lt;code>shortlived&lt;/code>， pebble 是怎麼選擇的呢？如果 ACME client 在發出 order 時沒有指定 profile，pebble &lt;a href="https://github.com/letsencrypt/pebble/blob/9a99831fce2f8f72cb1124b051da99dbe133fde9/wfe/wfe.go#L1731">wfe/wfe.go&lt;/a> 就會隨機選&amp;hellip;&lt;/p>
+&lt;hr>
+&lt;p>&lt;a href="https://datatracker.ietf.org/doc/draft-aaron-acme-profiles/">Profile selection&lt;/a> 目前還只是 draft，而 Let&amp;rsquo;s Encrypt 在&lt;a href="https://letsencrypt.org/2025/01/09/acme-profiles/">公告&lt;/a>內指出會由 server 決定，不確定各 CA 的 ACME server 會怎麼實作&lt;/p>
+&lt;blockquote>
+&lt;p>If the new-order request does not specify a profile, then the server will select one for it.&lt;/p>&lt;/blockquote>
+&lt;p>而 certbot 今天剛好在相關的 issue &lt;a href="https://github.com/certbot/certbot/issues/9261#issuecomment-2675915347">#9261&lt;/a> 內有更新，預計今年會實作 ACME profiles。&lt;/p>
+&lt;p>如果要固定 profile，暫時的解決方式是修改 pebble-config.json 只留下想要的，或是改用有支援的 client &lt;a href="https://github.com/go-acme/lego/releases/tag/v4.22.0">lego&lt;/a>。&lt;/p>
+&lt;p>最後，有興趣的也可以看看 Let’s Encrypt 最新的公告 &lt;a href="https://letsencrypt.org/2025/02/20/first-short-lived-cert-issued/">We Issued Our First Six Day Cert - Let&amp;rsquo;s Encrypt&lt;/a>&lt;/p></description></item></channel></rss>

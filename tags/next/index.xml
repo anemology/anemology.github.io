@@ -1,33 +1,94 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Next on 翱翔在空中</title><link>https://anemology.cc/tags/next/</link><description>Recent content in Next</description><generator>Hugo -- gohugo.io</generator><language>zh-TW</language><managingEditor>/tags/next (anemology)</managingEditor><lastBuildDate>Sun, 19 Jul 2020 11:52:27 +0000</lastBuildDate><atom:link href="/tags/next/" rel="self" type="application/rss+xml"/><item><title>使用 Certbot 與 Pebble 測試簽發憑證</title><link>https://anemology.cc/post/test-certbot-with-pebble/</link><pubDate>Sat, 01 Mar 2025 15:38:22 +0800</pubDate><guid>https://anemology.cc/post/test-certbot-with-pebble/</guid><description>&lt;p>在上一篇提到可以使用 &lt;a href="https://github.com/letsencrypt/pebble">Pebble&lt;/a> 當作測試 ACME server，這篇會簡單介紹一下怎麼使用 docker 搭配 Certbot 在本地端進行測試簽發憑證。&lt;/p></description></item><item><title>ACME Certificate Profile</title><link>https://anemology.cc/post/acme-certificate-profile/</link><pubDate>Sat, 22 Feb 2025 19:37:45 +0800</pubDate><guid>https://anemology.cc/post/acme-certificate-profile/</guid><description>&lt;p>最近要將公司服務更新憑證的方式改用 ACME client，在測試的時候發現 pebble 簽發的憑證有效期限從原本的三個月變成了五天，這篇文章會稍微記錄一下原因。&lt;/p></description></item><item><title>尋找 Plurk 噗文連結</title><link>https://anemology.cc/post/find-plurk-permalink/</link><pubDate>Sat, 21 May 2022 21:39:21 +0800</pubDate><guid>https://anemology.cc/post/find-plurk-permalink/</guid><description>&lt;p>最近在改寫自己的 &lt;a href="https://github.com/anemology/plurkdl">噗浪下載程式&lt;/a>，發現噗文連結並沒有在 API response 內，因此尋找了一下，此篇文章則是記錄過程及思路。&lt;/p></description></item><item><title>Hexo 及 NexT 主題升級紀錄</title><link>https://anemology.cc/post/hexo-and-next-update/</link><pubDate>Sun, 19 Jul 2020 11:52:27 +0000</pubDate><guid>https://anemology.cc/post/hexo-and-next-update/</guid><description>&lt;p>從去年開始， GitHub 的 &lt;a href="https://github.com/apps/dependabot">dependabot&lt;/a> 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Next on 翱翔在空中</title><link>https://anemology.cc/tags/next/</link><description>Recent content in Next on 翱翔在空中</description><generator>Hugo</generator><language>zh-TW</language><lastBuildDate>Sun, 19 Jul 2020 11:52:27 +0000</lastBuildDate><atom:link href="https://anemology.cc/tags/next/index.xml" rel="self" type="application/rss+xml"/><item><title>Hexo 及 NexT 主題升級紀錄</title><link>https://anemology.cc/post/hexo-and-next-update/</link><pubDate>Sun, 19 Jul 2020 11:52:27 +0000</pubDate><guid>https://anemology.cc/post/hexo-and-next-update/</guid><description>&lt;p>從去年開始， GitHub 的 &lt;a href="https://github.com/apps/dependabot">dependabot&lt;/a> 就會自動偵測 repositories 內 npm 使用的相依套件，如果有安全性問題，bot 就會自動通知並發起 pull request，提醒要更新。&lt;/p>
 &lt;p>因我的部落格也很久沒更新了，索性就一次將 &lt;a href="https://github.com/hexojs/hexo">Hexo&lt;/a> 及 &lt;a href="https://github.com/next-theme/hexo-theme-next">NexT&lt;/a> 的主題一起更新到最新版，順便紀錄一下作法方便之後再更新。&lt;/p>
 &lt;ul>
 &lt;li>Hexo &lt;code>3.8.0&lt;/code> -&amp;gt; &lt;code>4.2.1&lt;/code>&lt;/li>
 &lt;li>NexT &lt;code>5.1.3&lt;/code> -&amp;gt; &lt;code>7.8.0&lt;/code>&lt;/li>
-&lt;/ul></description></item><item><title>第一個 Telegram Bot</title><link>https://anemology.cc/post/telegram-firstbot-using-nodejs/</link><pubDate>Tue, 16 Jul 2019 10:54:12 +0000</pubDate><guid>https://anemology.cc/post/telegram-firstbot-using-nodejs/</guid><description>&lt;p>使用 Node.js 打造第一個 Telegram Bot，需要以下東西&lt;/p>
+&lt;/ul>
+&lt;p>大版本更新通常會有 breaking changes，更新後發現有不少問題，因 config 自訂的地方也不多，決定整個打掉重練。&lt;/p>
+&lt;h2 id="步驟">步驟&lt;/h2>
 &lt;ol>
-&lt;li>Telegram 帳號&lt;/li>
-&lt;li>一台可以對外服務的 Server 或 PC&lt;/li>
-&lt;/ol></description></item><item><title>使用 Travis CI 自動部署 Hexo 部落格</title><link>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</link><pubDate>Sun, 30 Jun 2019 16:22:49 +0000</pubDate><guid>https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/</guid><description>&lt;p>之前文章提到，部落格的分支有兩個，&lt;code>hexo&lt;/code> 及 &lt;code>master&lt;/code>，在 &lt;code>hexo&lt;/code> 分支寫文章，之後使用 &lt;code>hexo deploy&lt;/code> 部署到 Github 的 &lt;code>master&lt;/code> 分支上，確定沒問題的時候再將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支。&lt;/p>
-&lt;p>但本機還需要安裝 &lt;code>nodejs&lt;/code> 以及 &lt;code>hexo&lt;/code> 才能使用 &lt;code>hexo deploy&lt;/code>。&lt;/p>
-&lt;p>現在有了 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 之後，就可以只專注在寫文章上，不用再去思考或是回想 &lt;code>hexo&lt;/code> 的指令如何下，流程就會變成以下：&lt;/p>
-&lt;p>在本機寫完文章，直接將原始碼 &lt;code>push&lt;/code> 到 &lt;code>hexo&lt;/code> 分支上，接著 &lt;a href="https://travis-ci.org">Travis CI&lt;/a> 會幫自動做 &lt;code>hexo deploy&lt;/code> 的動作，自動部署回 Github。&lt;/p></description></item><item><title>Hexo 部署到 GitHub 之後失去 commit 紀錄</title><link>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</link><pubDate>Sun, 23 Jun 2019 10:55:32 +0000</pubDate><guid>https://anemology.cc/post/hexo-push-to-github-lost-commit-history/</guid><description>&lt;p>上禮拜寫完文章之後，用 Hexo deploy 到 Github 之後，發現 commits 全沒了！&lt;/p>
-&lt;p>只剩下今天的紀錄，一個 initial commit 和 新增文章的。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ git log
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>commit 0c1e76b1e3c34dbc898efcf0be59743a4e715089 &lt;span style="color:#f92672">(&lt;/span>HEAD -&amp;gt; master&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Date: Sun Jun &lt;span style="color:#ae81ff">16&lt;/span> 14:10:19 &lt;span style="color:#ae81ff">2019&lt;/span> +0800
+&lt;li>
+&lt;p>建一個全空的 hexo 部落格&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 更新 hexo-cli&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm install hexo-cli -g
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 初始化 hexo 至 update_blog 資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hexo init update_blog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd update_blog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 安裝部署使用的套件 hexo-deployer-git&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>npm install hexo-deployer-git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>打開 blog 資料夾底下的 &lt;code>package.json&lt;/code>，確認 hexo 版本 (&lt;code>&amp;quot;hexo&amp;quot;: &amp;quot;^4.2.1&amp;quot;&lt;/code>)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>將原本部落格資料夾內的 &lt;code>scaffolds&lt;/code>、&lt;code>source&lt;/code> 資料夾複製到 &lt;code>update_blog&lt;/code> 內&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>將原本部落格資料夾內的 &lt;code>themes/next&lt;/code> 資料夾複製到相對應之路徑&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>刪除沒有用到的預設主題 &lt;code>themes/landscape&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下載最新的 NexT 主題&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cd update_blog
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 因這邊要保留原本舊的 next 主題，所以將新版主題放到不同資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git clone https://github.com/theme-next/hexo-theme-next themes/hexo-theme-next
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>調整設定檔，這邊都直接使用新版的 yml 檔案&lt;/p>
+&lt;ol>
+&lt;li>比對新舊 &lt;code>_config.yml&lt;/code>，有 &lt;a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml#L6">調整過的設定&lt;/a> 我用 &lt;code>#@~@&lt;/code> 註記起來，以後比較好找&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>調整主題設定檔&lt;/p>
+&lt;ol>
+&lt;li>比對 &lt;code>themes\hexo-theme-next\_config.yml&lt;/code> 和 &lt;code>themes\next\_config.yml&lt;/code>，將有調整過的設定改寫至根目錄底下 &lt;code>_config.yml&lt;/code> 的 &lt;code>theme_config:&lt;/code> &lt;a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml#L107">區塊&lt;/a>
+好處是主題內的設定檔就維持預設的樣子，以後可以整個資料夾更新，統一在同個設定檔案也比較好維護&lt;/li>
+&lt;li>另外 &lt;a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/DATA-FILES.md">NexT 文件&lt;/a> 內有提到，也可以將設定寫到 &lt;code>source/_data/next.yml&lt;/code>，就看個人選擇&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>完成之後可以在本機下 &lt;code>hexo server&lt;/code>，看一下有無問題&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>最後就可以將變更 push 到遠端 hexo 分支，&lt;a href="https://anemology.cc/post/setup-travis-ci-for-hexo-on-github/">之前設定的 Travis CI&lt;/a> 就會自動幫我們部署到 GitHub Pages 啦~&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>去掉 post 內的 &lt;code>updated&lt;/code> 日期，之後有更新再寫就好，&lt;a href="https://anemology.cc/post/next-edit-time/">Next 主題修改更新時間的顯示規則&lt;/a> 就不用了
+不確定這是新版還是舊版 NexT 行為，現在預設是 &lt;code>date&lt;/code> 與 &lt;code>updated&lt;/code> 不同天，才會顯示更新時間，可以參考 &lt;a href="https://github.com/theme-next/hexo-theme-next/commit/9f4f0143aff6e7e804e3396f33acdcf9a109efd0">another_day 設定&lt;/a>&lt;/li>
+&lt;li>可以看一下 &lt;code>_config.yml&lt;/code> 的 &lt;a href="https://github.com/anemology/anemology.github.io/blob/7305473a75e8ce6cd38e96adfdfe0311cbd21bbb/_config.yml">commit 紀錄&lt;/a>，會比較清楚&lt;/li>
+&lt;/ul>
+&lt;h2 id="參考網址">參考網址&lt;/h2>
+&lt;p>&lt;a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md">Update from NexT v5.1.x&lt;/a>&lt;/p>
+&lt;hr>
+&lt;ul>
+&lt;li>&lt;code>npm&lt;/code> version &lt;code>6.9.0&lt;/code>&lt;/li>
+&lt;li>&lt;code>Hexo&lt;/code> version &lt;code>4.2.1&lt;/code>&lt;/li>
+&lt;li>&lt;code>NexT&lt;/code> version &lt;code>7.8.0&lt;/code>&lt;/li>
+&lt;li>&lt;code>git&lt;/code> version &lt;code>2.22.0.windows.1&lt;/code>&lt;/li>
+&lt;/ul></description></item><item><title>Next 主題修改更新時間的顯示規則</title><link>https://anemology.cc/post/next-edit-time/</link><pubDate>Sat, 25 Nov 2017 18:19:01 +0000</pubDate><guid>https://anemology.cc/post/next-edit-time/</guid><description>&lt;p>只有在更新時間 &amp;gt; 發表時間的時候才顯示&lt;/p>
+&lt;p>修改 themes\next\layout\_macro&amp;lt;span style=&amp;ldquo;color:red&amp;rdquo;&amp;gt;post.swig&lt;!-- raw HTML omitted -->
+兩個 if 判斷子句中加入 &lt;code>and post.updated &amp;gt; post.date&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#f92672">div&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-time&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% if theme.post_meta.created_at and theme.post_meta.updated_at and post.updated &amp;gt; post.date %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta-divider&amp;#34;&lt;/span>&amp;gt;|&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% endif %}
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> new post - telegram firstbot using nodejs
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>commit dd80cc98ca5539898698b8277f18ba6b6c825e01
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Date: Sun Jun &lt;span style="color:#ae81ff">16&lt;/span> 14:10:18 &lt;span style="color:#ae81ff">2019&lt;/span> +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> First commit
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Hexo 備份至 GitHub</title><link>https://anemology.cc/post/hexo-backup/</link><pubDate>Sun, 07 Oct 2018 14:22:01 +0000</pubDate><guid>https://anemology.cc/post/hexo-backup/</guid><description>&lt;p>如果選擇 GitHub Pages 當部落格的 host，Hexo 雖然會將產生的靜態檔案 deploy 到 GitHub，但我們還是要將原始檔案備份起來，例如寫文章用的 Markdown，或是 Hexo 的設定檔。&lt;/p>
-&lt;p>以下就來說說如何在已經建立 &lt;code>username.github.io&lt;/code> 儲存庫的情況下，另外開啟一個分支，來儲存我們部落格的原始檔。&lt;/p></description></item><item><title>MS SQL Server 啟用 sa 帳戶與 1433 連接埠</title><link>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</link><pubDate>Sat, 09 Jun 2018 17:36:29 +0000</pubDate><guid>https://anemology.cc/post/sql-server-enabled-sa-account-and-1433-port/</guid><description>&lt;p>版本: &lt;em>&lt;strong>Microsoft SQL Server 2012 R2&lt;/strong>&lt;/em>&lt;/p>
-&lt;h2 id="1433-port">1433 port&lt;/h2>
-&lt;p>開始功能表 -&amp;gt; Microsoft SQL Server 2012 R2 -&amp;gt; 組態工具 -&amp;gt; SQL Server 組態管理員 -&amp;gt; SQL Server 網路組態 -&amp;gt; MSSQLSERVER 的通訊協定 -&amp;gt; TCP/IP -&amp;gt; 已啟用 -&amp;gt; 是 -&amp;gt; IP 位置 -&amp;gt; IPALL -&amp;gt; TCP 通訊埠 -&amp;gt; 1433&lt;/p>
-&lt;h2 id="混合驗證模式">混合驗證模式&lt;/h2>
-&lt;p>伺服器右鍵 -&amp;gt; 屬性 -&amp;gt; 安全性 -&amp;gt; 伺服器驗證 -&amp;gt; SQL Server 及 Windows 驗證模式&lt;/p>
-&lt;h2 id="sa-帳戶">sa 帳戶&lt;/h2>
-&lt;p>伺服器 -&amp;gt; 安全性 -&amp;gt; 登入 -&amp;gt; sa -&amp;gt; 右鍵內容 -&amp;gt; 設定密碼 -&amp;gt; 狀態 -&amp;gt; 設定 -&amp;gt; 登入 -&amp;gt; 已啟用&lt;/p></description></item><item><title>虛擬貨幣 (Bitcoin) 運作原理</title><link>https://anemology.cc/post/how-does-bitcoin-work/</link><pubDate>Sun, 03 Dec 2017 15:02:09 +0000</pubDate><guid>https://anemology.cc/post/how-does-bitcoin-work/</guid><description>&lt;p>&lt;a href="https://www.youtube.com/watch?v=bBC-nXj3Ng4">Ever wonder how Bitcoin (and other cryptocurrencies) actually work?&lt;/a>&lt;/p>
-&lt;p>看完這部影片，可以了解 Bitcoin 背後的原理，以及挖擴到底是在挖什麼?&lt;/p></description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% if theme.post_meta.updated_at and post.updated &amp;gt; post.date %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta-item-icon&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">i&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;fa fa-calendar-check-o&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#f92672">i&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% if theme.post_meta.item_text %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post-meta-item-text&amp;#34;&lt;/span>&amp;gt;{{ __(&amp;#39;post.modified&amp;#39;) }}&amp;amp;#58;&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% endif %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">time&lt;/span> &lt;span style="color:#a6e22e">title&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;{{ __(&amp;#39;post.modified&amp;#39;) }}&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">itemprop&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;dateModified&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">datetime&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;{{ moment(post.updated).format() }}&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{ date(post.updated, config.date_format) }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/&lt;span style="color:#f92672">time&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {% endif %}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
