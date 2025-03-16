@@ -2,6 +2,7 @@ baseURL = "https://anemology.cc/"
 languageCode = "zh-TW"
 title = "翱翔在空中"
 theme = "harbor"
+enableRobotsTXT = true
 
 [params]
     dateFormat = "January 2, 2006"
